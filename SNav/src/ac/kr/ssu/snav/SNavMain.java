@@ -16,7 +16,7 @@ public class SNavMain {
 		SNavUser nav = rdf.setUser();
 		System.out.println(nav.getUser());
 		
-		//new SNavStatements();
+		new SNavStatements();
 	}
 
 }

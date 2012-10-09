@@ -29,8 +29,6 @@ public class SNavReadingRDF {
 		model.write(System.out);
 		System.out.println("================\n\n");
 		
-
-		
 	}
 	
 	public Model getModel(){
