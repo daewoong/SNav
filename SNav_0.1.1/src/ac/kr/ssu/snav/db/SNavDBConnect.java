@@ -10,10 +10,10 @@ public class SNavDBConnect {
 	
 	private static String driver = "com.mysql.jdbc.Driver";
 	private static int number = 12;
-	private static String statement = "koei";
-	private static String subject = "koei";
-	private static String predicate = "koei";
-	private static String object = "koei";
+	private static String statement = "testStatement";
+	private static String subject = "testSubject";
+	private static String predicate = "testPredicate";
+	private static String object = "testObject";
 	
 	public static void main(String[] args) {
 		try {

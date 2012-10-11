@@ -8,13 +8,14 @@ import com.hp.hpl.jena.util.FileManager;
 
 public class SNavReadingRDF {
 
-	private String inputFileName = "exampleRDF/electionLaw.rdf";
+	private String inputFileName = "c:\\exampleRDF/electionLaw.rdf";
+	//private String inputFileName = "exampleRDF/electionLaw.rdf";
 	// create an empty model
-	private Model model = ModelFactory.createDefaultModel();
+	public Model model; //= ModelFactory.createDefaultModel();
 	
 	public SNavReadingRDF(){
-
-		 
+		
+		model = ModelFactory.createDefaultModel();
 		// use the FileManager to find the input file
 		InputStream in = FileManager.get().open( inputFileName );
 		if (in == null) {
@@ -39,5 +40,9 @@ public class SNavReadingRDF {
 		SNavUser snavUser = new SNavUser();
 		snavUser.setUser("Gerrard");
 		return snavUser;
+	}
+	
+	public String getString(){
+		return "TEST RDF";
 	}
 }

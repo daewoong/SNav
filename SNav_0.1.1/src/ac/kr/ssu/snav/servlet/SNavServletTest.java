@@ -3,19 +3,54 @@ package ac.kr.ssu.snav.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import ac.kr.ssu.snav.parser.SNavReadingRDF;
+import ac.kr.ssu.snav.parser.SNavUser;
+
+
 /**
  * Servlet implementation class SNavServletTest
  */
+@SuppressWarnings("serial")
 public class SNavServletTest extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+	/* (non-Javadoc)
+	 * @see javax.servlet.GenericServlet#init()
+	 */
+	@Override
+	public void init() throws ServletException {
+		// TODO Auto-generated method stub
+		super.init();
+	}
+
+	/* (non-Javadoc)
+	 * @see javax.servlet.http.HttpServlet#service(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	 */
+	@Override
+	protected void service(HttpServletRequest req, HttpServletResponse res)
+			throws ServletException, IOException {
+		// TODO Auto-generated method stub
+				
+		super.service(req, res);
+		
+		//RDF Core Engine 
+		//new SNavReadingRDF();
+		
+		String method = req.getMethod();
+		System.out.println(method);
+		
+		if(method.equals("GET")){
+			doGet(req, res);
+		}else if(method.equals("POST")){
+			doPost(req, res);
+		}
+		
+	}
        
-    /**
+	/**
      * @see HttpServlet#HttpServlet()
      */
     public SNavServletTest() {
@@ -29,6 +64,20 @@ public class SNavServletTest extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		doPost(request,response);
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		// TODO Auto-generated method stub
+		   String statement = new SNavReadingRDF().getString();
+		  // String statement = new SNavStatements().getStringTest();
+
+		   //String statement = new SNavUser().getUser();	   
+		   
 		   response.setContentType("text/html");
 	        
 	       PrintWriter out = response.getWriter();
@@ -36,16 +85,10 @@ public class SNavServletTest extends HttpServlet {
 	       String message = "If you're reading this, it worked!";
 
 	       out.println("<html><body>");
-	       out.println("<h1>"+message+"</h1>");
+	       //out.println("<h1>"+statement+"</h1>");
+	       out.println(statement);
 	       out.println("</body></html>");
 	       out.close();
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 	}
 
 }
