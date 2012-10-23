@@ -75,7 +75,7 @@ public class SNavServletTest extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		   //call to rdf resources.	
-		   //String statement = new SNavReadingRDF().getString();
+		   String statement = new SNavReadingRDF().getString();
 		   
 		   response.setContentType("text/html");
 	        
@@ -84,7 +84,7 @@ public class SNavServletTest extends HttpServlet {
 	       String message = "If you're reading this, it worked!";
 
 	       out.println("<html><body>");
-	       //out.println("<h1>"+statement+"</h1>");
+	       out.println("<h1>"+statement+"</h1>");
 	      // out.println(statement);
 	       out.println("</body></html>");
 	       out.close();
