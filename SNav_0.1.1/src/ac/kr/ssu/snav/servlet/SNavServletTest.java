@@ -73,10 +73,9 @@ public class SNavServletTest extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		// TODO Auto-generated method stub
-		   String statement = new SNavReadingRDF().getString();
-		  // String statement = new SNavStatements().getStringTest();
-
-		   //String statement = new SNavUser().getUser();	   
+		
+		   //call to rdf resources.	
+		   //String statement = new SNavReadingRDF().getString();
 		   
 		   response.setContentType("text/html");
 	        
@@ -86,7 +85,7 @@ public class SNavServletTest extends HttpServlet {
 
 	       out.println("<html><body>");
 	       //out.println("<h1>"+statement+"</h1>");
-	       out.println(statement);
+	      // out.println(statement);
 	       out.println("</body></html>");
 	       out.close();
 	}
