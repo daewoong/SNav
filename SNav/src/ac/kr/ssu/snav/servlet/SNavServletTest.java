@@ -74,18 +74,23 @@ public class SNavServletTest extends HttpServlet {
 		
 		// TODO Auto-generated method stub
 		
+		   String keyword = request.getParameter("search");
+		
 		   //call to rdf resources.	
 		   String statement = new SNavReadingRDF().getString();
 		   
 		   response.setContentType("text/html");
+	
 	        
 	       PrintWriter out = response.getWriter();
-
-	       String message = "If you're reading this, it worked!";
+	       
+	       String message = "Semantic Search Result!";
 
 	       out.println("<html><body>");
-	       out.println("<h1>"+statement+"</h1>");
-	      // out.println(statement);
+	       out.println("<h1>"+message+"</h1>");
+	       out.println("keyword: " + keyword);
+	       out.println("<hr>");
+	       out.println(statement);
 	       out.println("</body></html>");
 	       out.close();
 	}

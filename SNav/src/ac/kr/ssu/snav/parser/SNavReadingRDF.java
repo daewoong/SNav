@@ -9,9 +9,10 @@ import com.hp.hpl.jena.util.FileManager;
 public class SNavReadingRDF {
 
 	private String inputFileName = "c:\\exampleRDF/electionLaw.rdf";
-	//private String inputFileName = "exampleRDF/electionLaw.rdf";
+	private String result;
+	
 	// create an empty model
-	public Model model; //= ModelFactory.createDefaultModel();
+	public Model model;
 	
 	public SNavReadingRDF(){
 		
@@ -28,6 +29,9 @@ public class SNavReadingRDF {
 	
 		// write it to standard out
 		model.write(System.out);
+		this.result = model.getNsPrefixURI("election");
+		
+		System.out.println(this.result);
 		System.out.println("================\n\n");
 		
 	}
@@ -43,6 +47,6 @@ public class SNavReadingRDF {
 	}
 	
 	public String getString(){
-		return "TEST RDF";
+		return this.result;
 	}
 }
