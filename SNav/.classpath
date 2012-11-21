@@ -26,5 +26,6 @@
 	<classpathentry kind="lib" path="lib/tomcat-7.0/servlet-api.jar"/>
 	<classpathentry kind="lib" path="lib/tomcat-7.0/xercesImpl-2.10.0.jar"/>
 	<classpathentry kind="lib" path="lib/tomcat-7.0/xml-apis-1.4.01.jar"/>
+	<classpathentry kind="lib" path="lib/json/json-jena-1.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

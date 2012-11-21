@@ -8,9 +8,31 @@
 		<servlet-name>SNavServletTest</servlet-name>
 		<servlet-class>ac.kr.ssu.snav.servlet.SNavServletTest</servlet-class>
 	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>ServletPost</display-name>
+		<servlet-name>ServletPost</servlet-name>
+		<servlet-class>ac.kr.ssu.snav.servlet.ServletPost</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>SNavAgent</display-name>
+		<servlet-name>SNavAgent</servlet-name>
+		<servlet-class>ac.kr.ssu.snav.servlet.SNavAgent</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>SNavServletTest</servlet-name>
 		<url-pattern>/Servlet/SNavServletTest</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ServletPost</servlet-name>
+		<url-pattern>/ServletPost</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>SNavAgent</servlet-name>
+		<url-pattern>/SNavAgent</url-pattern>
 	</servlet-mapping>
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>

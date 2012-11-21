@@ -29,7 +29,6 @@ public class SNavReadingRDF {
 	
 		// write it to standard out
 		model.write(System.out);
-		this.result = model.getNsPrefixURI("election");
 		
 		System.out.println(this.result);
 		System.out.println("================\n\n");
