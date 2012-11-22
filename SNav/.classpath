@@ -6,8 +6,16 @@
 	<classpathentry kind="lib" path="lib/apache-jena-2.7.3/lib/commons-codec-1.5.jar"/>
 	<classpathentry kind="lib" path="lib/apache-jena-2.7.3/lib/httpclient-4.1.2.jar"/>
 	<classpathentry kind="lib" path="lib/apache-jena-2.7.3/lib/httpcore-4.1.3.jar"/>
-	<classpathentry kind="lib" path="lib/apache-jena-2.7.3/lib/jena-arq-2.9.3.jar"/>
-	<classpathentry kind="lib" path="lib/apache-jena-2.7.3/lib/jena-core-2.7.3.jar"/>
+	<classpathentry kind="lib" path="lib/apache-jena-2.7.3/lib/jena-arq-2.9.3.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="file:/C:/workspace/SNav/SNav/javadoc/javadoc-arq/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/apache-jena-2.7.3/lib/jena-core-2.7.3.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="file:/C:/workspace/SNav/SNav/javadoc/javadoc-core/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="lib" path="lib/apache-jena-2.7.3/lib/jena-iri-0.9.3.jar"/>
 	<classpathentry kind="lib" path="lib/apache-jena-2.7.3/lib/jena-tdb-0.9.3.jar"/>
 	<classpathentry kind="lib" path="lib/apache-jena-2.7.3/lib/log4j-1.2.16.jar"/>

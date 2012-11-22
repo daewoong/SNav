@@ -102,10 +102,11 @@ public class SNavAgent extends HttpServlet {
 		   obj.put("subject", subject);
 		   obj.put("predicate", predicate);
 		   obj.put("object", object);
+		   
 		} catch (JSONException e) {
 		   e.printStackTrace();
 		}	    
-		         
+
 		out.println(callBack + "(" + obj.toString() + ")");
 		System.out.println(callBack + "(" + obj.toString() + ")");
 		out.flush();

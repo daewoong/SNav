@@ -23,39 +23,98 @@ public class SNavStatements {
 	private Property predicate;
 	private RDFNode object;
 	
-	private String sStmt;
-	private String sSubject;
-	private String sPredicate;
-	private String sObject;
-	
 	private Vector<String> vStatement;
 	private Vector<String> vSubject;
 	private Vector<String> vPredicate;
 	private Vector<String> vObject;
 	
+	private int nameSpaceLength = 0;
+	private String nonURIValue;
+	
 	public SNavStatements(){
 		
 		//created rdf reading constructor
-		readingRDF = new SNavReadingRDF();
-		readingRDF.modelRead();
-		readingRDF.modelWrite();
-		model = readingRDF.getModel();
-	
+		this.readingRDF = new SNavReadingRDF();
+		this.readingRDF.modelRead();
+		this.readingRDF.modelWrite();
+		this.model = this.readingRDF.getModel();
 		
 		this.vStatement = new Vector<String>();
 		this.vSubject = new Vector<String>();
 		this.vPredicate = new Vector<String>();
 		this.vObject = new Vector<String>();
-		
-		
+			
 		// list the statements in the Model
-		StmtIterator iter = model.listStatements();
+		StmtIterator iter = this.model.listStatements();			
+		
+		String anonynous = "";
+		int anonynousCount = 0;
+		
+		// print out the predicate, subject and object of each statement and added vector 
+		while (iter.hasNext()) {
+		    this.stmt      = iter.nextStatement();  	 // get next statement
+		    this.subject   = this.stmt.getSubject();     // get the subject
+		    this.predicate = this.stmt.getPredicate();   // get the predicate
+		    this.object    = this.stmt.getObject();      // get the object
+		    
+		    //added statement
+		    this.vStatement.add(this.stmt.toString());
+		    System.out.println("\nstatement: " + this.stmt.toString());
+		    
+		    //added subject
+		    if(!this.subject.isAnon()){
+		    	System.out.println("subject: " + this.subject.toString());	
+		    	
+		    	this.nameSpaceLength = this.subject.getNameSpace().length();
+		    	this.nonURIValue = this.subject.getURI().substring(this.nameSpaceLength);
+			    this.vSubject.add(this.nonURIValue);
+			    
+			    System.out.println("subject: " + this.nonURIValue);		   
+		    }else{
+		    	anonynous = "anonynous" + anonynousCount++;		    	
+		    	this.vSubject.add(anonynous);
+		    	System.out.println("subject: " + anonynous);
+		    }
+		    
+		    //predicate
+		    System.out.println("  predicate: " + this.predicate.toString() + " ");
+		    
+		    //added nonURIPredicate
+		    this.nameSpaceLength = this.predicate.getNameSpace().length();
+		    this.nonURIValue = this.predicate.getURI().substring(this.nameSpaceLength);
+		    this.vPredicate.add(this.nonURIValue);
+		    System.out.println("  predicate: " + this.nonURIValue + " ");
+		    
+		    //added object
+		    if (this.object instanceof Resource && !this.object.isAnon()) {
+		       this.vObject.add(this.object.toString());
+		       System.out.print("  object: " + this.object.toString());
+		    } else {		    	
+		    	// object is a literal
+		    	if(this.object.isLiteral()){			   
+			    	this.vObject.add(this.object.toString());
+			        System.out.print("  object: \"" + this.object.toString() + "\"");
+		    	}   
+			    else{
+			    	
+			    	anonynous = "anonyous" + anonynousCount++;	
+			    	System.out.print("  object: \"" + anonynous + "\"");
+			    	this.vObject.add(anonynous);
+			    	
+			    }
+		    }
 	
-		Map<String,String> prefixMap = model.getNsPrefixMap();
+		    System.out.println(" .");
+
+		} 
+	}
+	
+	public void searchRDFNode(){
+		
+		Map<String,String> prefixMap = this.model.getNsPrefixMap();
 		System.out.println(prefixMap.toString());	
 		
-		System.out.println(model.getNsPrefixURI("election"));
-		//System.out.println(model.getNsURIPrefix("http://www.w3.org/2001/vcard-rdf/3.0#"));
+		System.out.println(this.model.getNsPrefixURI("election"));
 		
 		String URI = model.getNsPrefixURI("election");
 		Resource vcard = model.getResource(URI);
@@ -75,46 +134,6 @@ public class SNavStatements {
 		} else {
 		    System.out.println("No election were found in the database");
 		}
-		
-		Set<String> uris = new HashSet<String>();
-		
-		// print out the predicate, subject and object of each statement
-		while (iter.hasNext()) {
-		    this.stmt      = iter.nextStatement();  // get next statement
-		    this.subject   = stmt.getSubject();     // get the subject
-		    this.predicate = stmt.getPredicate();   // get the predicate
-		    this.object    = stmt.getObject();      // get the object
-		    
-		    if(!this.subject.isAnon()){
-		    	uris.add(this.subject.getURI());
-		    }
-		    uris.add(this.predicate.getURI());
-		    if(this.object.isResource() && !this.subject.isAnon()){
-		    	uris.add(this.stmt.getResource().getURI());
-		    }
-		    
-		    this.vStatement.add(this.stmt.toString());
-		    System.out.println("\nstatement: " + this.stmt.toString());
-		    
-		    this.vSubject.add(this.subject.toString());
-		    System.out.println("subject: " + this.subject.toString());
-		    
-		    this.vPredicate.add(this.predicate.toString());
-		    System.out.println("  predicate: " + this.predicate.toString() + " ");
-		    
-		    if (this.object instanceof Resource) {
-		       this.vObject.add(this.object.toString());
-		       System.out.print("  object: " + this.object.toString());
-		    } else {
-		        // object is a literal
-		    	this.vObject.add(this.object.toString());
-		        System.out.print("  object: \"" + this.object.toString() + "\"");
-		    }
-	
-		    System.out.println(" .");
-		    
-		    System.out.println(uris.toString());
-		} 
 	}
 	
 	/**
@@ -171,13 +190,7 @@ public class SNavStatements {
 	 */
 	public void setvObject(Vector<String> vObject) {
 		this.vObject = vObject;
-	}
-	
-	@Override
-	public String toString() {
-		return "SNavStatements [sStmt=" + sStmt + ", sSubject=" + sSubject
-				+ ", sPredicate=" + sPredicate + ", sObject=" + sObject + "]";
-	}
+	}	
 	
 	public Model getModel() {
 		return model;
@@ -218,5 +231,17 @@ public class SNavStatements {
 	public void setObject(RDFNode object) {
 		this.object = object;
 	}
+	
+//	Set<String> uris = new HashSet<String>();
+//    if(!this.subject.isAnon()){
+//	uris.add(this.subject.getURI());
+//}
+//uriLength = this.predicate.getNameSpace().length();
+//uris.add(this.predicate.getURI().substring(uriLength));// - this.predicate.getNameSpace());
+
+//if(this.object.isResource() && !this.subject.isAnon()){
+//	uris.add(this.stmt.getResource().getURI());
+//}
+	
 }
 

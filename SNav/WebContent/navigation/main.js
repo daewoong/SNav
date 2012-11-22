@@ -70,14 +70,15 @@ function addEdge(subject, object, predicate){
         particleSystem.screenPadding(80); 
         
         // set up some event handlers to allow for node-dragging
-        that.initMouseHandling();      
-               
-        var subject = dataSubject.split(",");       
+        that.initMouseHandling();  
+        
+     
+        var subject = dataSubject.split(",");      
         var predicate = dataPredicate.split(",");
         var object = dataObject.split(",");
         
         var count = subject.length;
-        for(var index=0; index<2; index++){
+        for(var index=0; index<5; index++){
        
         	var x=document.getElementById("contents").innerHTML = subject[index];      
         	addEdge(subject[index], object[index], predicate[index]);
@@ -108,7 +109,7 @@ function addEdge(subject, object, predicate){
           {        	  
               var w = 15;
               ctx.fillStyle = "#005C5C";
-              ctx.fillRect (pt.x-w/2, pt.y-w/2, w + 400,w + 10);              
+              ctx.fillRect (pt.x-w/2, pt.y-w/2, w + 200,w + 10);              
               ctx.fillStyle = "#D6E0EB";
               ctx.font = 'bold 13px sans-serif';
               ctx.fillText (node.name, pt.x, pt.y+8);
