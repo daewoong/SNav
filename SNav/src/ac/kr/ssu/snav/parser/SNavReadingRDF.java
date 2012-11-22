@@ -2,36 +2,48 @@ package ac.kr.ssu.snav.parser;
 
 import java.io.InputStream;
 
+import com.hp.hpl.jena.n3.turtle.TurtleReader;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
+import com.hp.hpl.jena.rdf.model.RDFReader;
 import com.hp.hpl.jena.util.FileManager;
 
 public class SNavReadingRDF {
 
 	private String inputFileName = "c:\\exampleRDF/electionLaw.rdf";
-	private String result;
+	//private String inputFileName = "c:\\exampleRDF/vcard.rdf";
+	
+	private InputStream in;
 	
 	// create an empty model
-	public Model model;
+	private Model model;
 	
 	public SNavReadingRDF(){
 		
-		model = ModelFactory.createDefaultModel();
+		this.model = ModelFactory.createDefaultModel();
+		
 		// use the FileManager to find the input file
-		InputStream in = FileManager.get().open( inputFileName );
-		if (in == null) {
+		this.in = FileManager.get().open( inputFileName );
+		if (this.in == null) {
 		    throw new IllegalArgumentException(
 		       "File: " + inputFileName + " not found");
-		}
-	
-		// read the RDF/XML file
-		model.read(in, null);
-	
-		// write it to standard out
-		model.write(System.out);
+		}	
 		
-		System.out.println(this.result);
-		System.out.println("================\n\n");
+//		FileManager.get().addLocatorClassLoader(SNavReadingRDF.class.getClassLoader());
+//      this.model = FileManager.get().loadModel(inputFileName, null, "TURTLE");
+	}
+	
+
+	// read the RDF/XML file
+	public void modelRead(){
+		this.model.read(in, null);
+	}
+	
+	// write it to standard out
+	public void modelWrite(){
+		this.model.write(System.out);
+		//write finish
+		System.out.println("\n -- model write finished --\n");
 		
 	}
 	
@@ -39,13 +51,14 @@ public class SNavReadingRDF {
 		return model;
 	}
 	
-	public SNavUser setUser(){
-		SNavUser snavUser = new SNavUser();
-		snavUser.setUser("Gerrard");
-		return snavUser;
+	//set rdf file name
+	public void setInputFileName(String inputFileName){
+		this.inputFileName = inputFileName;
 	}
 	
-	public String getString(){
-		return this.result;
+	public SNavUser setUser(){
+		SNavUser snavUser = new SNavUser();
+		snavUser.setUser("user");
+		return snavUser;
 	}
 }

@@ -1,10 +1,14 @@
 package ac.kr.ssu.snav.parser;
 
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 import java.util.Vector;
 
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.Property;
 import com.hp.hpl.jena.rdf.model.RDFNode;
+import com.hp.hpl.jena.rdf.model.ResIterator;
 import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.rdf.model.Statement;
 import com.hp.hpl.jena.rdf.model.StmtIterator;
@@ -12,6 +16,7 @@ import com.hp.hpl.jena.rdf.model.StmtIterator;
 
 public class SNavStatements {
 	
+	private SNavReadingRDF readingRDF;
 	private Model model;
 	private Statement stmt;
 	private Resource subject;
@@ -30,23 +35,64 @@ public class SNavStatements {
 	
 	public SNavStatements(){
 		
-		model = new SNavReadingRDF().getModel();
+		//created rdf reading constructor
+		readingRDF = new SNavReadingRDF();
+		readingRDF.modelRead();
+		readingRDF.modelWrite();
+		model = readingRDF.getModel();
+	
 		
 		this.vStatement = new Vector<String>();
 		this.vSubject = new Vector<String>();
 		this.vPredicate = new Vector<String>();
 		this.vObject = new Vector<String>();
 		
+		
 		// list the statements in the Model
 		StmtIterator iter = model.listStatements();
 	
+		Map<String,String> prefixMap = model.getNsPrefixMap();
+		System.out.println(prefixMap.toString());	
+		
+		System.out.println(model.getNsPrefixURI("election"));
+		//System.out.println(model.getNsURIPrefix("http://www.w3.org/2001/vcard-rdf/3.0#"));
+		
+		String URI = model.getNsPrefixURI("election");
+		Resource vcard = model.getResource(URI);
+		
+		//make name property
+		Property p = model.getProperty(URI+"name");	
+		
+		//object search using property. 
+		ResIterator iter2 = model.listSubjectsWithProperty(p);
+		if (iter2.hasNext()) {
+		    System.out.println("The database contains election for:");
+		    while (iter2.hasNext()) {
+		        System.out.println("  " + iter2.nextResource()
+		                                      .getProperty(p)
+		                                      .getString());
+		    }
+		} else {
+		    System.out.println("No election were found in the database");
+		}
+		
+		Set<String> uris = new HashSet<String>();
+		
 		// print out the predicate, subject and object of each statement
 		while (iter.hasNext()) {
 		    this.stmt      = iter.nextStatement();  // get next statement
 		    this.subject   = stmt.getSubject();     // get the subject
 		    this.predicate = stmt.getPredicate();   // get the predicate
 		    this.object    = stmt.getObject();      // get the object
-	
+		    
+		    if(!this.subject.isAnon()){
+		    	uris.add(this.subject.getURI());
+		    }
+		    uris.add(this.predicate.getURI());
+		    if(this.object.isResource() && !this.subject.isAnon()){
+		    	uris.add(this.stmt.getResource().getURI());
+		    }
+		    
 		    this.vStatement.add(this.stmt.toString());
 		    System.out.println("\nstatement: " + this.stmt.toString());
 		    
@@ -66,6 +112,8 @@ public class SNavStatements {
 		    }
 	
 		    System.out.println(" .");
+		    
+		    System.out.println(uris.toString());
 		} 
 	}
 	

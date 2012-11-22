@@ -12,11 +12,9 @@ public class SNavMain {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
-		SNavReadingRDF rdf = new SNavReadingRDF();
-		SNavUser nav = rdf.setUser();
-		System.out.println(nav.getUser());
-		
+		//SNavReadingRDF rdf = new SNavReadingRDF();	
 		new SNavStatements();
+		
 	}
 
 }

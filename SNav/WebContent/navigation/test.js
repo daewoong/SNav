@@ -8,26 +8,26 @@ var dataObject = "";
 var sys;
 
 //asynchronous communications 
-$.ajax({
-	
-    url : "http://localhost:9090/SNav/SNavAgent",
-    data : "keyword=RDFTriple",
-    dataType : "jsonp",
-    jsonp : "callback",
-    success: function(data) {
-        if(data != null)    {            	
-            //alert(data.keyword + ", " +  data.subject + ", " + data.predicate  + ", " + data.object);
-            dataSubject = data.subject;
-            dataPredicate = data.predicate;
-            dataObject = data.object;
-            
-           // alert("Subject : " + dataSubject);
-           // alert("Predicate : " + dataPredicate);
-           // alert("Object : " + dataObject);
-
-        }
-    }
-});
+//$.ajax({
+//	
+//    url : "http://localhost:9090/SNav/SNavAgent",
+//    data : "keyword=RDFTriple",
+//    dataType : "jsonp",
+//    jsonp : "callback",
+//    success: function(data) {
+//        if(data != null)    {            	
+//            //alert(data.keyword + ", " +  data.subject + ", " + data.predicate  + ", " + data.object);
+//            dataSubject = data.subject;
+//            dataPredicate = data.predicate;
+//            dataObject = data.object;
+//            
+//           // alert("Subject : " + dataSubject);
+//           // alert("Predicate : " + dataPredicate);
+//           // alert("Object : " + dataObject);
+//
+//        }
+//    }
+//});
 
 /** addEdge */
 function addEdge(subject, object, predicate){	
@@ -72,16 +72,16 @@ function addEdge(subject, object, predicate){
         // set up some event handlers to allow for node-dragging
         that.initMouseHandling();      
                
-        var subject = dataSubject.split(",");       
-        var predicate = dataPredicate.split(",");
-        var object = dataObject.split(",");
-        
-        var count = subject.length;
-        for(var index=0; index<2; index++){
-       
-        	var x=document.getElementById("contents").innerHTML = subject[index];      
-        	addEdge(subject[index], object[index], predicate[index]);
-        }
+//        var subject = dataSubject.split(",");       
+//        var predicate = dataPredicate.split(",");
+//        var object = dataObject.split(",");
+//        
+//        var count = subject.length;
+//        for(var index=0; index<2; index++){
+//       
+//        	var x=document.getElementById("contents").innerHTML = subject[index];      
+//        	addEdge(subject[index], object[index], predicate[index]);
+//        }
       },
       
       redraw:function()
@@ -108,7 +108,7 @@ function addEdge(subject, object, predicate){
           {        	  
               var w = 15;
               ctx.fillStyle = "#005C5C";
-              ctx.fillRect (pt.x-w/2, pt.y-w/2, w + 400,w + 10);              
+              ctx.fillRect (pt.x-w/2, pt.y-w/2, w + 90 ,w + 10);              
               ctx.fillStyle = "#D6E0EB";
               ctx.font = 'bold 13px sans-serif';
               ctx.fillText (node.name, pt.x, pt.y+8);
@@ -237,44 +237,44 @@ function addEdge(subject, object, predicate){
 	    sys.renderer = Renderer("#viewport"); 
 	    	    
 	    // add some nodes to the graph and watch it go...
-//	    sys.addEdge("a",'apple');
-//	    sys.addEdge('a','google');
-//	    sys.addEdge('a','jojo');
-//	    sys.addEdge('a','samsung');
+	    sys.addEdge("a",'apple');
+	    sys.addEdge('a','google');
+	    sys.addEdge('a','jojo');
+	    sys.addEdge('a','samsung');
 	    //sys.addNode('f', {alone:true, mass:.25})
 	
-//	    //add node
-//	    node1 = sys.addNode("subject");
-//	    node2 = sys.addNode("another");
-//	    node3 = sys.addNode("predicate");
-//	    node4 = sys.addNode("mynode", {mass:2, myColor:"goldenrod"});
-//	    
+	    //add node
+	    node1 = sys.addNode("subject");
+	    node2 = sys.addNode("another");
+	    node3 = sys.addNode("predicate");
+	    node4 = sys.addNode("mynode", {mass:2, myColor:"goldenrod"});
+	    
 //	    //add edge
-//	    edge1 = sys.addEdge(node1, node2, node3, {length:.75, pointSize:3});
+	    edge1 = sys.addEdge(node1, node2, node3, {length:.75, pointSize:3});
 
 	    //different way 	
-//	    sys.graft({
-//	   
-//	      nodes:{A:{color:"red", shape:"dot", alpha:1}, 
-//		      B:{color:"#b2b19d", shape:"dot", alpha:1}, 
-//		      C:{color:"#b2b19d", shape:"dot", alpha:1}, 
-//		      D:{color:"#b2b19d", shape:"dot", alpha:1},
-//		      E:{color:"#b2b19d", shape:"dot", alpha:1},
-//		      F:{color:"#b2b19d", shape:"dot", alpha:1},
-//		      G:{color:"#b2b19d", shape:"dot", alpha:1},
-//		      },
-//		      
-//	      edges:{
-//	    	  A:{
-//	          B:{length:.8, data:{name:"A->B"}},
-//	          C:{length:.8, data:{name:"A->C"}},
-//	          D:{length:.8, data:{name:"A->D"}},
-//	          E:{length:.8, data:{name:"A->E"}},
-//	          F:{length:.8, data:{name:"A->F"}},
-//	          G:{length:.8, data:{name:"A->G"}}
-//	           }
-//	      }
-//	    });
+	    sys.graft({
+	   
+	      nodes:{A:{color:"red", shape:"dot", alpha:1}, 
+		      B:{color:"#b2b19d", shape:"dot", alpha:1}, 
+		      C:{color:"#b2b19d", shape:"dot", alpha:1}, 
+		      D:{color:"#b2b19d", shape:"dot", alpha:1},
+		      E:{color:"#b2b19d", shape:"dot", alpha:1},
+		      F:{color:"#b2b19d", shape:"dot", alpha:1},
+		      G:{color:"#b2b19d", shape:"dot", alpha:1},
+		      },
+		      
+	      edges:{
+	    	  A:{
+	          B:{length:.8, data:{name:"A->B"}},
+	          C:{length:.8, data:{name:"A->C"}},
+	          D:{length:.8, data:{name:"A->D"}},
+	          E:{length:.8, data:{name:"A->E"}},
+	          F:{length:.8, data:{name:"A->F"}},
+	          G:{length:.8, data:{name:"A->G"}}
+	           }
+	      }
+	    });
 	    
 
 	    // or, equivalently:
