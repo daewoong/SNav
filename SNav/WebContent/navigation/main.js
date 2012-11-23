@@ -30,15 +30,15 @@ $.ajax({
 });
 
 /** addEdge */
-function addEdge(subject, object, predicate){	
+function addEdge(subject, object, predicate, index){	
 		
 		 //add node
 	    node1 = sys.addNode(subject);
 	    node2 = sys.addNode(object);
-	    node3 = sys.addNode(predicate);
+	    node3 = sys.addNode(predicate,{'index':index});
 	    
 	    //add edge
-	    edge1 = sys.addEdge(node1, node2, node3, {length:.75, pointSize:3});
+	    edge1 = sys.addEdge(node1, node2, node3,{length:.75, pointSize:3});
 
 }
 
@@ -48,8 +48,9 @@ function addEdge(subject, object, predicate){
     var canvas = $(canvas).get(0);
     var ctx = canvas.getContext("2d");
     var particleSystem;
+    var predicate;
     
-    alert("loading");
+    alert("RDF Triple Loading");
     
     var that = {
       		
@@ -72,16 +73,15 @@ function addEdge(subject, object, predicate){
         // set up some event handlers to allow for node-dragging
         that.initMouseHandling();  
         
-     
-        var subject = dataSubject.split(",");      
-        var predicate = dataPredicate.split(",");
-        var object = dataObject.split(",");
+        var subject = dataSubject.split(/[\[\,\]]/);      
+        predicate = dataPredicate.split(/[\[\,\]]/);
+        var object = dataObject.split(/[\[\,\]]/);
         
         var count = subject.length;
-        for(var index=0; index<5; index++){
-       
+        
+        for(var index=1; index<3; index++){
         	var x=document.getElementById("contents").innerHTML = subject[index];      
-        	addEdge(subject[index], object[index], predicate[index]);
+        	addEdge(subject[index], object[index], predicate[index], index);
         }
       },
       
@@ -89,15 +89,19 @@ function addEdge(subject, object, predicate){
       {
           ctx.fillStyle = "white";
           ctx.fillRect (0,0, canvas.width, canvas.height);
-
+          
+          var count = predicate.length;
+          
           particleSystem.eachEdge (function (edge, pt1, pt2)
           {
+        	 
               ctx.strokeStyle = "rgba(0,0,0, .333)";
               ctx.lineWidth = 1;
               ctx.beginPath ();
               ctx.moveTo (pt1.x+20, pt1.y);
               ctx.lineTo (pt2.x+20, pt2.y);
               ctx.stroke ();
+              
             //  italic
               ctx.fillStyle = "#5C85AD";            
               ctx.font = '12px sans-serif';
@@ -106,60 +110,136 @@ function addEdge(subject, object, predicate){
           });
 
           particleSystem.eachNode (function (node, pt)
-          {        	  
-              var w = 15;
-              ctx.fillStyle = "#005C5C";
-              ctx.fillRect (pt.x-w/2, pt.y-w/2, w + 200,w + 10);              
-              ctx.fillStyle = "#D6E0EB";
-              ctx.font = 'bold 13px sans-serif';
-              ctx.fillText (node.name, pt.x, pt.y+8);
-              
+          {      
+        	  
+        	  
+        	  for(var index=0; index<count; index++){      		  
+        		  if(predicate[index]=="소재지"){
+        			  node.data.index++;
+        			 	    			  
+        		  }else{
+
+	    			  var w = 15;
+	                  ctx.fillStyle = "#005C5C";
+	                  ctx.fillRect (pt.x-w/2, pt.y-w/2, w + 250,w + 10);              
+	                  ctx.fillStyle = "#D6E0EB";
+	                  ctx.font = 'bold 13px sans-serif';
+	                  ctx.fillText (node.data.index, pt.x, pt.y+8);
+        		  }      		  
+        	  }           	  
+        	  
           });       
          },
-         
-       /*  
-      redraw:function(){
-        // 
-        // redraw will be called repeatedly during the run whenever the node positions
-        // change. the new positions for the nodes can be accessed by looking at the
-        // .p attribute of a given node. however the p.x & p.y values are in the coordinates
-        // of the particle system rather than the screen. you can either map them to
-        // the screen yourself, or use the convenience iterators .eachNode (and .eachEdge)
-        // which allow you to step through the actual node objects but also pass an
-        // x,y point in the screen's coordinate system
-        // 
-        ctx.fillStyle = "white"
-        ctx.fillRect(0,0, canvas.width, canvas.height)
-        
-        particleSystem.eachEdge(function(edge, pt1, pt2){
-          // edge: {source:Node, target:Node, length:#, data:{}}
-          // pt1:  {x:#, y:#}  source position in screen coords
-          // pt2:  {x:#, y:#}  target position in screen coords
-
-          // draw a line from pt1 to pt2
-          ctx.strokeStyle = "rgba(0,0,0, .333)"
-          ctx.lineWidth = 1
-          ctx.beginPath()
-          ctx.moveTo(pt1.x, pt1.y)
-          ctx.lineTo(pt2.x, pt2.y)
-          ctx.stroke()
-        })
-
-        particleSystem.eachNode(function(node, pt){
-          // node: {mass:#, p:{x,y}, name:"", data:{}}
-          // pt:   {x:#, y:#}  node position in screen coords
-
-          // draw a rectangle centered at pt
-          var w = 10
-          ctx.fillStyle = (node.data.alone) ? "orange" : "black"
-          ctx.fillRect(pt.x-w/2, pt.y-w/2, w,w)
-          
-          
-        })    			
-      },
-      
-       */  
-
+           
+//         redraw:function(){
+//             if (!particleSystem) return
+//                     
+//             ctx.clearRect(0,0, canvas.width, canvas.height)
+//
+//             var nodeBoxes = {}
+//             particleSystem.eachNode(function(node, pt){
+//               // node: {mass:#, p:{x,y}, name:"", data:{}}
+//               // pt:   {x:#, y:#}  node position in screen coords
+//               
+//
+//               // determine the box size and round off the coords if we'll be 
+//               // drawing a text label (awful alignment jitter otherwise...)
+//               var label = node.data.label||""
+//               var w = ctx.measureText(""+label).width + 10
+//               if (!(""+label).match(/^[ \t]*$/)){
+//                 pt.x = Math.floor(pt.x)
+//                 pt.y = Math.floor(pt.y)
+//               }else{
+//                 label = null
+//               }
+//               
+//               // draw a rectangle centered at pt
+//               if (node.data.color) ctx.fillStyle = node.data.color
+//               // else ctx.fillStyle = "#d0d0d0"
+//               else ctx.fillStyle = "rgba(0,0,0,.2)"
+//               if (node.data.color=='none') ctx.fillStyle = "white"
+//               
+//               
+//               // ctx.fillRect(pt.x-w/2, pt.y-10, w,20)
+//               if (node.data.shape=='dot'){
+//                  gfx.oval(pt.x-w/2, pt.y-w/2, w,w, {fill:ctx.fillStyle})
+//                  nodeBoxes[node.name] = [pt.x-w/2, pt.y-w/2, w,w]
+//               }else{
+//                 gfx.rect(pt.x-w/2, pt.y-10, w,20, 4, {fill:ctx.fillStyle})
+//                 nodeBoxes[node.name] = [pt.x-w/2, pt.y-11, w, 22]
+//               }
+//
+//               // w = Math.max(20,w)
+//
+//               // draw the text
+//               if (label){
+//                 ctx.font = "12px Helvetica"
+//                 ctx.textAlign = "center"
+//                 ctx.fillStyle = "white"
+//                 if (node.data.color=='none') ctx.fillStyle = '#333333'
+//                 ctx.fillText(label||"", pt.x, pt.y+4)
+//                 ctx.fillText(label||"", pt.x, pt.y+4)
+//               }
+//             })    			
+//
+//
+//             ctx.strokeStyle = "#cccccc"
+//             ctx.lineWidth = 1
+//             ctx.beginPath()
+//             particleSystem.eachEdge(function(edge, pt1, pt2){
+//               // edge: {source:Node, target:Node, length:#, data:{}}
+//               // pt1:  {x:#, y:#}  source position in screen coords
+//               // pt2:  {x:#, y:#}  target position in screen coords
+//
+//               var weight = edge.data.weight
+//               var color = edge.data.color
+//               
+//               // trace(color)
+//               if (!color || (""+color).match(/^[ \t]*$/)) color = null
+//
+//               // find the start point
+//               var tail = intersect_line_box(pt1, pt2, nodeBoxes[edge.source.name])
+//               var head = intersect_line_box(tail, pt2, nodeBoxes[edge.target.name])
+//
+//               ctx.save() 
+//                 ctx.beginPath()
+//
+//                 if (!isNaN(weight)) ctx.lineWidth = weight
+//                 if (color) ctx.strokeStyle = color
+//                 // if (color) trace(color)
+//                 ctx.fillStyle = null
+//               
+//                 ctx.moveTo(tail.x, tail.y)
+//                 ctx.lineTo(head.x, head.y)
+//                 ctx.stroke()
+//               ctx.restore()
+//               
+//               // draw an arrowhead if this is a -> style edge
+//               if (edge.data.directed){
+//                 ctx.save()
+//                   // move to the head position of the edge we just drew
+//                   var wt = !isNaN(weight) ? parseFloat(weight) : ctx.lineWidth
+//                   var arrowLength = 6 + wt
+//                   var arrowWidth = 2 + wt
+//                   ctx.fillStyle = (color) ? color : ctx.strokeStyle
+//                   ctx.translate(head.x, head.y);
+//                   ctx.rotate(Math.atan2(head.y - tail.y, head.x - tail.x));
+//
+//                   // delete some of the edge that's already there (so the point isn't hidden)
+//                   ctx.clearRect(-arrowLength/2,-wt/2, arrowLength/2,wt)
+//
+//                   // draw the chevron
+//                   ctx.beginPath();
+//                   ctx.moveTo(-arrowLength, arrowWidth);
+//                   ctx.lineTo(0, 0);
+//                   ctx.lineTo(-arrowLength, -arrowWidth);
+//                   ctx.lineTo(-arrowLength * 0.8, -0);
+//                   ctx.closePath();
+//                   ctx.fill();
+//                 ctx.restore()
+//               }
+//             }),
+             
       initMouseHandling:function(){
 
         // no-nonsense drag and drop (thanks springy.js)

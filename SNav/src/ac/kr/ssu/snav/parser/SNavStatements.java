@@ -1,10 +1,9 @@
 package ac.kr.ssu.snav.parser;
 
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 import java.util.Vector;
 
+import com.hp.hpl.jena.rdf.model.Literal;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.Property;
 import com.hp.hpl.jena.rdf.model.RDFNode;
@@ -49,6 +48,8 @@ public class SNavStatements {
 		
 		String anonynous = "";
 		int anonynousCount = 0;
+		Resource resource;
+		String compareAnonynous = "";
 		
 		// print out the predicate, subject and object of each statement and added vector 
 		while (iter.hasNext()) {
@@ -70,7 +71,12 @@ public class SNavStatements {
 			    this.vSubject.add(this.nonURIValue);
 			    
 			    System.out.println("subject: " + this.nonURIValue);		   
-		    }else{
+		    }
+		    //subject is a anonyous node
+		    else{
+		    	resource = this.subject.asResource();
+		    	compareAnonynous = resource.toString();
+		    	
 		    	anonynous = "anonynous" + anonynousCount++;		    	
 		    	this.vSubject.add(anonynous);
 		    	System.out.println("subject: " + anonynous);
@@ -87,15 +93,26 @@ public class SNavStatements {
 		    
 		    //added object
 		    if (this.object instanceof Resource && !this.object.isAnon()) {
-		       this.vObject.add(this.object.toString());
-		       System.out.print("  object: " + this.object.toString());
+		       
+		       //added nonURIObject
+			   this.nameSpaceLength = this.object.asResource().getNameSpace().length();
+			   this.nonURIValue = this.object.asResource().getURI().substring(this.nameSpaceLength); 
+			   
+		       this.vObject.add(this.nonURIValue);
+		       System.out.print("  object: " + this.nonURIValue);
+		       
 		    } else {		    	
 		    	// object is a literal
 		    	if(this.object.isLiteral()){			   
-			    	this.vObject.add(this.object.toString());
-			        System.out.print("  object: \"" + this.object.toString() + "\"");
+			    	Literal literal = this.object.asLiteral();			    				        
+			        System.out.println("  object: \"" + literal.getValue() + "\"");
+			        String convertLiteral = String.valueOf(literal.getValue());
+			        this.vObject.add(convertLiteral);
 		    	}   
-			    else{
+		    	//object is a anonyous node
+			    else{ 
+			    	resource = this.object.asResource();
+			    	compareAnonynous = resource.toString();
 			    	
 			    	anonynous = "anonyous" + anonynousCount++;	
 			    	System.out.print("  object: \"" + anonynous + "\"");
