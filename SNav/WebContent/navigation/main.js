@@ -113,21 +113,26 @@ function addEdge(subject, object, predicate, index){
           {      
         	  
         	  
-        	  for(var index=0; index<count; index++){      		  
-        		  if(predicate[index]=="소재지"){
-        			  node.data.index++;
-        			 	    			  
-        		  }else{
-
-	    			  var w = 15;
-	                  ctx.fillStyle = "#005C5C";
-	                  ctx.fillRect (pt.x-w/2, pt.y-w/2, w + 250,w + 10);              
-	                  ctx.fillStyle = "#D6E0EB";
-	                  ctx.font = 'bold 13px sans-serif';
-	                  ctx.fillText (node.data.index, pt.x, pt.y+8);
-        		  }      		  
-        	  }           	  
-        	  
+//        	  for(var index=0; index<count; index++){      		  
+//        		  if(predicate[index]=="소재지"){
+//        			  node.data.index++;
+//        			 	    			  
+//        		  }else{
+//
+//	    			  var w = 15;
+//	                  ctx.fillStyle = "#005C5C";
+//	                  ctx.fillRect (pt.x-w/2, pt.y-w/2, w + 250,w + 10);              
+//	                  ctx.fillStyle = "#D6E0EB";
+//	                  ctx.font = 'bold 13px sans-serif';
+//	                  ctx.fillText (node.data.index, pt.x, pt.y+8);
+//        		  }      		  
+//        	  }           	  
+        	  var w = 15;
+              ctx.fillStyle = "#005C5C";
+              ctx.fillRect (pt.x-w/2, pt.y-w/2, w + 250,w + 10);              
+              ctx.fillStyle = "#D6E0EB";
+              ctx.font = 'bold 13px sans-serif';
+              ctx.fillText (node.name, pt.x, pt.y+8);
           });       
          },
            
