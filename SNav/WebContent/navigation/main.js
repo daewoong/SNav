@@ -33,12 +33,12 @@ $.ajax({
 function addEdge(subject, object, predicate, index){	
 		
 		 //add node
-	    node1 = sys.addNode(subject);
-	    node2 = sys.addNode(object);
-	    node3 = sys.addNode(predicate,{'index':index});
+	    node1 = sys.addNode(subject, {mass:2, color:"skyblue"});
+	    node2 = sys.addNode(object, {mass:2, color:"yellow"});
+	    //node3 = sys.addEdge(predicate,{'index':index});
 	    
 	    //add edge
-	    edge1 = sys.addEdge(node1, node2, node3,{length:.75, pointSize:3});
+	    edge1 = sys.addEdge(node1, node2,{name: predicate, length:.75, pointSize:3});
 
 }
 
@@ -49,6 +49,7 @@ function addEdge(subject, object, predicate, index){
     var ctx = canvas.getContext("2d");
     var particleSystem;
     var predicate;
+    var pre;
     
     alert("RDF Triple Loading");
     
@@ -79,8 +80,8 @@ function addEdge(subject, object, predicate, index){
         
         var count = subject.length;
         
-        for(var index=1; index<3; index++){
-        	var x=document.getElementById("contents").innerHTML = subject[index];      
+        for(var index=1; index<12; index++){
+        	var x=document.getElementById("result").innerHTML = subject[index];    
         	addEdge(subject[index], object[index], predicate[index], index);
         }
       },
@@ -98,13 +99,16 @@ function addEdge(subject, object, predicate, index){
               ctx.strokeStyle = "rgba(0,0,0, .333)";
               ctx.lineWidth = 1;
               ctx.beginPath ();
-              ctx.moveTo (pt1.x+20, pt1.y);
-              ctx.lineTo (pt2.x+20, pt2.y);
+//              ctx.moveTo (pt1.x+20, pt1.y);
+//              ctx.lineTo (pt2.x+20, pt2.y);
+              ctx.moveTo (pt1.x, pt1.y);
+              ctx.lineTo (pt2.x, pt2.y);
               ctx.stroke ();
               
             //  italic
               ctx.fillStyle = "#5C85AD";            
               ctx.font = '12px sans-serif';
+              //ctx.fillText (edge.data.name, (pt1.x + pt2.x) / 2, (pt1.y + pt2.y) / 2);
               ctx.fillText (edge.data.name, (pt1.x + pt2.x) / 2, (pt1.y + pt2.y) / 2);
 
           });
@@ -112,27 +116,31 @@ function addEdge(subject, object, predicate, index){
           particleSystem.eachNode (function (node, pt)
           {      
         	  
-        	  
-//        	  for(var index=0; index<count; index++){      		  
-//        		  if(predicate[index]=="소재지"){
-//        			  node.data.index++;
-//        			 	    			  
-//        		  }else{
-//
-//	    			  var w = 15;
-//	                  ctx.fillStyle = "#005C5C";
-//	                  ctx.fillRect (pt.x-w/2, pt.y-w/2, w + 250,w + 10);              
-//	                  ctx.fillStyle = "#D6E0EB";
-//	                  ctx.font = 'bold 13px sans-serif';
-//	                  ctx.fillText (node.data.index, pt.x, pt.y+8);
-//        		  }      		  
-//        	  }           	  
+        	         	  
         	  var w = 15;
-              ctx.fillStyle = "#005C5C";
-              ctx.fillRect (pt.x-w/2, pt.y-w/2, w + 250,w + 10);              
-              ctx.fillStyle = "#D6E0EB";
+        	       	  
+//              ctx.fillStyle = "#005C5C";
+//              ctx.fillRect (pt.x-w/2, pt.y-w/2, w + 250,w + 10);   
+//              //ctx.arc(50,50,25,0,2*Math.PI, true);
+//              ctx.fillStyle = "#D6E0EB";
+//              ctx.font = 'bold 13px sans-serif';
+//              ctx.fillText (node.name, pt.x, pt.y+8);
+              
+              ctx.beginPath();
+              
+              ctx.arc(pt.x-w/2, pt.y-w/2, 20, 0, 2 * Math.PI, false);
+              //ctx.fillStyle = 'skyblue';
+              ctx.fillStyle = node.data.color;  //node color
+              ctx.fill();
+              ctx.lineWidth = 5;
+              
+              //ctx.fillStyle = "#D6E0EB";
+              ctx.fillStyle = "gray";
               ctx.font = 'bold 13px sans-serif';
-              ctx.fillText (node.name, pt.x, pt.y+8);
+              ctx.fillText (node.name, pt.x-10, pt.y);
+              
+              //ctx.strokeStyle = '#003300';
+              ctx.stroke();
           });       
          },
            
@@ -314,8 +322,10 @@ function addEdge(subject, object, predicate, index){
  $(document).ready(function(){
    
 	    // create the system with sensible repulsion/stiffness/friction
-	    sys = arbor.ParticleSystem(3000,600,0.99);
-	   
+	    //sys = arbor.ParticleSystem(3000,600,0.99);
+	    sys = arbor.ParticleSystem();
+        //sys.parameters({stiffness: 900,repulsion: 2000,gravity: true,dt: 0.015});
+	    sys.parameters({stiffness: 200,repulsion: 10,gravity: false,dt: 0.010});
 	    // use center-gravity to make the graph settle nicely (ymmv)
 	    sys.parameters({gravity:true}); 
 	    

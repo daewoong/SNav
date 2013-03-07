@@ -10,6 +10,8 @@ import com.hp.hpl.jena.util.FileManager;
 
 public class SNavReadingRDF {
 
+	//private String inputFileName = "c:\\exampleRDF/LAW_GENSEARCH.owl";
+	//private String inputFileName = "c:\\exampleRDF/camera.owl";
 	private String inputFileName = "c:\\exampleRDF/electionLaw2.rdf";
 	//private String inputFileName = "c:\\exampleRDF/vcard.rdf";
 	
@@ -17,6 +19,8 @@ public class SNavReadingRDF {
 	
 	// create an empty model
 	private Model model;
+	
+	static public Model sModel;
 	
 	public SNavReadingRDF(){
 		
@@ -29,10 +33,13 @@ public class SNavReadingRDF {
 		       "File: " + inputFileName + " not found");
 		}	
 		
-//		FileManager.get().addLocatorClassLoader(SNavReadingRDF.class.getClassLoader());
-//      this.model = FileManager.get().loadModel(inputFileName, null, "TURTLE");
 	}
 	
+	static public Model createModel(){
+		sModel =  ModelFactory.createDefaultModel();
+
+		return sModel;
+	}
 
 	// read the RDF/XML file
 	public void modelRead(){
@@ -54,11 +61,15 @@ public class SNavReadingRDF {
 	//set rdf file name
 	public void setInputFileName(String inputFileName){
 		this.inputFileName = inputFileName;
-	}
+	}	
 	
-	public SNavUser setUser(){
-		SNavUser snavUser = new SNavUser();
-		snavUser.setUser("user");
-		return snavUser;
+	public InputStream getInputFileStream(){
+		
+		this.in = FileManager.get().open( inputFileName );
+		if (this.in == null) {
+		    throw new IllegalArgumentException(
+		       "File: " + inputFileName + " not found");
+		}
+		return this.in;
 	}
 }

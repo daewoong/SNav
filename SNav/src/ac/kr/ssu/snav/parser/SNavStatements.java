@@ -42,89 +42,109 @@ public class SNavStatements {
 		this.vSubject = new Vector<String>();
 		this.vPredicate = new Vector<String>();
 		this.vObject = new Vector<String>();
+		
+		System.out.println("Default Statement Size: " +  model.size());		
+		this.parsingModel(model);
+	}
+	
+	public SNavStatements(Model model){
 			
-		// list the statements in the Model
-		StmtIterator iter = this.model.listStatements();			
+		this.vStatement = new Vector<String>();
+		this.vSubject = new Vector<String>();
+		this.vPredicate = new Vector<String>();
+		this.vObject = new Vector<String>();
 		
-		String anonynous = "";
-		int anonynousCount = 0;
-		Resource resource;
-		String compareAnonynous = "";
+		System.out.println("Keyword Result Statement Size: " +  model.size());	
 		
-		// print out the predicate, subject and object of each statement and added vector 
-		while (iter.hasNext()) {
-		    this.stmt      = iter.nextStatement();  	 // get next statement
-		    this.subject   = this.stmt.getSubject();     // get the subject
-		    this.predicate = this.stmt.getPredicate();   // get the predicate
-		    this.object    = this.stmt.getObject();      // get the object
-		    
-		    //added statement
-		    this.vStatement.add(this.stmt.toString());
-		    System.out.println("\nstatement: " + this.stmt.toString());
-		    
-		    //added subject
-		    if(!this.subject.isAnon()){
-		    	System.out.println("subject: " + this.subject.toString());	
-		    	
-		    	this.nameSpaceLength = this.subject.getNameSpace().length();
-		    	this.nonURIValue = this.subject.getURI().substring(this.nameSpaceLength);
-			    this.vSubject.add(this.nonURIValue);
+		this.parsingModel(model);
+	}
+	
+	private void parsingModel(Model model){
+		
+		    // list the statements in the Model
+			StmtIterator iter = model.listStatements();			
+			
+			String anonynous = "";
+			int anonynousCount = 0;
+			Resource resource;
+			String compareAnonynous = "";
+			
+			// print out the predicate, subject and object of each statement and added vector 
+			while (iter.hasNext()) {
+			    this.stmt      = iter.nextStatement();  	 // get next statement
+			    this.subject   = this.stmt.getSubject();     // get the subject
+			    this.predicate = this.stmt.getPredicate();   // get the predicate
+			    this.object    = this.stmt.getObject();      // get the object
 			    
-			    System.out.println("subject: " + this.nonURIValue);		   
-		    }
-		    //subject is a anonyous node
-		    else{
-		    	resource = this.subject.asResource();
-		    	compareAnonynous = resource.toString();
-		    	
-		    	anonynous = "anonynous" + anonynousCount++;		    	
-		    	this.vSubject.add(anonynous);
-		    	System.out.println("subject: " + anonynous);
-		    }
-		    
-		    //predicate
-		    System.out.println("  predicate: " + this.predicate.toString() + " ");
-		    
-		    //added nonURIPredicate
-		    this.nameSpaceLength = this.predicate.getNameSpace().length();
-		    this.nonURIValue = this.predicate.getURI().substring(this.nameSpaceLength);
-		    this.vPredicate.add(this.nonURIValue);
-		    System.out.println("  predicate: " + this.nonURIValue + " ");
-		    
-		    //added object
-		    if (this.object instanceof Resource && !this.object.isAnon()) {
-		       
-		       //added nonURIObject
-			   this.nameSpaceLength = this.object.asResource().getNameSpace().length();
-			   this.nonURIValue = this.object.asResource().getURI().substring(this.nameSpaceLength); 
-			   
-		       this.vObject.add(this.nonURIValue);
-		       System.out.print("  object: " + this.nonURIValue);
-		       
-		    } else {		    	
-		    	// object is a literal
-		    	if(this.object.isLiteral()){			   
-			    	Literal literal = this.object.asLiteral();			    				        
-			        System.out.println("  object: \"" + literal.getValue() + "\"");
-			        String convertLiteral = String.valueOf(literal.getValue());
-			        this.vObject.add(convertLiteral);
-		    	}   
-		    	//object is a anonyous node
-			    else{ 
-			    	resource = this.object.asResource();
+			    //added statement
+			    this.vStatement.add(this.stmt.toString());
+			    System.out.println("\nstatement: " + this.stmt.toString());
+			    
+			    //added subject
+			    if(!this.subject.isAnon()){
+			    	System.out.println("subject: " + this.subject.toString());	
+			    	
+			    	this.nameSpaceLength = this.subject.getNameSpace().length();
+			    	this.nonURIValue = this.subject.getURI().substring(this.nameSpaceLength);
+				    this.vSubject.add(this.nonURIValue);
+				    
+				    System.out.println("subject: " + this.nonURIValue);		   
+			    }
+			    //subject is a anonyous node
+			    else{
+			    	resource = this.subject.asResource();
 			    	compareAnonynous = resource.toString();
 			    	
-			    	anonynous = "anonyous" + anonynousCount++;	
-			    	System.out.print("  object: \"" + anonynous + "\"");
-			    	this.vObject.add(anonynous);
-			    	
+			    	anonynous = "anonynous" + anonynousCount++;		    	
+			    	this.vSubject.add(anonynous);
+			    	System.out.println("subject: " + anonynous);
 			    }
-		    }
+			    
+			    //predicate
+			    System.out.println("  predicate: " + this.predicate.toString() + " ");
+			    
+			    //added nonURIPredicate
+			    this.nameSpaceLength = this.predicate.getNameSpace().length();
+			    this.nonURIValue = this.predicate.getURI().substring(this.nameSpaceLength);
+			    this.vPredicate.add(this.nonURIValue);
+			    System.out.println("  predicate: " + this.nonURIValue + " ");
+			    
+			    //added object
+			    if (this.object instanceof Resource && !this.object.isAnon()) {
+			       
+			       //added nonURIObject
+				   this.nameSpaceLength = this.object.asResource().getNameSpace().length();
+				   this.nonURIValue = this.object.asResource().getURI().substring(this.nameSpaceLength); 
+				   
+			       this.vObject.add(this.nonURIValue);
+			       System.out.print("  object: " + this.nonURIValue);
+			       
+			    } else {		    	
+			    	// object is a literal
+			    	if(this.object.isLiteral()){			   
+				    	Literal literal = this.object.asLiteral();			    				        
+				        System.out.println("  object: \"" + literal.getValue() + "\"");
+				        String convertLiteral = String.valueOf(literal.getValue());
+				        this.vObject.add(convertLiteral);
+			    	}   
+			    	//object is a anonyous node
+				    else{ 
+				    	resource = this.object.asResource();
+				    	compareAnonynous = resource.toString();
+				    	
+				    	anonynous = "anonyous" + anonynousCount++;	
+				    	System.out.print("  object: \"" + anonynous + "\"");
+				    	this.vObject.add(anonynous);
+				    	
+				    }
+			    }
+		
+			    System.out.println(" .");
 	
-		    System.out.println(" .");
-
-		} 
+			} 
 	}
+	
+	
 	
 	public void searchRDFNode(){
 		
