@@ -48,7 +48,7 @@ public class SNavReadingRDF {
 	
 	// write it to standard out
 	public void modelWrite(){
-		this.model.write(System.out);
+		//this.model.write(System.out);
 		//write finish
 		System.out.println("\n -- model write finished --\n");
 		

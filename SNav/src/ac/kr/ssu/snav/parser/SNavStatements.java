@@ -78,17 +78,17 @@ public class SNavStatements {
 			    
 			    //added statement
 			    this.vStatement.add(this.stmt.toString());
-			    System.out.println("\nstatement: " + this.stmt.toString());
+			    //System.out.println("\nstatement: " + this.stmt.toString());
 			    
 			    //added subject
 			    if(!this.subject.isAnon()){
-			    	System.out.println("subject: " + this.subject.toString());	
+			    	//System.out.println("subject: " + this.subject.toString());	
 			    	
 			    	this.nameSpaceLength = this.subject.getNameSpace().length();
 			    	this.nonURIValue = this.subject.getURI().substring(this.nameSpaceLength);
 				    this.vSubject.add(this.nonURIValue);
 				    
-				    System.out.println("subject: " + this.nonURIValue);		   
+				    //System.out.println("subject: " + this.nonURIValue);		   
 			    }
 			    //subject is a anonyous node
 			    else{
@@ -97,17 +97,17 @@ public class SNavStatements {
 			    	
 			    	anonynous = "anonynous" + anonynousCount++;		    	
 			    	this.vSubject.add(anonynous);
-			    	System.out.println("subject: " + anonynous);
+			    	//System.out.println("subject: " + anonynous);
 			    }
 			    
 			    //predicate
-			    System.out.println("  predicate: " + this.predicate.toString() + " ");
+			    //System.out.println("  predicate: " + this.predicate.toString() + " ");
 			    
 			    //added nonURIPredicate
 			    this.nameSpaceLength = this.predicate.getNameSpace().length();
 			    this.nonURIValue = this.predicate.getURI().substring(this.nameSpaceLength);
 			    this.vPredicate.add(this.nonURIValue);
-			    System.out.println("  predicate: " + this.nonURIValue + " ");
+			    //System.out.println("  predicate: " + this.nonURIValue + " ");
 			    
 			    //added object
 			    if (this.object instanceof Resource && !this.object.isAnon()) {
@@ -117,13 +117,13 @@ public class SNavStatements {
 				   this.nonURIValue = this.object.asResource().getURI().substring(this.nameSpaceLength); 
 				   
 			       this.vObject.add(this.nonURIValue);
-			       System.out.print("  object: " + this.nonURIValue);
+			       //System.out.print("  object: " + this.nonURIValue);
 			       
 			    } else {		    	
 			    	// object is a literal
 			    	if(this.object.isLiteral()){			   
 				    	Literal literal = this.object.asLiteral();			    				        
-				        System.out.println("  object: \"" + literal.getValue() + "\"");
+				        //System.out.println("  object: \"" + literal.getValue() + "\"");
 				        String convertLiteral = String.valueOf(literal.getValue());
 				        this.vObject.add(convertLiteral);
 			    	}   
@@ -133,13 +133,13 @@ public class SNavStatements {
 				    	compareAnonynous = resource.toString();
 				    	
 				    	anonynous = "anonyous" + anonynousCount++;	
-				    	System.out.print("  object: \"" + anonynous + "\"");
+				    	//System.out.print("  object: \"" + anonynous + "\"");
 				    	this.vObject.add(anonynous);
 				    	
 				    }
 			    }
 		
-			    System.out.println(" .");
+			    //System.out.println(" .");
 	
 			} 
 	}

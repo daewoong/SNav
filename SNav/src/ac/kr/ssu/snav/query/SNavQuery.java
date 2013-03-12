@@ -2,6 +2,7 @@ package ac.kr.ssu.snav.query;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Vector;
 
 import javax.annotation.Resource;
 
@@ -32,7 +33,15 @@ public class SNavQuery {
 	
 	private SNavStatements statement;
 	
+	private Vector<String> vSubject;
+	private Vector<String> vPredicate;
+	private Vector<String> vObject;
+	
 	public SNavQuery(String var){
+		
+		this.vSubject = new Vector<String>();
+		this.vPredicate = new Vector<String>();
+		this.vObject = new Vector<String>();
 		
 		this.varPredicate = "<"+ commonURI + var + ">";
 		SNavReadingRDF rdf = new SNavReadingRDF();
@@ -51,48 +60,39 @@ public class SNavQuery {
 		
 		  try {
 		    ResultSet results = qexec.execSelect();			 
-//		    List<String> resultVarNames = results.getResultVars();
-//		    Iterator iterator = resultVarNames.iterator();
-//		    String subject = null;
-//		    String object = null;
-//		    RDFNode r = null;
+		    List<String> resultVarNames = results.getResultVars();
+		    Iterator iterator = resultVarNames.iterator();
+		    
+		    String subject = resultVarNames.get(0);
+		    String object = resultVarNames.get(1);
+		  	int index = 0;
+		  	
+		  	//query results navigation
+		    while(results.hasNext()){
+		    	
+		    	QuerySolution soln = results.nextSolution();
+		   		    	
+		    	RDFNode r = soln.get(subject);
+		    	Literal l = soln.getLiteral(object);		    	
+		    	
+		    	//query results added vector
+		    	int nameSpaceLenth = r.asResource().getNameSpace().length();
+		    	String nonURIValue = r.asResource().getURI().substring(nameSpaceLenth);
+		    	this.vSubject.add(nonURIValue);		    	
+			       
+		    	System.out.println(this.vSubject.get(index++));
+		    }
+		    
+		    //ResultSetFormatter.out(System.out, results);
 //		    
-//		    //get vars name
-//			while(iterator.hasNext()){
-//	    		subject = iterator.next().toString();
-//	    		object = iterator.next().toString();
-//	    	}
-//			
-//		    while(results.hasNext()){
-//		    	
-//		    	QuerySolution soln = results.nextSolution();
-//		   		    	
-//		    	r = soln.get(subject);
-//		    	Literal l = soln.getLiteral(object);
-//		    	
-//		    	System.out.println("subject: " + r.toString());
-//		    	System.out.println("object: " + l.toString());
+//		    //make rdf model
+//		    Model model = results.getResourceModel();
+//		    //Model model  = qexec.execDescribe();
 //		    
-//		    }
-		    
-//		    String queryString1 = getQuerySubject("읍·면·동선거관리위원회"); 
-//	    	Query query1 = QueryFactory.create(queryString1);
-//			QueryExecution qexec1 = QueryExecutionFactory.create(query1, this.model);  
-//			ResultSet re = qexec1.execSelect();
-//			
-//			ResultSetFormatter.out(System.out, re);
-			
-		    System.out.println("rowNum" + results.getRowNumber());
-		    ResultSetFormatter.out(System.out, results);
-		    
-		    //make rdf model
-		    Model model = results.getResourceModel();
-		    //Model model  = qexec.execDescribe();
-		    
-		    System.out.println("Keyword Result Statement Size: " +  model.size());	
-		    this.statement = new SNavStatements(model);
-		    
-		    System.out.println("rowNum : " + results.getRowNumber());
+//		    System.out.println("Keyword Result Statement Size: " +  model.size());	
+//		    this.statement = new SNavStatements(model);
+//		    
+//		    System.out.println("rowNum : " + results.getRowNumber());
 		    
 		   } finally { qexec.close(); }		
 	}
@@ -185,6 +185,48 @@ public class SNavQuery {
 	
 	public SNavStatements getSnavStatements(){
 		return this.statement;
+	}
+	
+	/**
+	 * @return the vSubject
+	 */
+	public Vector<String> getvSubject() {
+		return this.vSubject;
+	}
+
+	/**
+	 * @param vSubject the vSubject to set
+	 */
+	public void setvSubject(Vector<String> vSubject) {
+		this.vSubject = vSubject;
+	}
+
+	/**
+	 * @return the vPredicate
+	 */
+	public Vector<String> getvPredicate() {
+		return vPredicate;
+	}
+
+	/**
+	 * @param vPredicate the vPredicate to set
+	 */
+	public void setvPredicate(Vector<String> vPredicate) {
+		this.vPredicate = vPredicate;
+	}
+
+	/**
+	 * @return the vObject
+	 */
+	public Vector<String> getvObject() {
+		return vObject;
+	}
+
+	/**
+	 * @param vObject the vObject to set
+	 */
+	public void setvObject(Vector<String> vObject) {
+		this.vObject = vObject;
 	}
 	
 	public static void main(String args[]){

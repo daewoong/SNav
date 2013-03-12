@@ -2,10 +2,9 @@ package ac.kr.ssu.snav.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Date;
+import java.net.URLDecoder;
 import java.util.Vector;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -28,6 +27,9 @@ public class SNavAgent extends HttpServlet {
     private Vector<String> subject;
     private Vector<String> predicate;
     private Vector<String> object;  
+    
+    private String keyword;
+    
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -55,52 +57,88 @@ public class SNavAgent extends HttpServlet {
 		response.setHeader("Cache-Control", "no-cache"); 
 		response.setContentType("text/html;charset=UTF-8"); 
 		
-		String keyword = request.getParameter("search");
-		String callBack = request.getParameter("callback");	
+		keyword = request.getParameter("search");			
+		String callBack = request.getParameter("callback");		
 		
-//		//keyword = "설치";
-//				
+		System.out.println("keyword: ==" + keyword + "==");
+		
+		//call to rdf resources.	
+	    new SNavReadingRDF();
+	    SNavStatements sStmt = new SNavStatements();
+	    
+	    this.statement = sStmt.getvStatement();
+	    this.subject = sStmt.getvSubject();
+	    this.predicate = sStmt.getvPredicate();
+	    this.object = sStmt.getvObject();
+	    
 	    //Query process.
 	    if(keyword != null){
 	    	
-	    	System.out.println("\nKeyword : ===" + keyword + "===\n");
-	    	SNavQuery query = new SNavQuery(keyword); 
-	    	SNavStatements sStmt = query.getSnavStatements();
+	    	keyword = URLDecoder.decode(keyword, "UTF-8");
+	    	System.out.println("\nkeyword : ===" + keyword + "===\n");
 	    	
-	    	this.statement = sStmt.getvStatement();
-			this.subject = sStmt.getvSubject();
-			this.predicate = sStmt.getvPredicate();
-			this.object = sStmt.getvObject();
-			    
+	    	SNavQuery query = new SNavQuery(keyword); 
+	    	
+			this.subject = query.getvSubject();
+			System.out.println("======" + this.subject.size());
+			System.out.println("======" + this.subject.get(0));
+			
 	        createJSon(response,keyword,callBack);		        
 			
-	        //redirect 
-//			response.sendRedirect("index.html");
-//
-//	        RequestDispatcher rd = request.getRequestDispatcher("index.html");
-//	        rd.forward(request, response);
-			
 	    }else{
+	    		    	
+	    	System.out.println("\nkeyword : ===" + keyword + "===\n");
 	    	
-	    	System.out.println("\nKeyword : ===" + keyword + "===\n");
-	    	//call to rdf resources.	
-		    new SNavReadingRDF();
-		    SNavStatements sStmt = new SNavStatements();
+//	    	//call to rdf resources.	
+//		    new SNavReadingRDF();
+//		    SNavStatements sStmt = new SNavStatements();
+//		    
+//		    this.statement = sStmt.getvStatement();
+//		    this.subject = sStmt.getvSubject();
+//		    this.predicate = sStmt.getvPredicate();
+//		    this.object = sStmt.getvObject();
 		    
-		    this.statement = sStmt.getvStatement();
-		    this.subject = sStmt.getvSubject();
-		    this.predicate = sStmt.getvPredicate();
-		    this.object = sStmt.getvObject();
-		    
-	    	createJSon(response,keyword,callBack);
-	    	
+	    	createJSon(response,callBack);
 	    }
-//	    request.setAttribute("message", message); // This will be available as ${message}
-//      request.getRequestDispatcher("/navigation/testindex.html").forward(request, response);
+	    
+	}
+	
+	private void createJSon(HttpServletResponse response, String callBack){
+		
+		 //created jason type   
+		JSONObject obj = new JSONObject();
+		
+		try {	
+		   obj.put("subject", this.subject);
+		   obj.put("predicate", this.predicate);
+		   obj.put("object", this.object);
+		   
+		} catch (JSONException e) {
+		   e.printStackTrace();
+		}	
+		
+		//write to web browser. 
+		PrintWriter out = null;
+
+		try {	
+			out = response.getWriter();
+			String JSonType = obj.toString();	
+						
+			out.print(callBack + "(" + JSonType + ")");
+			System.out.println(callBack + "(" + JSonType + ")");
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+			
+		}finally{
+			out.flush();
+			out.close();
+		}
+		
 	}
 	
 	private void createJSon(HttpServletResponse response, String keyword, String callBack){
-		
+			
 		 //created jason type   
 		JSONObject obj = new JSONObject();
 		
@@ -119,10 +157,41 @@ public class SNavAgent extends HttpServlet {
 		
 		try {
 			out = response.getWriter();			
-			String JSonType = obj.toString();		
+			String JSonType = obj.toString();	
+						
 			out.println(callBack + "(" + JSonType + ")");
 			System.out.println(callBack + "(" + JSonType + ")");
+		} catch (IOException e) {
+			e.printStackTrace();
 			
+		}finally{
+			out.flush();
+			out.close();
+		}	
+	}
+	
+	private void redirectPage(HttpServletResponse response){
+		
+		response.setHeader("Cache-Control", "no-cache"); 
+		response.setContentType("text/html;charset=UTF-8"); 
+		
+		//write to web browser. 
+		PrintWriter out = null;
+		
+		try {
+			out = response.getWriter();			
+			
+			out.println("<!DOCTYPE html>" +				
+						"<html lang=\"en\">" +
+						"<head>"+
+							"<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">" +
+							"<title>Semantic Navigation</title>"
+							);
+					
+  
+		
+ 
+
 		} catch (IOException e) {
 			e.printStackTrace();
 			
@@ -130,7 +199,7 @@ public class SNavAgent extends HttpServlet {
 			out.flush();
 			out.close();
 		}
-	
+		
 	}
 }
 
