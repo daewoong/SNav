@@ -6,7 +6,7 @@ var dataPredicate = "";
 var dataObject = "";
 
 var sys;
-
+var count = 0;
 
 /** addEdge */
 function addEdge(subject, object, predicate, index){	
@@ -17,7 +17,7 @@ function addEdge(subject, object, predicate, index){
 	    //node3 = sys.addEdge(predicate,{'index':index});
 	    
 	    //add edge
-	    edge1 = sys.addEdge(node1, node2,{name: predicate, length:.75, pointSize:3});
+	    edge1 = sys.addEdge(node1, node2,{name: predicate, length:.75, pointSize:5});
 }
 	 
 (function($){
@@ -53,7 +53,7 @@ function addEdge(subject, object, predicate, index){
 		        
 		        var count = subject.length;
 		        
-		        for(var index=1; index<5; index++){
+		        for(var index=1; index<20; index++){
 		        	var x=document.getElementById("result").innerHTML = subject[index];    
 		        	addEdge(subject[index], object[index], predicate[index], index);
 		        }
@@ -189,7 +189,7 @@ function addEdge(subject, object, predicate, index){
 		        url : "http://localhost:9090/SNav/SNavAgent",
 		        scriptCharset: "UTF-8",
 		        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-		        data : "keyword=RDFTriple",
+		        data : "keyword=rdftriple",
 		        dataType : "jsonp",
 		        jsonp : "callback",
 		        success: function(data) {
@@ -207,9 +207,11 @@ function addEdge(subject, object, predicate, index){
 		        }
 		    });
 		    
-		    $("form").click(function(){
-		    
+		    $("#submitButton").click(function(){
+		    	
 		    	alert("Submitted");
+		    	var k = 1;
+	
 		    	
 		    	var Renderer = function(canvas){
 		    		
@@ -217,8 +219,9 @@ function addEdge(subject, object, predicate, index){
 				    var ctx = canvas.getContext("2d");
 				    var particleSystem;
 				    var predicate;
-			
-				    alert("RDF Triple Loading");
+				   
+				    
+				    alert("RDF Triple Loading?? submit");
 				    
 				    var that = {
 				      		
@@ -240,11 +243,12 @@ function addEdge(subject, object, predicate, index){
 				        predicate = dataPredicate.split(/[\[\,\]]/);
 				        var object = dataObject.split(/[\[\,\]]/);
 				        
-				        var count = subject.length;
+				        //var count = subject.length;	
 				        
-				        for(var index=1; index<5; index++){
+				        for(var index=1; index<=count; index++){
 				        	var x=document.getElementById("result").innerHTML = subject[index];    
 				        	addEdge(subject[index], object[index], predicate[index], index);
+				        	
 				        }
 				      },
 				      
@@ -367,6 +371,7 @@ function addEdge(subject, object, predicate, index){
 			    // our newly created renderer will have its .init() method called shortly by sys...
 			    sys.renderer = Renderer("#viewport"); 
 			    
+			   
 		    	$.ajax({  
 		    		
 		    		type:"post",
@@ -382,12 +387,18 @@ function addEdge(subject, object, predicate, index){
 			    	            dataSubject = data.subject;
 			    	            dataPredicate = data.predicate;
 			    	            dataObject = data.object;
+			    	            count = data.count;
+			    	            alert("what submit");
 			    	            
+			    	             alert("Subject : " + dataSubject);
+					             alert("Predicate : " + dataPredicate);
+					             alert("Object : " + dataObject);
+					             alert("Count : " + count);
 			    	           // location.reload();		    	            
 		    	        	}
 		    	    }
 		    	});
-		    	
+			    
 		    }); 		    
 		 });
 

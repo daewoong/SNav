@@ -60,43 +60,35 @@ public class SNavAgent extends HttpServlet {
 		keyword = request.getParameter("search");			
 		String callBack = request.getParameter("callback");		
 		
-		System.out.println("keyword: ==" + keyword + "==");
+		System.out.println("receive keyword: ===" + keyword + "===");
 		
-		//call to rdf resources.	
-	    new SNavReadingRDF();
-	    SNavStatements sStmt = new SNavStatements();
-	    
-	    this.statement = sStmt.getvStatement();
-	    this.subject = sStmt.getvSubject();
-	    this.predicate = sStmt.getvPredicate();
-	    this.object = sStmt.getvObject();
+
 	    
 	    //Query process.
 	    if(keyword != null){
 	    	
 	    	keyword = URLDecoder.decode(keyword, "UTF-8");
-	    	System.out.println("\nkeyword : ===" + keyword + "===\n");
+	    	System.out.println("\nquery keyword : ===" + keyword + "===\n");
 	    	
-	    	SNavQuery query = new SNavQuery(keyword); 
-	    	
+	    	SNavQuery query = new SNavQuery(keyword); 	    	
 			this.subject = query.getvSubject();
-			System.out.println("======" + this.subject.size());
-			System.out.println("======" + this.subject.get(0));
+			this.predicate = query.getvPredicate();
+			this.object = query.getvObject();
 			
 	        createJSon(response,keyword,callBack);		        
 			
 	    }else{
 	    		    	
-	    	System.out.println("\nkeyword : ===" + keyword + "===\n");
+	    	System.out.println("\ndefault keyword : ===" + keyword + "===\n");
 	    	
-//	    	//call to rdf resources.	
-//		    new SNavReadingRDF();
-//		    SNavStatements sStmt = new SNavStatements();
-//		    
-//		    this.statement = sStmt.getvStatement();
-//		    this.subject = sStmt.getvSubject();
-//		    this.predicate = sStmt.getvPredicate();
-//		    this.object = sStmt.getvObject();
+			//call to rdf resources.	
+		    new SNavReadingRDF();
+		    SNavStatements sStmt = new SNavStatements();
+		    
+		    this.statement = sStmt.getvStatement();
+		    this.subject = sStmt.getvSubject();
+		    this.predicate = sStmt.getvPredicate();
+		    this.object = sStmt.getvObject();
 		    
 	    	createJSon(response,callBack);
 	    }
@@ -147,6 +139,7 @@ public class SNavAgent extends HttpServlet {
 		   obj.put("subject", this.subject);
 		   obj.put("predicate", this.predicate);
 		   obj.put("object", this.object);
+		   obj.put("count", this.subject.size());
 		   
 		} catch (JSONException e) {
 		   e.printStackTrace();
