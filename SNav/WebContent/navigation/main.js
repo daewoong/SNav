@@ -118,10 +118,13 @@ function addEdge(subject, object, predicate, index){
 		            var pos = $(canvas).offset();
 		            _mouseP = arbor.Point(e.pageX-pos.left, e.pageY-pos.top);
 		            dragged = particleSystem.nearest(_mouseP);
-		
+				           
+		              
 		            if (dragged && dragged.node !== null){
 		              // while we're dragging, don't let physics move the node
 		              dragged.node.fixed = true;
+		              
+		             
 		            }
 		
 		            $(canvas).bind('mousemove', handler.dragged);
@@ -150,6 +153,12 @@ function addEdge(subject, object, predicate, index){
 		            if (dragged===null || dragged.node===undefined) return;
 		            if (dragged.node !== null) dragged.node.fixed = false;
 		            dragged.node.tempMass = 1000;
+		            
+		            //03.18
+		              var id = dragged.node.name;
+		              
+		              alert('node' + id);
+		              
 		            dragged = null;
 		            $(canvas).unbind('mousemove', handler.dragged);
 		            $(window).unbind('mouseup', handler.dropped);
@@ -312,10 +321,13 @@ function addEdge(subject, object, predicate, index){
 				            var pos = $(canvas).offset();
 				            _mouseP = arbor.Point(e.pageX-pos.left, e.pageY-pos.top);
 				            dragged = particleSystem.nearest(_mouseP);
-				
+				            
+				              
 				            if (dragged && dragged.node !== null){
 				              // while we're dragging, don't let physics move the node
 				              dragged.node.fixed = true;
+				              
+	
 				            }
 				
 				            $(canvas).bind('mousemove', handler.dragged);
@@ -333,6 +345,7 @@ function addEdge(subject, object, predicate, index){
 				            if (dragged && dragged.node !== null){
 				              var p = particleSystem.fromScreen(s);
 				              dragged.node.p = p;
+				              				      
 				            }
 				
 				            return false;

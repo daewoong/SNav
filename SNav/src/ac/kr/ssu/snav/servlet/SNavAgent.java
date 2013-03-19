@@ -61,9 +61,7 @@ public class SNavAgent extends HttpServlet {
 		String callBack = request.getParameter("callback");		
 		
 		System.out.println("receive keyword: ===" + keyword + "===");
-		
-
-	    
+			    
 	    //Query process.
 	    if(keyword != null){
 	    	
