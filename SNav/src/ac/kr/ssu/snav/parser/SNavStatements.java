@@ -30,6 +30,10 @@ public class SNavStatements {
 	private int nameSpaceLength = 0;
 	private String nonURIValue;
 	
+	private String nameSpace;
+	private String nameSpaceP;
+	private String nameSpaceO;
+	
 	public SNavStatements(){
 		
 		//created rdf reading constructor
@@ -83,8 +87,8 @@ public class SNavStatements {
 			    //added subject
 			    if(!this.subject.isAnon()){
 			    	//System.out.println("subject: " + this.subject.toString());	
-			    	
-			    	this.nameSpaceLength = this.subject.getNameSpace().length();
+			    	this.nameSpace = this.subject.getNameSpace();
+			    	this.nameSpaceLength = this.nameSpace.length();
 			    	this.nonURIValue = this.subject.getURI().substring(this.nameSpaceLength);
 				    this.vSubject.add(this.nonURIValue);
 				    
@@ -104,7 +108,8 @@ public class SNavStatements {
 			    //System.out.println("  predicate: " + this.predicate.toString() + " ");
 			    
 			    //added nonURIPredicate
-			    this.nameSpaceLength = this.predicate.getNameSpace().length();
+			    this.nameSpaceP = this.predicate.getNameSpace();			    
+			    this.nameSpaceLength = this.nameSpaceP.length();
 			    this.nonURIValue = this.predicate.getURI().substring(this.nameSpaceLength);
 			    this.vPredicate.add(this.nonURIValue);
 			    //System.out.println("  predicate: " + this.nonURIValue + " ");
@@ -113,7 +118,8 @@ public class SNavStatements {
 			    if (this.object instanceof Resource && !this.object.isAnon()) {
 			       
 			       //added nonURIObject
-				   this.nameSpaceLength = this.object.asResource().getNameSpace().length();
+			       this.nameSpaceO = this.object.asResource().getNameSpace();
+				   this.nameSpaceLength = this.nameSpaceO.length();
 				   this.nonURIValue = this.object.asResource().getURI().substring(this.nameSpaceLength); 
 				   
 			       this.vObject.add(this.nonURIValue);
@@ -267,6 +273,48 @@ public class SNavStatements {
 
 	public void setObject(RDFNode object) {
 		this.object = object;
+	}
+	
+	/**
+	 * @return the nameSpace
+	 */
+	public String getNameSpace() {
+		return nameSpace;
+	}
+
+	/**
+	 * @param nameSpace the nameSpace to set
+	 */
+	public void setNameSpace(String nameSpace) {
+		this.nameSpace = nameSpace;
+	}
+
+	/**
+	 * @return the nameSpaceP
+	 */
+	public String getNameSpaceP() {
+		return nameSpaceP;
+	}
+
+	/**
+	 * @param nameSpaceP the nameSpaceP to set
+	 */
+	public void setNameSpaceP(String nameSpaceP) {
+		this.nameSpaceP = nameSpaceP;
+	}
+
+	/**
+	 * @return the nameSpaceO
+	 */
+	public String getNameSpaceO() {
+		return nameSpaceO;
+	}
+
+	/**
+	 * @param nameSpaceO the nameSpaceO to set
+	 */
+	public void setNameSpaceO(String nameSpaceO) {
+		this.nameSpaceO = nameSpaceO;
 	}
 	
 //	Set<String> uris = new HashSet<String>();

@@ -14,7 +14,7 @@ body{
 }
 
 .logo{
-	background: url('images/gen.jpg') no-repeat center;
+	background: url('../images/gen.jpg') no-repeat center;
 	marin:0;
 	width:250px;
 	height:100px;	

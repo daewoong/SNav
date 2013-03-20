@@ -33,9 +33,10 @@ var visThesaurus = function(){
     
     //Bighugelabs settings
     var apiKey = "91afccf5f2469ba63db058a18e4a6c79";
-       
+	
     return {
         init:function(){
+        	
             //Attach the events
             $("#wordSubmit").click(function(e){
                 val = $("#wordInput").val();
@@ -259,7 +260,7 @@ var Renderer = function(){
     var context = canvas.getContext('2d');
     var particleSystem;
     
-   var gfx = arbor.Graphics(canvas);
+    var gfx = arbor.Graphics(canvas);
     
     return {
         init:function(system){

@@ -30,6 +30,7 @@ public class SNavQuery {
 	
 	private String PREFIXsubject = "http://imc.ssu.ac.kr/law/election#";
 	private String PREFIXpredicate = "http://imc.ssu.ac.kr/2012/08/gensol/election#";
+	private String PREFIXobject = "http://imc.ssu.ac.kr/2012/08/gensol/election#";
 	
 	private String varSubject = "";
 	private String varPredicate = "<"+PREFIXpredicate+"구성인원>";	
@@ -52,13 +53,22 @@ public class SNavQuery {
 		System.out.println("=== in SNavQuery ===");
 		System.out.println("var: " + var);
 
+		
 		//this.varPredicate = "<"+ PREFIXelection + var + ">";
 		
 		//System.out.println(this.varPredicate);
 		
-		SNavReadingRDF rdf = new SNavReadingRDF();
-		rdf.modelRead();
-		this.model = rdf.getModel();
+//		SNavReadingRDF rdf = new SNavReadingRDF();
+//		rdf.modelRead();
+//		this.model = rdf.getModel();
+		
+		SNavStatements stmt = new SNavStatements();
+		
+		PREFIXsubject = stmt.getNameSpace();
+		PREFIXpredicate = stmt.getNameSpaceP();
+		PREFIXobject = stmt.getNameSpaceO();
+				
+		this.model = stmt.getModel();
 			
 		//String queryString = "SELECT * { <http://imc.ssu.ac.kr/law/election#읍·면·동선거관리위원회> ?predicate ?object }";
 		//String queryString = getQueryPredicate(this.varPredicate);
@@ -257,7 +267,7 @@ public class SNavQuery {
 		varSubject = "<"+ this.PREFIXsubject + varSubject + ">";
 		//System.out.println(varSubject);
 		String queryString = "SELECT * { "+ varSubject + " ?predicate ?object }";
-
+		System.out.println(queryString);
 		return queryString;
 		
 	}
@@ -266,13 +276,15 @@ public class SNavQuery {
 		
 		varPredicate = "<"+ this.PREFIXpredicate + varPredicate + ">";
 		//this.varPredicate = varPredicate;
-		String queryString = "SELECT * { ?subject  " + varPredicate + "?object }";
+		String queryString = "SELECT * { ?subject  " + varPredicate + " ?object }";
+		System.out.println(queryString);
 		return queryString;
 	}
 	
 	private String getQueryObject(String varObject){
 		
-		String queryString = "SELECT * { ?subject ?predicate  \"" + varObject + "\"}";
+		String queryString = "SELECT * { ?subject ?predicate \"" + varObject + "\" }";
+		System.out.println(queryString);
 		return queryString;
 		  
 	}
