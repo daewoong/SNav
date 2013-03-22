@@ -8,6 +8,8 @@ jQuery(function($){
 
 });
 
+var searchTerm = "";
+
 var genSearch = function(){
 	
 	var sys;
@@ -15,6 +17,9 @@ var genSearch = function(){
 	var dataPredicate = "";
 	var dataObject = "";
 	var dataCount = 0;
+	var keyword = "";
+	var count = 0;
+	var recommendationSubject = new Array();
 	
 	var colorType = {
 			root: '#FF003D',
@@ -32,7 +37,10 @@ var genSearch = function(){
 			$("#submitButton").submit(function(){
 			    	
 				alert("Submitted");
-				genSearch.connectionAgent($("form").serialize());
+				keyword = $("form").serialize();
+				searchTerm = document.getElementById("textForm").value;
+				genSearch.tableDataInit();
+				genSearch.connectionAgent(keyword);
 				return false;
 			});
 						
@@ -89,16 +97,62 @@ var genSearch = function(){
 			var subject = dataSubject.split(rex);      
 			var predicate = dataPredicate.split(rex);
 			var object = dataObject.split(rex);
-			var count = dataCount;
+			count = dataCount;
+			var next = 2;
+			var recomCount = 0;
 			
 			//var count = subject.length;
-			alert(count);
+		
 			
 			for(var index=1; index<=count; index++){
-				var x=document.getElementById("result").innerHTML = subject[index];    
+				
+				var table = document.getElementById("resultTable"); 
+				var row = table.insertRow(1);
+				var sCell = row.insertCell(0);
+				var pCell = row.insertCell(1);
+				var oCell = row.insertCell(2);
+				
+				sCell.innerHTML = subject[index];
+				pCell.innerHTML = predicate[index];
+				oCell.innerHTML = object[index];		
+				
+//				document.getElementById("predicate").innerHTML = predicate[index]; 
+//				document.getElementById("object").innerHTML = object[index]; 	
+				
+				if(subject[index] == subject[next]){
+					
+				}else{
+					recommendationSubject[recomCount++] = subject[next];						
+				}
+				next++;
+				
 				genSearch.drawingNode(subject[index], object[index], predicate[index], index);
 			}
+			
+			document.getElementById("count").innerHTML = "( " + count + " )";
+			
+//			for(var rCount=0; rCount < recommendationSubject.length; rCount++){
+//				var textNode = document.createTextNode("   " + recommendationSubject[rCount] + "   ");			
+//				document.getElementById("recommendationKeyword").appendChild(textNode);
+//			}
+			
+			for(var rCount=0; rCount < recommendationSubject.length -1; rCount++){
+				var rTable = document.getElementById("recomTable");
+				var row = rTable.insertRow(1);
+				var rSCell = row.insertCell(0);
+				rSCell.innerHTML = recommendationSubject[rCount];;
+			}
 					
+		},
+				
+		tableDataInit:function(){
+			
+			for(var index=1; index<=count; index++){				
+				document.getElementById("resultTable").deleteRow(1);				
+			}
+			for(var index=1; index<=recommendationSubject.length-1; index++){
+				document.getElementById("recomTable").deleteRow(1);
+			}
 		},
 		
 		drawingNode:function(subject, object, predicate, index){
@@ -180,12 +234,21 @@ var Renderer = function(canvas){
               ctx.lineTo (pt2.x, pt2.y);
               ctx.stroke ();
               
-            //  italic
-              ctx.fillStyle = "#5C85AD";            
-              ctx.font = '12px sans-serif';
-              //ctx.fillText (edge.data.name, (pt1.x + pt2.x) / 2, (pt1.y + pt2.y) / 2);
-              ctx.fillText (edge.data.name, (pt1.x + pt2.x) / 2, (pt1.y + pt2.y) / 2);
-
+//              alert(edge.data.name);
+              if(edge.data.name == searchTerm){           	  
+            	  //italic
+                  ctx.fillStyle = "#680000";             	 
+                  ctx.font = 'bold 14px Courier';
+                  //ctx.fillText (edge.data.name, (pt1.x + pt2.x) / 2, (pt1.y + pt2.y) / 2);
+                  ctx.fillText (edge.data.name, (pt1.x + pt2.x) / 2, (pt1.y + pt2.y) / 2);
+                  
+              }else{
+            	  //italic
+                  ctx.fillStyle = "#5C85AD";            
+                  ctx.font = '14px sans-serif';
+                  //ctx.fillText (edge.data.name, (pt1.x + pt2.x) / 2, (pt1.y + pt2.y) / 2);
+                  ctx.fillText (edge.data.name, (pt1.x + pt2.x) / 2, (pt1.y + pt2.y) / 2);
+              }                        
           });
 
           particleSystem.eachNode (function (node, pt)
@@ -201,10 +264,15 @@ var Renderer = function(canvas){
               ctx.lineWidth = 5;
               
               //ctx.fillStyle = "#D6E0EB";
-              ctx.fillStyle = "gray";
-              ctx.font = 'bold 13px sans-serif';
-              ctx.fillText (node.name, pt.x-10, pt.y);
-              
+              if(node.name == searchTerm){
+	              ctx.fillStyle = "#680000";
+	              ctx.font = 'bold 14px sans-serif';
+	              ctx.fillText (node.name, pt.x-10, pt.y);
+              }else{
+            	  ctx.fillStyle = "gray";
+	              ctx.font = 'bold 14px sans-serif';
+	              ctx.fillText (node.name, pt.x-10, pt.y);
+              }
               //ctx.strokeStyle = '#003300';
               ctx.stroke();
           });       
