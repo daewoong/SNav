@@ -205,6 +205,10 @@ td {
 	border-color: #999999;
 }
 
+td:hover{
+	background-color: #fff;
+}
+
 .searchResults{
 
 	margin: auto;

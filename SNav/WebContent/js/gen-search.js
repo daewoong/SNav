@@ -5,8 +5,9 @@
 jQuery(function($){
 	
 	genSearch.init();
-
+	
 });
+
 
 var searchTerm = "";
 
@@ -21,6 +22,7 @@ var genSearch = function(){
 	var count = 0;
 	var recommendationSubject = new Array();
 	
+	
 	var colorType = {
 			root: '#FF003D',
 			subject: '#FF003D',
@@ -28,7 +30,9 @@ var genSearch = function(){
 			object: '#FF003D',
 			literal: '#FF003D',
 	};
-		
+	
+
+	
 	return {
 		init: function(){
 			
@@ -115,26 +119,20 @@ var genSearch = function(){
 				sCell.innerHTML = subject[index];
 				pCell.innerHTML = predicate[index];
 				oCell.innerHTML = object[index];		
-				
-//				document.getElementById("predicate").innerHTML = predicate[index]; 
-//				document.getElementById("object").innerHTML = object[index]; 	
-				
+
 				if(subject[index] == subject[next]){
 					
 				}else{
-					recommendationSubject[recomCount++] = subject[next];						
+					recommendationSubject[recomCount++] = subject[index];						
 				}
 				next++;
 				
 				genSearch.drawingNode(subject[index], object[index], predicate[index], index);
 			}
 			
+			//results count
 			document.getElementById("count").innerHTML = "( " + count + " )";
 			
-//			for(var rCount=0; rCount < recommendationSubject.length; rCount++){
-//				var textNode = document.createTextNode("   " + recommendationSubject[rCount] + "   ");			
-//				document.getElementById("recommendationKeyword").appendChild(textNode);
-//			}
 			
 			for(var rCount=0; rCount < recommendationSubject.length -1; rCount++){
 				var rTable = document.getElementById("recomTable");
@@ -142,7 +140,18 @@ var genSearch = function(){
 				var rSCell = row.insertCell(0);
 				rSCell.innerHTML = recommendationSubject[rCount];;
 			}
-					
+			
+			//table click event
+			$('#recomTable td').live("click",function(){
+				keyword = $(this).html();
+				keyword = "search=" + keyword;
+				genSearch.tableDataInit();
+				genSearch.connectionAgent(keyword);
+				
+			});
+			
+		
+			
 		},
 				
 		tableDataInit:function(){
