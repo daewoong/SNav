@@ -23,8 +23,8 @@
   	<div class="logo">  	
   	</div> 	
     <div class="searchArea">
-		<form id="submitButton" action="">
-			<label>SEARCH TERM:</label>
+		<form id="submitform" action="">
+			<label id="searchlabel">SEARCH TERM:</label>
 			<input type="text" name="search" id="textForm" class="textfield" value="구성인원">
 			<!--  <input type="submit" value="Search">	-->	
 			<input type="submit" class="img-btn" value="Search">	  
@@ -35,27 +35,51 @@
   <!-- contents -->	
   <div class="middle">
     <!-- panel -->
-  	<div class="panel">
-  	
+  	<div class="panel">  	
 		<div class="recommendationKeyword">
-			<table id = "recomTable" width="280px">
+			<table id="recomTable" width="270px">
+				<caption>검색결과에 따른 추천</caption>
 				<tr>
 					<th class="th">추천 검색어</th>
 				</tr>
 				<tr>
-					
+					<td></td>
 				</tr>			
 			</table>			
 		</div>
 		
 		<div class="propertyPanel">
-			속성 판넬
+			<label>검색 속성</label><br>
+			<hr></hr>
+			<form id="propertyform" oninput="x.value=parseInt(a.value)">
+				<input type="radio" name="recom" value="re">추천검색<br>
+				<input type="radio" name="recom" value="re">연관검색<br><br>
+				<hr></hr>
+				<input type="checkbox" name="vehicle" value="Bike">법률검색<br>
+				<input type="checkbox" name="vehicle" value="Car">시맨틱검색<br><br>
+				<hr></hr>
+				<label>노드 속성</label><br>
+				<input list="node" name="node"></input><br>
+					<datalist id="browsers">
+					  <option value="Internet Explorer">
+					  <option value="Firefox">
+					  <option value="Chrome">
+					  <option value="Opera">
+					  <option value="Safari">
+					</datalist>
+			    <input type="color" name="favcolor"><br>
+			    0<input type="range" id="a" value="50"> 
+			    <output name="x" for="a"></output><br>
+				<input type="submit" value="확정"></input>
+				</form>
+			<hr></hr>
+			</form>			
 		</div>
 	</div>
 	
 	<!-- canvasArea --> 
 	<div class="canvasArea">
- 		<canvas id="viewport" width="1100" height="1004"></canvas>
+ 		<canvas id="viewport" width="1159" height="1024"></canvas>
  	</div>	  	  	 
   </div>
   
@@ -68,6 +92,23 @@
   				<th class="th">Subject</th>
   				<th class="th">Predicate</th>
   				<th class="th">Object</th>
+  				<th class="th">Search</th>
+  			</tr>
+  			<tr>
+  				<td class="td"></td>
+  				<td class="td"></td>
+  				<td class="td"></td>
+  				<td class="searchButton"></td>
+  			</tr>		
+  		</table>
+  	</div>
+  	<div class="searchResults">
+  		<table id="resultTable" width="690px">
+  			<caption>Gen Search Results <b id="count"></b></caption>
+  			<tr>
+  				<th class="th">법 령</th>
+  				<th class="th">조 문 내 용</th>
+  				<th class="th">최 종 검 색</th>
   			</tr>
   			<tr>
   				<td class="td"></td>
@@ -75,10 +116,6 @@
   				<td class="td"></td>
   			</tr>		
   		</table>
-  	</div>
-  	<div class="searchResults">
-  		<h3>Gen Search Results</h3>
-  		<hr></hr>
   	</div>
   </div>
   

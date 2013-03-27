@@ -38,7 +38,7 @@ var genSearch = function(){
 			
 			alert("genSearch init");
 			
-			$("#submitButton").submit(function(){
+			$("#submitform").submit(function(){
 			    	
 				alert("Submitted");
 				keyword = $("form").serialize();
@@ -115,11 +115,13 @@ var genSearch = function(){
 				var sCell = row.insertCell(0);
 				var pCell = row.insertCell(1);
 				var oCell = row.insertCell(2);
+				var kCell = row.insertCell(3);
 				
 				sCell.innerHTML = subject[index];
 				pCell.innerHTML = predicate[index];
 				oCell.innerHTML = object[index];		
-
+				kCell.innerHTML = "검색";
+				
 				if(subject[index] == subject[next]){
 					
 				}else{
@@ -206,6 +208,7 @@ var Renderer = function(canvas){
 
 	var canvas = $(canvas).get(0);
     var ctx = canvas.getContext("2d");
+   
     var particleSystem;
 
     alert("RDF Triple Rendering");
