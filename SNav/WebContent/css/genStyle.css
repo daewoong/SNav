@@ -124,7 +124,7 @@ input.img-btn:hover{
 	background-image: -webkit-linear-gradient(top, #99C2D6 0%, #23192B 100%);
 }
 
-#recommendationKeyword{
+.recommendationKeyword{
 	
 	margin:5px;
 	padding:5px;
@@ -132,8 +132,8 @@ input.img-btn:hover{
 	
 	height:500px;
 	
-	background:#AB988B;
-	overflow:scroll;
+	background:	 #7195A3;
+	overflow:auto;
 
 }
 
@@ -179,7 +179,7 @@ input.img-btn:hover{
 	height:400px;
 	background:#7195A3; 
 	float:left;
-	overflow:scroll;
+	overflow:auto;
 	
 }
 
@@ -234,6 +234,7 @@ td:hover{
 	background:#7195A3; 
 	
 	float:right;
+	overflow:auto;
 }
 
 h3{
