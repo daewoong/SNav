@@ -42,6 +42,10 @@ public class SNavQuery {
 	private Vector<String> vPredicate;
 	private Vector<String> vObject;
 	
+	private Vector<String> mLawNum;
+	private Vector<String> mLawID;
+	private Vector<String> mLawSID;
+	
 	private int tripleNum = 0;
 	
 	public SNavQuery(String var){
@@ -49,6 +53,11 @@ public class SNavQuery {
 		this.vSubject = new Vector<String>();
 		this.vPredicate = new Vector<String>();
 		this.vObject = new Vector<String>();
+		
+		this.mLawName = new Vector<String>();
+		this.mLawNum = new Vector<String>();
+		this.mLawID = new Vector<String>();
+		this.mLawSID = new Vector<String>();
 				
 		System.out.println("=== in SNavQuery ===");
 		System.out.println("var: " + var);
@@ -58,9 +67,6 @@ public class SNavQuery {
 		
 		//System.out.println(this.varPredicate);
 		
-//		SNavReadingRDF rdf = new SNavReadingRDF();
-//		rdf.modelRead();
-//		this.model = rdf.getModel();
 		
 		SNavStatements stmt = new SNavStatements();
 		
@@ -73,14 +79,15 @@ public class SNavQuery {
 		//String queryString = "SELECT * { <http://imc.ssu.ac.kr/law/election#읍·면·동선거관리위원회> ?predicate ?object }";
 		//String queryString = getQueryPredicate(this.varPredicate);
 		
-		String queryStringSubject = getQuerySubject(var); 
-		String queryStringPredicate = getQueryPredicate(var); 
-		String queryStringObject = getQueryObject(var);
+		String queryStringSubject = this.getQuerySubject(var); 
+		String queryStringPredicate = this.getQueryPredicate(var); 
+		String queryStringObject = this.getQueryObject(var);
+//		String queryStringLawName = this.getQueryMetaLawName();
 		
+//		this.queryExecuteMetaLawNamePredicate(queryStringLawName);
 		this.queryExecuteSubject(var, queryStringSubject);
 		this.queryExecutePredicate(queryStringPredicate);		
 		this.queryExecuteObject(queryStringObject);
-
 
 	}
 	
@@ -117,8 +124,17 @@ public class SNavQuery {
 			        String convertLiteral = String.valueOf(l.getValue());
 			        
 			        this.vSubject.add(subject);
-			    	this.vPredicate.add(nonURIValue);		    	
-				    this.vObject.add(convertLiteral);
+			    	this.vPredicate.add(nonURIValue);
+			    	this.vObject.add(convertLiteral);
+			    	
+//			    	for(index=0; index<=this.mLawName.size(); index++){
+//				    	if(convertLiteral.equals(this.mLawName.get(index))){
+//				    		
+//				    	}else{
+//				    		this.vObject.add(convertLiteral);
+//				    	} 
+//			    	}
+	
 				    		    	
 			    }
 			}else{System.out.println("This keyword is not Subject.");}		   
@@ -226,6 +242,8 @@ public class SNavQuery {
 		    String predicate = resultVarNames.get(0);
 		    String object = resultVarNames.get(1);
 		  	
+		    int index = 0;
+		    
 		  	//query results navigation from subject
 		    while(results.hasNext()){
 		    	
@@ -242,9 +260,8 @@ public class SNavQuery {
 		        String convertLiteral = String.valueOf(l.getValue());
 		        		        
 			    this.vSubject.add(nonURISubjectValue);
-		    	this.vPredicate.add(nonURIPredicateValue);
-			    this.vObject.add(convertLiteral);
-			    
+		    	this.vPredicate.add(nonURIPredicateValue);		    	
+		    	this.vObject.add(convertLiteral);
 		    }
 		    
 		    //ResultSetFormatter.out(System.out, results);
@@ -262,6 +279,39 @@ public class SNavQuery {
 		
 	}
 	
+	private void queryExecuteMetaLawNamePredicate(String queryString){
+		
+		Query query = QueryFactory.create(queryString);
+		QueryExecution qexec = QueryExecutionFactory.create(query, this.model);
+		
+		  try {
+		    ResultSet results = qexec.execSelect();		
+		    
+		    List<String> resultVarNames = results.getResultVars();
+		    
+		    String var1 = resultVarNames.get(0);
+		    String var2 = resultVarNames.get(1);	 
+		  	
+			if(results.hasNext()){
+			  	//query results navigation
+			    while(results.hasNext()){
+			    
+			    	QuerySolution soln = results.nextSolution();
+			   		    	
+			    	Literal l = soln.getLiteral(var2);		    	
+			    				    	
+			    	//get literal
+			        String convertLiteral = String.valueOf(l.getValue());
+			        	    	
+				    this.mLawName.add(convertLiteral);
+				    		    	
+			    }
+			}else{}		   
+		    		    
+		  } finally { qexec.close(); }		
+		  
+	}
+
 	private String getQuerySubject(String varSubject){
 		
 		varSubject = "<"+ this.PREFIXsubject + varSubject + ">";
@@ -287,6 +337,14 @@ public class SNavQuery {
 		System.out.println(queryString);
 		return queryString;
 		  
+	}
+	
+	private String getQueryMetaLawName(){
+		
+		String varPredicate = "<"+ this.PREFIXpredicate + "법명" + ">";
+		String queryString = "SELECT * { ?subject  " + varPredicate + " ?object }";
+		System.out.println(queryString);
+		return queryString;		  
 	}
 	
 	private String getQuerySPO(){
@@ -397,6 +455,62 @@ public class SNavQuery {
 	 */
 	public void setvObject(Vector<String> vObject) {
 		this.vObject = vObject;
+	}
+	private Vector<String> mLawName;
+	/**
+	 * @return the mLawName
+	 */
+	public Vector<String> getmLawName() {
+		return mLawName;
+	}
+
+	/**
+	 * @param mLawName the mLawName to set
+	 */
+	public void setmLawName(Vector<String> mLawName) {
+		this.mLawName = mLawName;
+	}
+
+	/**
+	 * @return the mLawNum
+	 */
+	public Vector<String> getmLawNum() {
+		return mLawNum;
+	}
+
+	/**
+	 * @param mLawNum the mLawNum to set
+	 */
+	public void setmLawNum(Vector<String> mLawNum) {
+		this.mLawNum = mLawNum;
+	}
+
+	/**
+	 * @return the mLawID
+	 */
+	public Vector<String> getmLawID() {
+		return mLawID;
+	}
+
+	/**
+	 * @param mLawID the mLawID to set
+	 */
+	public void setmLawID(Vector<String> mLawID) {
+		this.mLawID = mLawID;
+	}
+
+	/**
+	 * @return the mLawSID
+	 */
+	public Vector<String> getmLawSID() {
+		return mLawSID;
+	}
+
+	/**
+	 * @param mLawSID the mLawSID to set
+	 */
+	public void setmLawSID(Vector<String> mLawSID) {
+		this.mLawSID = mLawSID;
 	}
 	
 	public static void main(String args[]){

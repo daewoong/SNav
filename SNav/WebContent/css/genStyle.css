@@ -155,7 +155,7 @@ input.img-btn:hover{
 	
 	width:1160px;
 	height:1024px;
-	background:	 #EB8540;
+	background:	 #FFFFFF;
 
 }
 
@@ -236,6 +236,18 @@ td:hover{
 	
 	float:right;
 	overflow:auto;
+}
+
+#searchResultTable{
+	
+	margin:auto;
+	font-family: verdana,arial,sans-serif;
+	font-size:13px;
+	color:#333333;
+	border-width: 1px;
+	border-color: #999999;
+	border-collapse: collapse;	
+	text-align:center;
 }
 
 h3{

@@ -20,8 +20,7 @@ var genSearch = function(){
 	var dataCount = 0;
 	var keyword = "";
 	var count = 0;
-	var recommendationSubject = new Array();
-	
+	var reSearch = 1;	
 	
 	var colorType = {
 			root: '#FF003D',
@@ -81,8 +80,10 @@ var genSearch = function(){
 	            	dataSubject = data.subject;
 	                dataPredicate = data.predicate;
 	                dataObject = data.object;
+	                //dataMLawName = data.mlawname;
 	                dataCount = data.count;
 	                
+	                //alert(dataMLawName);
 	                genSearch.dataGenerate();
 	            }
 		},
@@ -103,40 +104,82 @@ var genSearch = function(){
 			var object = dataObject.split(rex);
 			count = dataCount;
 			var next = 2;
+			var recommendationSubject = new Array();
 			var recomCount = 0;
 			
 			//var count = subject.length;
-		
-			
+					
 			for(var index=1; index<=count; index++){
 				
-				var table = document.getElementById("resultTable"); 
-				var row = table.insertRow(1);
-				var sCell = row.insertCell(0);
-				var pCell = row.insertCell(1);
-				var oCell = row.insertCell(2);
-				var kCell = row.insertCell(3);
+				//search table
+//				if(predicate[index] == "조문"){
+//					
+//					var sTable = document.getElementById("searchResultTable"); 
+//					var sRow = sTable.insertRow(1);		
+//					var lNumCell = sRow.insertCell(0);
+//					lNumCell.innerHTML = object[index];
+//					
+//					for(var mark=index; mark<=index+1; mark++){
+//						if(predicate[mark] == "법명"){
+//							var lNameCell = sRow.insertCell(1);
+//							lNameCell.innerHTML = object[mark];
+//							
+//							var search = sRow.insertCell(2);
+//						}
+//					}
+//					
+//					continue;
+//					
+//				}else if(predicate[index] == "법명"){
+//					continue;	
+//				}else if(predicate[index] == "LAW_ID"){
+//					continue;
+//				}
 				
-				sCell.innerHTML = subject[index];
-				pCell.innerHTML = predicate[index];
-				oCell.innerHTML = object[index];		
-				kCell.innerHTML = "검색";
+				genSearch.tripleTable(subject[index], predicate[index], object[index]);
 				
-				if(subject[index] == subject[next]){
-					
-				}else{
-					recommendationSubject[recomCount++] = subject[index];						
+				if(reSearch){
+				
+					if(subject[index] == subject[next]){					
+						
+					}else{
+						recommendationSubject[recomCount++] = subject[index];							
+					}
+					next++;
 				}
-				next++;
 				
 				genSearch.drawingNode(subject[index], object[index], predicate[index], index);
 			}
 			
+			genSearch.recomTable(recommendationSubject);
+											
+		},
+		
+		tripleTable:function(subject, predicate, object){
+			
+			//triple table
+			var table = document.getElementById("resultTable"); 
+			var row = table.insertRow(1);
+			var sCell = row.insertCell(0);
+			var pCell = row.insertCell(1);
+			var oCell = row.insertCell(2);
+			var kCell = row.insertCell(3);
+			
+			sCell.innerHTML = subject;
+			pCell.innerHTML = predicate;
+			oCell.innerHTML = object;		
+			kCell.innerHTML = "검색";
+			
 			//results count
 			document.getElementById("count").innerHTML = "( " + count + " )";
 			
+		},	
+		
+		recomTable:function(recommendationSubject){
 			
-			for(var rCount=0; rCount < recommendationSubject.length -1; rCount++){
+			
+			//recom table
+			for(var rCount=0; rCount < recommendationSubject.length; rCount++){
 				var rTable = document.getElementById("recomTable");
 				var row = rTable.insertRow(1);
 				var rSCell = row.insertCell(0);
@@ -147,23 +190,27 @@ var genSearch = function(){
 			$('#recomTable td').live("click",function(){
 				keyword = $(this).html();
 				keyword = "search=" + keyword;
+				reSearch = 0;
+//				for(var rCount=0; rCount<recommendationSubject.length; rCount++){
+//					document.getElementById("recomTable").deleteRow(1);
+//				}
+				
 				genSearch.tableDataInit();
 				genSearch.connectionAgent(keyword);
 				
 			});
 			
+		},	
 		
-			
-		},
-				
 		tableDataInit:function(){
 			
 			for(var index=1; index<=count; index++){				
 				document.getElementById("resultTable").deleteRow(1);				
 			}
-			for(var index=1; index<=recommendationSubject.length-1; index++){
-				document.getElementById("recomTable").deleteRow(1);
-			}
+			
+//			for(var rCount=0; rCount<recommendationSubject.length; rCount++){
+//				document.getElementById("recomTable").deleteRow(1);
+//			}
 		},
 		
 		drawingNode:function(subject, object, predicate, index){
@@ -257,7 +304,7 @@ var Renderer = function(canvas){
               }else{
             	  //italic
                   ctx.fillStyle = "#5C85AD";            
-                  ctx.font = '14px sans-serif';
+                  ctx.font = 'bold 14px sans-serif';
                   //ctx.fillText (edge.data.name, (pt1.x + pt2.x) / 2, (pt1.y + pt2.y) / 2);
                   ctx.fillText (edge.data.name, (pt1.x + pt2.x) / 2, (pt1.y + pt2.y) / 2);
               }                        
@@ -279,11 +326,11 @@ var Renderer = function(canvas){
               if(node.name == searchTerm){
 	              ctx.fillStyle = "#680000";
 	              ctx.font = 'bold 14px sans-serif';
-	              ctx.fillText (node.name, pt.x-10, pt.y);
+	              ctx.fillText (node.name, pt.x-15, pt.y);
               }else{
             	  ctx.fillStyle = "gray";
 	              ctx.font = 'bold 14px sans-serif';
-	              ctx.fillText (node.name, pt.x-10, pt.y);
+	              ctx.fillText (node.name, pt.x-15, pt.y);
               }
               //ctx.strokeStyle = '#003300';
               ctx.stroke();

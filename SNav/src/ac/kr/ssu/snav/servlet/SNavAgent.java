@@ -27,6 +27,7 @@ public class SNavAgent extends HttpServlet {
     private Vector<String> subject;
     private Vector<String> predicate;
     private Vector<String> object;  
+//    private Vector<String> mLawName;
     
     private String keyword;
     
@@ -72,6 +73,7 @@ public class SNavAgent extends HttpServlet {
 			this.subject = query.getvSubject();
 			this.predicate = query.getvPredicate();
 			this.object = query.getvObject();
+//			this.mLawName = query.getmLawName();
 			
 	        createJSon(response,keyword,callBack);		        
 			
@@ -137,6 +139,7 @@ public class SNavAgent extends HttpServlet {
 		   obj.put("subject", this.subject);
 		   obj.put("predicate", this.predicate);
 		   obj.put("object", this.object);
+//		   obj.put("mlawname", this.mLawName);
 		   obj.put("count", this.subject.size());
 		   
 		} catch (JSONException e) {
