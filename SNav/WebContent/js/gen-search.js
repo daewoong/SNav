@@ -21,6 +21,8 @@ var genSearch = function(){
 	var keyword = "";
 	var count = 0;
 	var reSearch = 1;	
+	var metaLawName = [];
+	var findIndex = 0;
 	
 	var colorType = {
 			root: '#FF003D',
@@ -104,8 +106,9 @@ var genSearch = function(){
 			var object = dataObject.split(rex);
 			count = dataCount;
 			var next = 2;
-			var recommendationSubject = new Array();
+			var totalSubject = new Array();
 			var recomCount = 0;
+			var diffSIndex = 0;
 			
 			//var count = subject.length;
 					
@@ -128,22 +131,28 @@ var genSearch = function(){
 //						}
 //					}
 //					
-//					continue;
+//					//continue;
 //					
 //				}else if(predicate[index] == "법명"){
-//					continue;	
+//					//continue;	
 //				}else if(predicate[index] == "LAW_ID"){
 //					continue;
 //				}
 				
 				genSearch.tripleTable(subject[index], predicate[index], object[index]);
+						
 				
+				//make metadata structure
 				if(reSearch){
 				
-					if(subject[index] == subject[next]){					
-						
+					if(subject[index] == subject[next]){
+						if(predicate[index] == "법명"){
+							metaLawName[diffSIndex] = object[index];
+						}
+											
 					}else{
-						recommendationSubject[recomCount++] = subject[index];							
+						totalSubject[recomCount++] = subject[index];	
+						diffSIndex++;
 					}
 					next++;
 				}
@@ -151,8 +160,52 @@ var genSearch = function(){
 				genSearch.drawingNode(subject[index], object[index], predicate[index], index);
 			}
 			
-			genSearch.recomTable(recommendationSubject);
+			//search table
+//			var sTable = document.getElementById("searchResultTable"); 
+//			
+//			for(var k=0; k<totalSubject.length; k++){
+//				
+////				alert(totalSubject[k]);
+////				alert(metaLawName[k]);
+//				
+//				var sRow = sTable.insertRow(1);		
+//				var lNumCell = sRow.insertCell(0);
+//				var lNameCell = sRow.insertCell(1);
+//				var search = sRow.insertCell(2);
+//				lNumCell.innerHTML = metaLawName[k];
+//			}
+			
+			genSearch.metaTable(totalSubject, findIndex);
+			genSearch.recomTable(totalSubject);
 											
+		},
+		
+		//need to change parameter
+		metaTable:function(totalSubject, findIndex){
+							
+			//meta search table
+			var sTable = document.getElementById("searchResultTable"); 
+			
+			if(reSearch){
+				for(var k=0; k<totalSubject.length; k++){
+					
+	//				alert(totalSubject[k]);
+	//				alert(metaLawName[k]);
+					
+					var sRow = sTable.insertRow(1);		
+					var lNumCell = sRow.insertCell(0);
+					var lNameCell = sRow.insertCell(1);
+					var search = sRow.insertCell(2);
+					lNumCell.innerHTML = metaLawName[k];
+				}
+			}else{
+//				alert("metaTable " + findIndex);
+				var sRow = sTable.insertRow(1);		
+				var lNumCell = sRow.insertCell(0);
+				var lNameCell = sRow.insertCell(1);
+				var search = sRow.insertCell(2);
+				lNumCell.innerHTML = metaLawName[findIndex];
+			}
 		},
 		
 		tripleTable:function(subject, predicate, object){
@@ -188,9 +241,23 @@ var genSearch = function(){
 			
 			//table click event
 			$('#recomTable td').live("click",function(){
-				keyword = $(this).html();
-				keyword = "search=" + keyword;
+				var originkeyword = $(this).html();
+				
+				keyword = "search=" + originkeyword;
 				reSearch = 0;
+				
+				for(var metaLawNameIndex=0; metaLawNameIndex<recommendationSubject.length; metaLawNameIndex++){
+//					alert("keyword :" + originkeyword);
+//					alert("recome keyword :" + recommendationSubject[metaLawNameIndex]);
+					if(originkeyword == recommendationSubject[metaLawNameIndex]){
+						//need to change parameter
+//						alert("recome " + metaLawNameIndex);
+						findIndex = metaLawNameIndex;
+						genSearch.metaTable(recommendationSubject, findIndex);
+						break;
+					}
+				}
+					
 //				for(var rCount=0; rCount<recommendationSubject.length; rCount++){
 //					document.getElementById("recomTable").deleteRow(1);
 //				}
@@ -207,6 +274,10 @@ var genSearch = function(){
 			for(var index=1; index<=count; index++){				
 				document.getElementById("resultTable").deleteRow(1);				
 			}
+			
+//			for(var index=0; index<metaLawName.length; index++){				
+//				document.getElementById("searchResultTable").deleteRow(1);				
+//			}
 			
 //			for(var rCount=0; rCount<recommendationSubject.length; rCount++){
 //				document.getElementById("recomTable").deleteRow(1);
