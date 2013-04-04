@@ -12,8 +12,7 @@
 	<legislation:목적>공적자금의 관리</legislation:목적>
 	<legislation:목적>공적자금의 효율적 사용</legislation:목적>
 	<legislation:목적>국민부담 최소</legislation:목적>
-	<legislation:법명>공적자금관리 특별법</legislation:법명>
-	<legislation:조문>1조</legislation:조문>
+	
 	<legislation:LAW_ID>200012200002</legislation:LAW_ID>
 	<legislation:LAW_SID>0008</legislation:LAW_SID>
 	<legislation:JJ_NO>000010000000000</legislation:JJ_NO>
@@ -23,8 +22,7 @@
 <rdf:Description rdf:about="http://imc.ssu.ac.kr/law/legislation#공적자금">
 	<legislation:용어의_뜻>금융회사 구조조정에 지원 되는 자금</legislation:용어의_뜻>
 	<legislation:용어의_뜻>기업의 구조조정에 지원 되는 자금</legislation:용어의_뜻>
-	<legislation:법명>공적자금관리 특별법</legislation:법명>
-	<legislation:조문>2조</legislation:조문>
+	
 	<legislation:LAW_ID>200012200002</legislation:LAW_ID>
 	<legislation:LAW_SID>0008</legislation:LAW_SID>
 	<legislation:JJ_NO>000010000000000</legislation:JJ_NO>
@@ -35,8 +33,7 @@
 	<legislation:용어의_뜻>금융산업의 구조개선에 관한 법률에 따른 금융기관</legislation:용어의_뜻>
 	<legislation:용어의_뜻>예금자보호법에 따른 부보금융기관</legislation:용어의_뜻>
 	<legislation:용어의_뜻>금융회사부실자산 등의 효율적 처리 및 한국자산관리공사의 설립에 관한 법률에 따른 금융회사등</legislation:용어의_뜻>
-	<legislation:법명>공적자금관리 특별법</legislation:법명>
-	<legislation:조문>2조</legislation:조문>
+	
 	<legislation:LAW_ID>200012200002</legislation:LAW_ID>
 	<legislation:LAW_SID>0008</legislation:LAW_SID>
 	<legislation:JJ_NO>000010000000000</legislation:JJ_NO>
@@ -56,8 +53,7 @@
 	<legislation:심의_조정>한국정책금융공사가 보유하는 주식 등 자산의 매각 등 공적자금 회수에 관한 사항</legislation:심의_조정>
 	<legislation:심의_조정>공적자금과 관련된 법령 또는 규정의 제정·개정에 관한 사항</legislation:심의_조정>
 	<legislation:심의_조정>공적자금의 사용 및 사후관리 등 공적자금의 효율성 제고에 관한 사항으로서 대통령령으로 정하는 사항</legislation:심의_조정>
-	<legislation:법명>공적자금관리 특별법</legislation:법명>
-	<legislation:조문>3조</legislation:조문>
+
 	<legislation:LAW_ID>200012200002</legislation:LAW_ID>
 	<legislation:LAW_SID>0008</legislation:LAW_SID>
 	<legislation:JJ_NO>000020000000000</legislation:JJ_NO>
@@ -70,28 +66,25 @@
 	<legislation:구성>공인회계사법에 따라 설립된 한국공인회계사회 회장이 추천하는 회계전문가로서 금융위원회 위원장이 위촉하는 사람 1명</legislation:구성>
 	<legislation:구성>사단법인 전국은행연합회 회장이 추천하는 금융전문가로서 금융위원회 위원장이 위촉하는 사람 1명</legislation:구성>
 	<legislation:구성>상공회의소법에 따라 지식경제부장관의 인가를 받아 설립된 대한상공회의소 회장이 추천하는 경제전문가로서 금융위원회 위원장이 위촉하는 사람 1명</legislation:구성>
-	<legislation:법명>공적자금관리 특별법</legislation:법명>
-	<legislation:조문>4조</legislation:조문>
+	
 	<legislation:LAW_ID>200012200002</legislation:LAW_ID>
 	<legislation:LAW_SID>0008</legislation:LAW_SID>
 	<legislation:JJ_NO>000020000000000</legislation:JJ_NO>
 	<legislation:JO_NO>000400</legislation:JO_NO>
 
 	<legislation:위원장>금융위원회 위원장</legislation:위원장>
-	<legislation:법명>공적자금관리 특별법</legislation:법명>
-	<legislation:조문>5조</legislation:조문>
+	
 	<legislation:LAW_ID>200012200002</legislation:LAW_ID>
 	<legislation:LAW_SID>0008</legislation:LAW_SID>
 	<legislation:JJ_NO>000020000000000</legislation:JJ_NO>
 	<legislation:JO_NO>000500</legislation:JO_NO>
+
 
 	<legislation:대행기관>예금자보호법에 따른 예금보험공사</legislation:대행기관>
 	<legislation:대행기관>금융회사부실자산 등의 효율적 처리 및 한국자산관리공사의 설립에 관한 법률에 따른 한국자산관리공사</legislation:대행기관>
 	<legislation:대행기관>한국산업은행법」에 따른 한국산업은행</legislation:대행기관>
 	<legislation:대행기관>현물의 관리 및 매각에 관한 사무를 처리하는 데 적합하다고 공적자금관리위원회가 인정하는 자</legislation:대행기관>
 
-	<legislation:법명>공적자금상환기금법 시행령</legislation:법명>	
-	<legislation:조문>4조</legislation:조문>
 	<legislation:LAW_ID>200212230001</legislation:LAW_ID>
 	<legislation:LAW_SID>0005</legislation:LAW_SID>
 	<legislation:JJ_NO>000000000000000</legislation:JJ_NO>
@@ -104,8 +97,7 @@
 	<legislation:결격사유>국가공무원법 제33조에 따른 공무원의 결격사유에 해당하는 사람</legislation:결격사유>
 	<legislation:결격사유>대통령령으로 정하는 금융 관계 법률에 따라 벌금형을 선고받고 5년이 지나지 아니한 사람</legislation:결격사유>
 	<legislation:결격사유>대통령령으로 정하는 금융 관계 법률에 따라 해임되거나 면직된 후 5년이 지나지 아니한 사람</legislation:결격사유>
-	<legislation:법명>공적자금관리 특별법</legislation:법명>
-	<legislation:조문>7조</legislation:조문>
+	
 	<legislation:LAW_ID>200012200002</legislation:LAW_ID>
 	<legislation:LAW_SID>0008</legislation:LAW_SID>
 	<legislation:JJ_NO>000020000000000</legislation:JJ_NO>
@@ -114,8 +106,7 @@
 
 <rdf:Description rdf:about="http://imc.ssu.ac.kr/law/legislation#공적자금관리위원회_민간위원">
 	<legislation:임기>2년으로, 하며 한차례 연임</legislation:임기>
-	<legislation:법명>공적자금관리 특별법</legislation:법명>
-	<legislation:조문>6조</legislation:조문>
+	
 	<legislation:LAW_ID>200012200002</legislation:LAW_ID>
 	<legislation:LAW_SID>0008</legislation:LAW_SID>
 	<legislation:JJ_NO>000020000000000</legislation:JJ_NO>
@@ -131,8 +122,7 @@
 	<legislation:포함사항>해당 금융회사등의 노동조합의 동의가 필요한 사항에 대한 동의서</legislation:포함사항>
 	<legislation:포함사항>규정에 따른 목표 수준을 달성하지 못할 경우 총인건비 동결 등 해당 금융회사등이 추가적으로 추진할 이행계획</legislation:포함사항>
 	<legislation:포함사항>대통령령으로 정하는 사항</legislation:포함사항>
-	<legislation:법명>공적자금관리 특별법></legislation:법명>
-	<legislation:조문>17조</legislation:조문>
+	
 	<legislation:LAW_ID>200012200002</legislation:LAW_ID>
 	<legislation:LAW_SID>0008</legislation:LAW_SID>
 	<legislation:JJ_NO>000030000000000</legislation:JJ_NO>
@@ -145,8 +135,7 @@
 	<legislation:시정사항>따라 예금보험공사가 요구하는 보고서나 자료를 거짓으로 작성하거나 그 제출을 게을리한 경우</legislation:시정사항>
 	<legislation:시정사항>약정서에 따른 예금보험공사의 업무 수행을 거부·방해 또는 기피한 경우</legislation:시정사항>
 	<legislation:시정사항>예금보험공사의 시정명령이나 징계 요구의 이행을 게을리한 경우</legislation:시정사항>
-	<legislation:법명>공적자금관리 특별법</legislation:법명>
-	<legislation:조문>17조</legislation:조문>
+	
 	<legislation:LAW_ID>200012200002</legislation:LAW_ID>
 	<legislation:LAW_SID>0008</legislation:LAW_SID>
 	<legislation:JJ_NO>000030000000000</legislation:JJ_NO>
@@ -155,8 +144,7 @@
 
 <rdf:Description rdf:about="http://imc.ssu.ac.kr/law/legislation#부실기업">
 	<legislation:약정체결>해당 기업의 구조조정에 관한 관계자의 서면 동의와 그 밖에 대통령령으로 정하는 사항을 포함한 서면 약정을 해당 기업</legislation:약정체결>
-	<legislation:법명>공적자금관리 특별법</legislation:법명>
-	<legislation:조문>18조</legislation:조문>
+	
 	<legislation:LAW_ID>200012200002</legislation:LAW_ID>
 	<legislation:LAW_SID>0008</legislation:LAW_SID>
 	<legislation:JJ_NO>000030000000000</legislation:JJ_NO>
@@ -165,8 +153,7 @@
 
 <rdf:Description rdf:about="http://imc.ssu.ac.kr/law/legislation#각_위원회의_심의·조정에_관련된_기록물">
 	<legislation:보존기간>영구</legislation:보존기간>
-	<legislation:법명>공적자금관리 특별법</legislation:법명>
-	<legislation:조문>21조의2</legislation:조문>
+
 	<legislation:LAW_ID>200012200002</legislation:LAW_ID>
 	<legislation:LAW_SID>0008</legislation:LAW_SID>
 	<legislation:JJ_NO>000030000000000</legislation:JJ_NO>
@@ -175,8 +162,7 @@
 
 <rdf:Description rdf:about="http://imc.ssu.ac.kr/law/legislation#각_위원회가_정부_금융위원회_금융감독위원회_예금보험공사_한국자산관리공사_및_한국정책금융공사_등_공적자금_관련_기관으로부터_보고받아_심의한_기록물">
 	<legislation:보존기간>영구</legislation:보존기간>
-	<legislation:법명>공적자금관리 특별법</legislation:법명>
-	<legislation:조문>21조의2</legislation:조문>
+
 	<legislation:LAW_ID>200012200002</legislation:LAW_ID>
 	<legislation:LAW_SID>0008</legislation:LAW_SID>
 	<legislation:JJ_NO>000030000000000</legislation:JJ_NO>
@@ -185,8 +171,7 @@
 
 <rdf:Description rdf:about="http://imc.ssu.ac.kr/law/legislation#금융위원회_금융감독위원회_예금보험공사_한국자산관리공사_및_한국정책금융공사_등_관련_기관에_대한_보고_또는_자료·서류_등의_제출_요구하여_제출받은_자료_등과_관련된_기록물">
 	<legislation:보존기간>영구</legislation:보존기간>
-	<legislation:법명>공적자금관리 특별법</legislation:법명>
-	<legislation:조문>21조의2</legislation:조문>
+
 	<legislation:LAW_ID>200012200002</legislation:LAW_ID>
 	<legislation:LAW_SID>0008</legislation:LAW_SID>
 	<legislation:JJ_NO>000030000000000</legislation:JJ_NO>
@@ -195,8 +180,7 @@
 
 <rdf:Description rdf:about="http://imc.ssu.ac.kr/law/legislation#이해관계인_참고인_또는_관계_공무원의_출석_및_의견_제출_요구하여_제출받은_자료_등과_관련된_기록물">
 	<legislation:보존기간>영구</legislation:보존기간>
-	<legislation:법명>공적자금관리 특별법</legislation:법명>
-	<legislation:조문>21조의2</legislation:조문>
+
 	<legislation:LAW_ID>200012200002</legislation:LAW_ID>
 	<legislation:LAW_SID>0008</legislation:LAW_SID>
 	<legislation:JJ_NO>000030000000000</legislation:JJ_NO>
@@ -205,8 +189,7 @@
 
 <rdf:Description rdf:about="http://imc.ssu.ac.kr/law/legislation#관계_기관에_대한_실지조사하여_제출받은_자료_등과_관련된_기록물">
 	<legislation:보존기간>영구</legislation:보존기간>
-	<legislation:법명>공적자금관리 특별법</legislation:법명>
-	<legislation:조문>21조의2</legislation:조문>
+
 	<legislation:LAW_ID>200012200002</legislation:LAW_ID>
 	<legislation:LAW_SID>0008</legislation:LAW_SID>
 	<legislation:JJ_NO>000030000000000</legislation:JJ_NO>
@@ -217,8 +200,7 @@
 	<legislation:경비의_지급>예산의 범위에서 수당</legislation:경비의_지급>
 	<legislation:경비의_지급>예산의 범위에서 여비</legislation:경비의_지급>
 	<legislation:경비의_지급>예산의 범위에서 필요한 경비</legislation:경비의_지급>
-	<legislation:법명>공적자금관리 특별법</legislation:법명>
-	<legislation:조문>23조</legislation:조문>
+	
 	<legislation:LAW_ID>200012200002</legislation:LAW_ID>
 	<legislation:LAW_SID>0008</legislation:LAW_SID>
 	<legislation:JJ_NO>000040000000000</legislation:JJ_NO>
@@ -245,8 +227,6 @@
 	<legislation:금융전문가>금융 관련 분야를 담당하여 행정부·국회사무처에서 2급 이상 공무원(고위공무원단에 속하는 일반직공무원을 포함한다)의 직에 있었던 사람</legislation:금융전문가>
 	<legislation:금융전문가>국제금융기구에서 금융·투자에 관련된 업무를 15년 이상 담당하고 있거나 담당하였던 사람</legislation:금융전문가>
 
-	<legislation:법명>공적자금관리 특별법 시행령</legislation:법명>	
-	<legislation:조문>3조</legislation:조문>
 	<legislation:LAW_ID>200102140001</legislation:LAW_ID>
 	<legislation:LAW_SID>0008</legislation:LAW_SID>
 	<legislation:JJ_NO>000000000000000</legislation:JJ_NO>
@@ -255,8 +235,7 @@
 
 <rdf:Description rdf:about="http://imc.ssu.ac.kr/law/legislation#공적자금관리_특별법_시행령">
 	<legislation:목적>공적자금관리 특별법에서 위임된 사항과 그 시행에 관하여 필요한 사항을 규정함</legislation:목적>
-	<legislation:법명>공적자금관리 특별법 시행령</legislation:법명>
-	<legislation:조문>1조</legislation:조문>
+	
 	<legislation:LAW_ID>200102140001</legislation:LAW_ID>
 	<legislation:LAW_SID>0008</legislation:LAW_SID>
 	<legislation:JJ_NO>000000000000000</legislation:JJ_NO>
@@ -311,8 +290,6 @@
 	<legislation:금융관계법률>중소기업창업 지원법</legislation:금융관계법률>
 	<legislation:금융관계법률>해외자원개발 사업법</legislation:금융관계법률>
 
-	<legislation:법명>공적자금관리 특별법 시행령</legislation:법명>	
-	<legislation:조문>5조</legislation:조문>
 	<legislation:LAW_ID>200102140001</legislation:LAW_ID>
 	<legislation:LAW_SID>0008</legislation:LAW_SID>
 	<legislation:JJ_NO>000000000000000</legislation:JJ_NO>
@@ -323,12 +300,11 @@
 	<legislation:설치_구성>자금지원심사 소위원회</legislation:설치_구성>
 	<legislation:설치_구성>매각심사 소위원회</legislation:설치_구성>
 
-	<legislation:법명>공적자금관리 특별법 시행령</legislation:법명>	
-	<legislation:조문>5조의4</legislation:조문>
 	<legislation:LAW_ID>200102140001</legislation:LAW_ID>
 	<legislation:LAW_SID>0008</legislation:LAW_SID>
 	<legislation:JJ_NO>000000000000000</legislation:JJ_NO>
 	<legislation:JO_NO>000504</legislation:JO_NO>
+
 </rdf:Description>
 
 <rdf:Description rdf:about="http://imc.ssu.ac.kr/law/legislation#자금지원심사_소위원회">
@@ -337,8 +313,6 @@
 	<legislation:구성>자금지원심사 소위원회의 심사업무와 관련한 전문적 지식과 경험을 갖춘 사람으로서 위원회의 위원장이 위촉하는 2명</legislation:구성>
 	<legislation:위원장>제2항제1호의 위원 중에서 호선된 사람</legislation:위원장>
 	
-	<legislation:법명>공적자금관리 특별법 시행령</legislation:법명>	
-	<legislation:조문>5조의4</legislation:조문>
 	<legislation:LAW_ID>200102140001</legislation:LAW_ID>
 	<legislation:LAW_SID>0008</legislation:LAW_SID>
 	<legislation:JJ_NO>000000000000000</legislation:JJ_NO>
@@ -351,8 +325,6 @@
 	<legislation:구성>매각심사 소위원회의 심사업무와 관련한 전문적 지식과 경험을 갖춘 사람으로서 위원회의 위원장이 위촉하는 3명</legislation:구성>
 	<legislation:위원장>제3항제1호의 위원 중에서 호선된 사람</legislation:위원장>
 
-	<legislation:법명>공적자금관리 특별법 시행령</legislation:법명>	
-	<legislation:조문>5조의4</legislation:조문>
 	<legislation:LAW_ID>200102140001</legislation:LAW_ID>
 	<legislation:LAW_SID>0008</legislation:LAW_SID>
 	<legislation:JJ_NO>000000000000000</legislation:JJ_NO>
@@ -369,8 +341,6 @@
 	<legislation:예외>금융기관의 순자산부족분을 보전하기 위하여 공적자금을 지원하는 경우</legislation:예외>
 	<legislation:예외>기타 금융제도의 안정성 유지를 위하여 불가피한 경우</legislation:예외>
 
-	<legislation:법명>공적자금관리 특별법 시행령</legislation:법명>	
-	<legislation:조문>7조</legislation:조문>
 	<legislation:LAW_ID>200102140001</legislation:LAW_ID>
 	<legislation:LAW_SID>0008</legislation:LAW_SID>
 	<legislation:JJ_NO>000000000000000</legislation:JJ_NO>
@@ -382,8 +352,6 @@
 	<legislation:비공개_사항>부동산·채권 등 보유자산의 매각에 관한 사항</legislation:비공개_사항>
 	<legislation:비공개_사항>경영정상화계획을 추진하기 위한 방법에 관한 사항</legislation:비공개_사항>
 
-	<legislation:법명>공적자금관리 특별법 시행령</legislation:법명>	
-	<legislation:조문>9조</legislation:조문>
 	<legislation:LAW_ID>200102140001</legislation:LAW_ID>
 	<legislation:LAW_SID>0008</legislation:LAW_SID>
 	<legislation:JJ_NO>000000000000000</legislation:JJ_NO>
@@ -393,8 +361,6 @@
 <rdf:Description rdf:about="http://imc.ssu.ac.kr/law/legislation#공적자금상환기금법_시행령">
 	<legislation:목적>공적자금상환기금법」에서 위임된 사항과 그 시행에 필요한 사항을 규정함을</legislation:목적>
 
-	<legislation:법명>공적자금상환기금법</legislation:법명>	
-	<legislation:조문>1조</legislation:조문>
 	<legislation:LAW_ID >200212300001</legislation:LAW_ID>
 	<legislation:LAW_SID>0005</legislation:LAW_SID>
 	<legislation:JJ_NO>000000000000000</legislation:JJ_NO>
@@ -404,15 +370,14 @@
 <rdf:Description rdf:about="http://imc.ssu.ac.kr/law/legislation#공적자금상환기금법">
 	<legislation:목적>한국자산관리공사가 금융구조조정을 위하여 부담한 채무의 원활한 상환(償還)을 위한 공적자금상환기금의 설치 및 그 운용·관리 등에 필요한 사항을 규정함</legislation:목적>
 	
-	<legislation:법명>공적자금상환기금법</legislation:법명>	
-	<legislation:조문>1조</legislation:조문>
 	<legislation:LAW_ID >200212260001</legislation:LAW_ID>
 	<legislation:LAW_SID>0009</legislation:LAW_SID>
 	<legislation:JJ_NO>000000000000000</legislation:JJ_NO>
 	<legislation:JO_NO>000100</legislation:JO_NO>
-</rdf:Description>	
-	
+</rdf:Description>
+
 <rdf:Description rdf:about="http://imc.ssu.ac.kr/law/legislation#공적자금상환기금">
+	
 	<legislation:재원>공공자금관리기금으로부터의 예수금</legislation:재원>
 	<legislation:재원>국가재정법 제90조에 따른 세계잉여금</legislation:재원>
 	<legislation:재원>정부의 회계로부터의 출연금</legislation:재원>
@@ -422,8 +387,6 @@
 	<legislation:재원>제9조에 따른 일시차입금</legislation:재원>
 	<legislation:재원>대통령령으로 정하는 자금</legislation:재원>
 
-	<legislation:법명>공적자금상환기금법</legislation:법명>	
-	<legislation:조문>3조</legislation:조문>
 	<legislation:LAW_ID>200212260001</legislation:LAW_ID>
 	<legislation:LAW_SID>0009</legislation:LAW_SID>
 	<legislation:JJ_NO>000000000000000</legislation:JJ_NO>
@@ -433,8 +396,6 @@
 	<legislation:용도>기금의 부채 상환</legislation:용도>	
 	<legislation:용도>기금의 운용·관리에 필요한 비용</legislation:용도>	
 
-	<legislation:법명>공적자금상환기금법</legislation:법명>	
-	<legislation:조문>4조</legislation:조문>
 	<legislation:LAW_ID>200212260001</legislation:LAW_ID>
 	<legislation:LAW_SID>0009</legislation:LAW_SID>
 	<legislation:JJ_NO>000000000000000</legislation:JJ_NO>
@@ -445,8 +406,6 @@
 	<legislation:출연>우체국예금특별회계는 매년 「우체국예금·보험에 관한 법률에 따른 우체국예금의 전년도 평균 잔액에 1천분의 3을 초과하지 아니하는 범위에서 대통령령으로 정하는 비율을 곱한 금액(그 금액이 10만원보다 적은 경우에는 10만원)을 기금</legislation:출연>	
 	<legislation:출연>우체국보험특별회계는 매년 전년도에 적립한 책임준비금 등을 고려하여 대통령령으로 정하는 금액에 1천분의 3을 초과하지 아니하는 범위에서 대통령령으로 정하는 비율을 곱한 금액(그 금액이 10만원보다 적은 경우에는 10만원)을 기금</legislation:출연>	
 
-	<legislation:법명>공적자금상환기금법</legislation:법명>	
-	<legislation:조문>5조</legislation:조문>
 	<legislation:LAW_ID>200212260001</legislation:LAW_ID>
 	<legislation:LAW_SID>0009</legislation:LAW_SID>
 	<legislation:JJ_NO>000000000000000</legislation:JJ_NO>
@@ -457,8 +416,6 @@
 	<legislation:채무>부실채권정리기금의 부담으로 상환하여야 하는 채권 중 대통령령으로 정한 채권의 원리금</legislation:채무>
 	<legislation:채무>공공자금관리기금의 융자계정으로부터 지원받은 융자금</legislation:채무>		
 
-	<legislation:법명>공적자금상환기금법</legislation:법명>	
-	<legislation:조문>2조</legislation:조문>
 	<legislation:LAW_ID>200212260001</legislation:LAW_ID>
 	<legislation:LAW_SID>0009</legislation:LAW_SID>
 	<legislation:JJ_NO>000000000000000</legislation:JJ_NO>
@@ -469,8 +426,6 @@
 	<legislation:채무>부실채권정리기금의 부담으로 상환하여야 하는 채권 중 대통령령으로 정한 채권의 원리금</legislation:채무>
 	<legislation:채무>공공자금관리기금의 융자계정으로부터 지원받은 융자금</legislation:채무>
 
-	<legislation:법명>공적자금상환기금법</legislation:법명>	
-	<legislation:조문>2조</legislation:조문>
 	<legislation:LAW_ID >200212260001</legislation:LAW_ID>
 	<legislation:LAW_SID>0009</legislation:LAW_SID>
 	<legislation:JJ_NO>000000000000000</legislation:JJ_NO>
@@ -485,14 +440,11 @@
 	<legislation:심의>기금의 운용·관리에 관한 중요 사항으로서 대통령령으로 정하는 사항</legislation:심의>
 	<legislation:심의>심의회의 위원장이 필요하다고 인정하여 회의에 부치는 사항</legislation:심의>
 
-	<legislation:법명>공적자금상환기금법</legislation:법명>	
-	<legislation:조문>10조</legislation:조문>
 	<legislation:LAW_ID>200212260001</legislation:LAW_ID>
 	<legislation:LAW_SID>0009</legislation:LAW_SID>
 	<legislation:JJ_NO>000000000000000</legislation:JJ_NO>
 	<legislation:JO_NO>001000</legislation:JO_NO>
 </rdf:Description>
-
 
 <rdf:Description rdf:about="http://imc.ssu.ac.kr/law/legislation#기금결산보고서">
 	<legislation:첨부서류>기금의 개황(槪況) 및 분석에 관한 서류</legislation:첨부서류>
@@ -501,8 +453,6 @@
 	<legislation:첨부서류>수입 및 지출계산서 등 현금의 수입 및 지출을 명백히 하는 서류</legislation:첨부서류>
 	<legislation:첨부서류>결산과 관련된 서류</legislation:첨부서류>
 
-	<legislation:법명>공적자금상환기금법 시행령</legislation:법명>	
-	<legislation:조문>4조</legislation:조문>
 	<legislation:LAW_ID>200212300001</legislation:LAW_ID>
 	<legislation:LAW_SID >0005</legislation:LAW_SID>
 	<legislation:JJ_NO>000000000000000</legislation:JJ_NO>
@@ -514,8 +464,6 @@
 	<legislation:체결사항>대행 수수료 및 비용</legislation:체결사항>
 	<legislation:체결사항>대행업무의 수행에 필요한 사항</legislation:체결사항>
 
-	<legislation:법명>공적자금상환기금법 시행령</legislation:법명>	
-	<legislation:조문>4조</legislation:조문>
 	<legislation:LAW_ID>200212300001</legislation:LAW_ID>
 	<legislation:LAW_SID>0005</legislation:LAW_SID>
 	<legislation:JJ_NO>000000000000000</legislation:JJ_NO>
@@ -531,8 +479,6 @@
 	<legislation:위원>한국자산관리공사의 임원으로서 부실채권정리기금의 관리를 담당하는 사람</legislation:위원>
 	<legislation:위원>기금의 관리 및 운용에 관한 전문지식과 경험이 풍부하다고 인정되는 사람으로서 금융위원회가 위촉하는 사람</legislation:위원>
 
-	<legislation:법명>공적자금상환기금법 시행령</legislation:법명>	
-	<legislation:조문>8조</legislation:조문>
 	<legislation:LAW_ID>200212300001</legislation:LAW_ID>
 	<legislation:LAW_SID>0005</legislation:LAW_SID>
 	<legislation:JJ_NO>000000000000000</legislation:JJ_NO>
@@ -541,9 +487,7 @@
 
 <rdf:Description rdf:about="http://imc.ssu.ac.kr/law/legislation#기금운용심의회_위원">
 	<legislation:임기>2년</legislation:임기>
-
-	<legislation:법명>공적자금상환기금법 시행령</legislation:법명>	
-	<legislation:조문>8조</legislation:조문>
+	
 	<legislation:LAW_ID>200212300001</legislation:LAW_ID>
 	<legislation:LAW_SID>0005</legislation:LAW_SID>
 	<legislation:JJ_NO>000000000000000</legislation:JJ_NO>

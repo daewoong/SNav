@@ -32,7 +32,7 @@ var genSearch = function(){
 			literal: '#FF003D',
 	};
 	
-
+	
 	
 	return {
 		init: function(){
@@ -40,7 +40,9 @@ var genSearch = function(){
 			alert("genSearch init");
 			
 			$("#submitform").submit(function(){
-			    	
+				
+				//$('#submitform').attr('title', 'your new title');
+				
 				alert("Submitted");
 				keyword = $("form").serialize();
 				searchTerm = document.getElementById("textForm").value;
@@ -364,20 +366,30 @@ var Renderer = function(canvas){
               ctx.lineTo (pt2.x, pt2.y);
               ctx.stroke ();
               
+//             var len = edge.data.name.length;
+              var edgeName = edge.data.name;
+              
+//              if(len>=10){
+//            	edgeName = edgeName.substring(0,10) + "...";  
+//            	
+//              }
+              
+             // alert(len);
+             
 //              alert(edge.data.name);
               if(edge.data.name == searchTerm){           	  
             	  //italic
                   ctx.fillStyle = "#680000";             	 
                   ctx.font = 'bold 14px Courier';
                   //ctx.fillText (edge.data.name, (pt1.x + pt2.x) / 2, (pt1.y + pt2.y) / 2);
-                  ctx.fillText (edge.data.name, (pt1.x + pt2.x) / 2, (pt1.y + pt2.y) / 2);
+                  ctx.fillText (edgeName, (pt1.x + pt2.x) / 2, (pt1.y + pt2.y) / 2);
                   
               }else{
             	  //italic
                   ctx.fillStyle = "#5C85AD";            
                   ctx.font = 'bold 14px sans-serif';
                   //ctx.fillText (edge.data.name, (pt1.x + pt2.x) / 2, (pt1.y + pt2.y) / 2);
-                  ctx.fillText (edge.data.name, (pt1.x + pt2.x) / 2, (pt1.y + pt2.y) / 2);
+                  ctx.fillText (edgeName, (pt1.x + pt2.x) / 2, (pt1.y + pt2.y) / 2);
               }                        
           });
 
@@ -393,17 +405,28 @@ var Renderer = function(canvas){
               ctx.fill();
               ctx.lineWidth = 5;
               
+              var len = node.name.length;
+              var nodeName = node.name;
+              
+              if(len>=12){
+            	nodeName = nodeName.substring(0,13) + "...";  
+            	
+              }
+              
               //ctx.fillStyle = "#D6E0EB";
               if(node.name == searchTerm){
 	              ctx.fillStyle = "#680000";
 	              ctx.font = 'bold 14px sans-serif';
-	              ctx.fillText (node.name, pt.x-15, pt.y);
+	              ctx.fillText (nodeName, pt.x-15, pt.y);
               }else{
             	  ctx.fillStyle = "gray";
 	              ctx.font = 'bold 14px sans-serif';
-	              ctx.fillText (node.name, pt.x-15, pt.y);
+	              ctx.fillText (nodeName, pt.x-15, pt.y);
               }
               //ctx.strokeStyle = '#003300';
+              
+              
+              
               ctx.stroke();
           });       
       },
@@ -428,8 +451,9 @@ var Renderer = function(canvas){
               dragged.node.fixed = true;
      
             }
-         		            
-            $(canvas).bind('mousemove', handler.dragged);
+            
+            $(canvas).bind('mousemove', handler.dragged);    
+//            $(canvas).bind('mouseover', handler.over);  
             $(window).bind('mouseup', handler.dropped);
 
             return false;
@@ -448,7 +472,7 @@ var Renderer = function(canvas){
 
             return false;
           },
-
+          
           /** dropped */
           dropped:function(e){
         	  
@@ -457,22 +481,36 @@ var Renderer = function(canvas){
             dragged.node.tempMass = 1000;
             
             //03.18
-	            var id = dragged.node.name;		              
-	            alert(id);
-              
+	        var id = dragged.node.name;		              
+//	        alert(id);
+	        
+	        $(canvas).attr('title', id);  
+	        //$.print('sdsdsdd');
+	        
             dragged = null;
-
-            $(canvas).unbind('mousemove', handler.dragged);
+            
+            $(canvas).unbind('mousemove', handler.dragged);           
             $(window).unbind('mouseup', handler.dropped);
             _mouseP = null;
 
             return false;
+          },
+          
+          over:function(e){
+        	  
+        	 alert("over");
+        	 
+//             $(canvas).unbind('mousemove', handler.dragged);    
+//             $(canvas).unbind('mouseover', handler.over);  
+//             $(window).unbind('mouseup', handler.dropped);
+
           }
         };
         
-	        // start listening
-	        $(canvas).mousedown(handler.clicked);
-	        $(canvas).mousemove(handler.moved);
+	    // start listening
+	    $(canvas).mousedown(handler.clicked);
+	    $(canvas).mousemove(handler.moved);
+	    //$(canvas).mouseover(handler.over);
 	        
       }//init mousthandler	  
      

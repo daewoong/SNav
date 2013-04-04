@@ -13,6 +13,8 @@
   	<script src="../js/arbor-graphics.js"></script>
   	<script src="../js/arbor-tween.js"></script>
   	<script src="../js/gen-search.js"></script>
+  	<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+	<script type="text/javascript" src="js/jquery.tooltipster.js"></script>
 	
 </head>
 
@@ -23,9 +25,9 @@
   	<div class="logo">  	
   	</div> 	
     <div class="searchArea">
-		<form id="submitform" action="">
+		<form id="submitform" action="" title="search">
 			<label id="searchlabel">SEARCH TERM:</label>
-			<input type="text" name="search" id="textForm" class="textfield" value="구성인원">
+			<input type="text" name="search" id="textForm" class="textfield" value="공적자금관리_특별법">
 			<!--  <input type="submit" value="Search">	-->	
 			<input type="submit" class="img-btn" value="Search">	  
 		</form>
@@ -80,7 +82,7 @@
 	
 	<!-- canvasArea --> 
 	<div class="canvasArea">
- 		<canvas id="viewport" width="1159" height="1024"></canvas>
+ 		<canvas id="viewport" width="1159" height="1024" title="canvas"></canvas>
  	</div>	  	  	 
   </div>
   
