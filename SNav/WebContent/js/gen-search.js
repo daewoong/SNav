@@ -21,8 +21,16 @@ var genSearch = function(){
 	var keyword = "";
 	var count = 0;
 	var reSearch = 1;	
-	var metaLawName = [];
 	var findIndex = 0;
+	
+	//meta 
+	var metaLawName = [];
+	var metaJoName = [];
+	var metaLAWID = [];
+	var metaLAWSID = [];
+	var metaJJNO = [];
+	var metaJONO = [];
+	
 	
 	var colorType = {
 			root: '#FF003D',
@@ -78,16 +86,15 @@ var genSearch = function(){
 		querySuccess:function(data){
 			
 			alert("query success");
+//			genSearch.tableDataInit();
 			
 	            if(data != null)    {            	
 	                
 	            	dataSubject = data.subject;
 	                dataPredicate = data.predicate;
 	                dataObject = data.object;
-	                //dataMLawName = data.mlawname;
 	                dataCount = data.count;
-	                
-	                //alert(dataMLawName);
+
 	                genSearch.dataGenerate();
 	            }
 		},
@@ -106,107 +113,124 @@ var genSearch = function(){
 			var subject = dataSubject.split(rex);      
 			var predicate = dataPredicate.split(rex);
 			var object = dataObject.split(rex);
+			
+//			if(dataCount >= 20){
+//				count = 20;
+//			}else{
+//				count = dataCount;
+//			}
 			count = dataCount;
-			var next = 2;
+			
+			var next = 1;
 			var totalSubject = new Array();
 			var recomCount = 0;
-			var diffSIndex = 0;
+			var diffSIndex = 0;			
 			
-			//var count = subject.length;
-					
+	
 			for(var index=1; index<=count; index++){
 				
-				//search table
-//				if(predicate[index] == "조문"){
-//					
-//					var sTable = document.getElementById("searchResultTable"); 
-//					var sRow = sTable.insertRow(1);		
-//					var lNumCell = sRow.insertCell(0);
-//					lNumCell.innerHTML = object[index];
-//					
-//					for(var mark=index; mark<=index+1; mark++){
-//						if(predicate[mark] == "법명"){
-//							var lNameCell = sRow.insertCell(1);
-//							lNameCell.innerHTML = object[mark];
-//							
-//							var search = sRow.insertCell(2);
-//						}
-//					}
-//					
-//					//continue;
-//					
-//				}else if(predicate[index] == "법명"){
-//					//continue;	
-//				}else if(predicate[index] == "LAW_ID"){
-//					continue;
-//				}
+				next++;
 				
-				genSearch.tripleTable(subject[index], predicate[index], object[index]);
-						
-				
-				//make metadata structure
-				if(reSearch){
-				
-					if(subject[index] == subject[next]){
-						if(predicate[index] == "법명"){
-							metaLawName[diffSIndex] = object[index];
-						}
-											
-					}else{
-						totalSubject[recomCount++] = subject[index];	
-						diffSIndex++;
-					}
-					next++;
+				if(index==1){
+					//insert first subject
+					totalSubject[recomCount] = subject[index];	
+					recomCount++;
 				}
 				
+				//make metadata structure
+				//if(reSearch){								
+					if(subject[index] == subject[next]){
+						
+						if(predicate[index] == "법명"){
+							metaLawName[diffSIndex] = object[index];
+							continue;
+						}else if(predicate[index] == "조문"){
+							metaJoName[diffSIndex] = object[index];
+							continue;
+						}else if(predicate[index] == "LAW_ID"){
+							metaLAWID[diffSIndex] = object[index];
+							continue;
+						}else if(predicate[index] == "LAW_SID"){
+							metaLAWSID[diffSIndex] = object[index];
+							continue;
+						}else if(predicate[index] == "JJ_NO"){
+							metaJJNO[diffSIndex] = object[index];
+							continue;
+						}else if(predicate[index] == "JO_NO"){
+							metaJONO[diffSIndex] = object[index];
+							continue;
+						}						
+					}else if(index == count){	
+						
+						if(predicate[index] == "법명"){
+							metaLawName[diffSIndex] = object[index];	
+							continue;
+						}else if(predicate[index] == "조문"){
+							metaJoName[diffSIndex] = object[index];
+							continue;
+						}else if(predicate[index] == "LAW_ID"){
+							metaLAWID[diffSIndex] = object[index];
+							continue;
+						}else if(predicate[index] == "LAW_SID"){
+							metaLAWSID[diffSIndex] = object[index];
+							continue;
+						}else if(predicate[index] == "JJ_NO"){
+							metaJJNO[diffSIndex] = object[index];
+							continue;
+						}else if(predicate[index] == "JO_NO"){
+							metaJONO[diffSIndex] = object[index];
+							continue;
+						}	
+					}
+					else{
+						totalSubject[recomCount] = subject[next];	
+						//alert(totalSubject[recomCount]);
+						recomCount++;
+						diffSIndex++;
+					}
+					//next++;
+				//}
+				//tripleTable
+				genSearch.tripleTable(subject[index], predicate[index], object[index]);
+				
+				//drawing Node
 				genSearch.drawingNode(subject[index], object[index], predicate[index], index);
 			}
-			
-			//search table
-//			var sTable = document.getElementById("searchResultTable"); 
-//			
-//			for(var k=0; k<totalSubject.length; k++){
-//				
-////				alert(totalSubject[k]);
-////				alert(metaLawName[k]);
-//				
-//				var sRow = sTable.insertRow(1);		
-//				var lNumCell = sRow.insertCell(0);
-//				var lNameCell = sRow.insertCell(1);
-//				var search = sRow.insertCell(2);
-//				lNumCell.innerHTML = metaLawName[k];
-//			}
-			
+						
 			genSearch.metaTable(totalSubject, findIndex);
 			genSearch.recomTable(totalSubject);
-											
+			
 		},
 		
 		//need to change parameter
 		metaTable:function(totalSubject, findIndex){
-							
+			
 			//meta search table
 			var sTable = document.getElementById("searchResultTable"); 
 			
+			var metaIndex = metaLawName.length;
+			//alert(metaIndex);
+			
 			if(reSearch){
-				for(var k=0; k<totalSubject.length; k++){
-					
-	//				alert(totalSubject[k]);
-	//				alert(metaLawName[k]);
-					
+				for(var k=0; k<metaIndex; k++){
+					//alert("k: " + k + "meta : " + metaLawName[k]);
 					var sRow = sTable.insertRow(1);		
-					var lNumCell = sRow.insertCell(0);
-					var lNameCell = sRow.insertCell(1);
+					
+					var lNameCell = sRow.insertCell(0);
+					var lNumCell = sRow.insertCell(1);
 					var search = sRow.insertCell(2);
-					lNumCell.innerHTML = metaLawName[k];
+					
+					lNameCell.innerHTML = metaLawName[k];
+					lNumCell.innerHTML = metaJoName[k];										
 				}
 			}else{
-//				alert("metaTable " + findIndex);
+
 				var sRow = sTable.insertRow(1);		
-				var lNumCell = sRow.insertCell(0);
-				var lNameCell = sRow.insertCell(1);
+				var lNameCell = sRow.insertCell(0);
+				var lNumCell = sRow.insertCell(1);
 				var search = sRow.insertCell(2);
-				lNumCell.innerHTML = metaLawName[findIndex];
+				lNameCell.innerHTML = metaLawName[findIndex];
+				lNumCell.innerHTML = metaJoName[findIndex];
 			}
 		},
 		
@@ -218,12 +242,12 @@ var genSearch = function(){
 			var sCell = row.insertCell(0);
 			var pCell = row.insertCell(1);
 			var oCell = row.insertCell(2);
-			var kCell = row.insertCell(3);
+			//var kCell = row.insertCell(3);
 			
 			sCell.innerHTML = subject;
 			pCell.innerHTML = predicate;
 			oCell.innerHTML = object;		
-			kCell.innerHTML = "검색";
+			//kCell.innerHTML = "검색";
 			
 			//results count
 			document.getElementById("count").innerHTML = "( " + count + " )";
@@ -231,26 +255,24 @@ var genSearch = function(){
 		},	
 		
 		recomTable:function(recommendationSubject){
-			
-			
+						
 			//recom table
-			for(var rCount=0; rCount < recommendationSubject.length; rCount++){
+			for(var rCount=0; rCount<recommendationSubject.length; rCount++){
 				var rTable = document.getElementById("recomTable");
 				var row = rTable.insertRow(1);
 				var rSCell = row.insertCell(0);
-				rSCell.innerHTML = recommendationSubject[rCount];;
+				//alert("rcout: " + rCount + " value : " + recommendationSubject[rCount]);
+				rSCell.innerHTML = recommendationSubject[rCount];
 			}
-			
+						
 			//table click event
 			$('#recomTable td').live("click",function(){
 				var originkeyword = $(this).html();
-				
 				keyword = "search=" + originkeyword;
 				reSearch = 0;
 				
 				for(var metaLawNameIndex=0; metaLawNameIndex<recommendationSubject.length; metaLawNameIndex++){
-//					alert("keyword :" + originkeyword);
-//					alert("recome keyword :" + recommendationSubject[metaLawNameIndex]);
+
 					if(originkeyword == recommendationSubject[metaLawNameIndex]){
 						//need to change parameter
 //						alert("recome " + metaLawNameIndex);
@@ -259,10 +281,6 @@ var genSearch = function(){
 						break;
 					}
 				}
-					
-//				for(var rCount=0; rCount<recommendationSubject.length; rCount++){
-//					document.getElementById("recomTable").deleteRow(1);
-//				}
 				
 				genSearch.tableDataInit();
 				genSearch.connectionAgent(keyword);
@@ -273,9 +291,9 @@ var genSearch = function(){
 		
 		tableDataInit:function(){
 			
-			for(var index=1; index<=count; index++){				
-				document.getElementById("resultTable").deleteRow(1);				
-			}
+//			for(var index=1; index<=count; index++){				
+//				document.getElementById("resultTable").deleteRow(1);				
+//			}
 			
 //			for(var index=0; index<metaLawName.length; index++){				
 //				document.getElementById("searchResultTable").deleteRow(1);				
@@ -380,14 +398,14 @@ var Renderer = function(canvas){
               if(edge.data.name == searchTerm){           	  
             	  //italic
                   ctx.fillStyle = "#680000";             	 
-                  ctx.font = 'bold 14px Courier';
+                  ctx.font = 'bold 15px Courier';
                   //ctx.fillText (edge.data.name, (pt1.x + pt2.x) / 2, (pt1.y + pt2.y) / 2);
                   ctx.fillText (edgeName, (pt1.x + pt2.x) / 2, (pt1.y + pt2.y) / 2);
                   
               }else{
             	  //italic
                   ctx.fillStyle = "#5C85AD";            
-                  ctx.font = 'bold 14px sans-serif';
+                  ctx.font = 'bold 12px sans-serif';
                   //ctx.fillText (edge.data.name, (pt1.x + pt2.x) / 2, (pt1.y + pt2.y) / 2);
                   ctx.fillText (edgeName, (pt1.x + pt2.x) / 2, (pt1.y + pt2.y) / 2);
               }                        
@@ -408,19 +426,19 @@ var Renderer = function(canvas){
               var len = node.name.length;
               var nodeName = node.name;
               
-              if(len>=12){
-            	nodeName = nodeName.substring(0,13) + "...";  
-            	
+              if(len>10){
+            	nodeName = nodeName.substring(0,8) + "..";  
+          	
               }
               
               //ctx.fillStyle = "#D6E0EB";
               if(node.name == searchTerm){
 	              ctx.fillStyle = "#680000";
-	              ctx.font = 'bold 14px sans-serif';
+	              ctx.font = 'bold 15px sans-serif';
 	              ctx.fillText (nodeName, pt.x-15, pt.y);
               }else{
             	  ctx.fillStyle = "gray";
-	              ctx.font = 'bold 14px sans-serif';
+	              ctx.font = 'bold 13px sans-serif';
 	              ctx.fillText (nodeName, pt.x-15, pt.y);
               }
               //ctx.strokeStyle = '#003300';
