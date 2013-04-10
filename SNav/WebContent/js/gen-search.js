@@ -159,7 +159,8 @@ var genSearch = function(){
 						}else if(predicate[index] == "JO_NO"){
 							metaJONO[diffSIndex] = object[index];
 							continue;
-						}						
+						}	
+												
 					}else if(index == count){	
 						
 						if(predicate[index] == "법명"){
@@ -190,13 +191,73 @@ var genSearch = function(){
 					}
 					//next++;
 				//}
+					
 				//tripleTable
-				genSearch.tripleTable(subject[index], predicate[index], object[index]);
+				genSearch.tripleTable(subject[index], predicate[index], object[index], index);
 				
 				//drawing Node
 				genSearch.drawingNode(subject[index], object[index], predicate[index], index);
 			}
+			
+			if(totalSubject.length == 1){
+				
+				var lawName = 0;
+				var joName = 0;
+				var lawID = 0;
+				var lawSID = 0;
+				var jjNO = 0;
+				var joNO = 0;
+				
+				
+				for(var index=1; index<=count; index++){
+					//alert(predicate[index]);							
+					if(index == count){	
 						
+						if(predicate[index] == "법명"){
+							metaLawName[lawName++] = object[index];	
+							continue;
+						}else if(predicate[index] == "조문"){
+							metaJoName[joName++] = object[index];
+							continue;
+						}else if(predicate[index] == "LAW_ID"){
+							metaLAWID[lawID++] = object[index];
+							continue;
+						}else if(predicate[index] == "LAW_SID"){
+							metaLAWSID[lawSID++] = object[index];
+							continue;
+						}else if(predicate[index] == "JJ_NO"){
+							metaJJNO[jjNO++] = object[index];
+							continue;
+						}else if(predicate[index] == "JO_NO"){
+							metaJONO[joNO++] = object[index];
+							continue;
+						}	
+					}
+					else {
+						if(predicate[index] == "법명"){
+							metaLawName[lawName++] = object[index];
+							alert(metaLawName[lawName-1]);
+							continue;
+						}else if(predicate[index] == "조문"){
+							metaJoName[joName++] = object[index];
+							continue;
+						}else if(predicate[index] == "LAW_ID"){
+							metaLAWID[lawID++] = object[index];
+							continue;
+						}else if(predicate[index] == "LAW_SID"){
+							metaLAWSID[lawSID++] = object[index];
+							continue;
+						}else if(predicate[index] == "JJ_NO"){
+							metaJJNO[jjNO++] = object[index];
+							continue;
+						}else if(predicate[index] == "JO_NO"){
+							metaJONO[joNO++] = object[index];
+							continue;
+						}	
+					}															
+				}
+			}
+			
 			genSearch.metaTable(totalSubject, findIndex);
 			genSearch.recomTable(totalSubject);
 			
@@ -208,20 +269,40 @@ var genSearch = function(){
 			//meta search table
 			var sTable = document.getElementById("searchResultTable"); 
 			
-			var metaIndex = metaLawName.length;
-			//alert(metaIndex);
+			var metaIndex = metaJoNO.length;		
+			//alert(metaIndex);			
 			
 			if(reSearch){
 				for(var k=0; k<metaIndex; k++){
-					//alert("k: " + k + "meta : " + metaLawName[k]);
-					var sRow = sTable.insertRow(1);		
+					
+					//var sTable = document.getElementById("searchResultTable"); 
+				
+					var sRow = sTable.insertRow(1);
 					
 					var lNameCell = sRow.insertCell(0);
 					var lNumCell = sRow.insertCell(1);
 					var search = sRow.insertCell(2);
 					
-					lNameCell.innerHTML = metaLawName[k];
-					lNumCell.innerHTML = metaJoName[k];										
+					if(metaLawName[k] == null){
+															
+						//lNameCell.innerHTML = '<a href = '+ lawName + '>' + metaLawName[0] + '</a>';						
+						lNumCell.innerHTML = '<a href = '+ lawNum + '>' + metaJoName[k]; + '</a>';	
+						
+					}else {							
+						
+						var lawName = "http://121.140.240.218:19312/iplaw/ssologin.jsp?TYPE=sso&USER_ID=law&ACTION_TYPE=LAW_DITL&DOCMAP_GID=D1" +
+						   "&LAW_ID=" + metaLAWID[k] +
+					       "&LAW_SID=" + metaLAWSID[k];
+				
+						var lawNum = "http://121.140.240.218:19312/iplaw/ssologin.jsp?TYPE=sso&USER_ID=law&ACTION_TYPE=LAW_DITL&DOCMAP_GID=D1" +
+				 			 "&LAW_ID=" + metaLAWID[k] +
+				 			 "&LAW_SID=" + metaLAWSID[k] +
+							 "&JJ_NO=" + metaJJNO[k] + 
+							 "&JO_NO=" + metaJONO[k];
+				
+						lNameCell.innerHTML = '<a href = '+ lawName + '>' + metaLawName[k] + '</a>';
+						lNumCell.innerHTML = '<a href = '+ lawNum + '>' + metaJoName[k]; + '</a>';	
+					}
 				}
 			}else{
 
@@ -234,11 +315,13 @@ var genSearch = function(){
 			}
 		},
 		
-		tripleTable:function(subject, predicate, object){
+		tripleTable:function(subject, predicate, object, index){
+			
 			
 			//triple table
 			var table = document.getElementById("resultTable"); 
 			var row = table.insertRow(1);
+			
 			var sCell = row.insertCell(0);
 			var pCell = row.insertCell(1);
 			var oCell = row.insertCell(2);
