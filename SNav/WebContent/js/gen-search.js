@@ -45,13 +45,13 @@ var genSearch = function(){
 	return {
 		init: function(){
 			
-			alert("genSearch init");
+			//alert("genSearch init");
 			
 			$("#submitform").submit(function(){
 				
 				//$('#submitform').attr('title', 'your new title');
 				
-				alert("Submitted");
+				//alert("Submitted");
 				keyword = $("form").serialize();
 				searchTerm = document.getElementById("textForm").value;
 				genSearch.tableDataInit();
@@ -138,7 +138,8 @@ var genSearch = function(){
 				}
 				
 				//make metadata structure
-				//if(reSearch){								
+				//if(reSearch){	
+				
 					if(subject[index] == subject[next]){
 						
 						if(predicate[index] == "법명"){
@@ -190,8 +191,8 @@ var genSearch = function(){
 						diffSIndex++;
 					}
 					//next++;
-				//}
-					
+				//}					
+				
 				//tripleTable
 				genSearch.tripleTable(subject[index], predicate[index], object[index], index);
 				
@@ -236,7 +237,6 @@ var genSearch = function(){
 					else {
 						if(predicate[index] == "법명"){
 							metaLawName[lawName++] = object[index];
-							alert(metaLawName[lawName-1]);
 							continue;
 						}else if(predicate[index] == "조문"){
 							metaJoName[joName++] = object[index];
@@ -269,40 +269,49 @@ var genSearch = function(){
 			//meta search table
 			var sTable = document.getElementById("searchResultTable"); 
 			
-			var metaIndex = metaJoNO.length;		
-			//alert(metaIndex);			
+			var metaIndex = metaLawName.length;		
+			var metaJoIndex = metaJONO.length;		
+			
+			//alert(metaJoIndex);
 			
 			if(reSearch){
-				for(var k=0; k<metaIndex; k++){
-					
-					//var sTable = document.getElementById("searchResultTable"); 
 				
-					var sRow = sTable.insertRow(1);
+				for(var k=0; k<metaJoIndex; k++){
 					
+					//alert("meta : " + k + " -> " + metaJONO[k]);
+					
+					var sRow = sTable.insertRow(1);					
 					var lNameCell = sRow.insertCell(0);
 					var lNumCell = sRow.insertCell(1);
 					var search = sRow.insertCell(2);
 					
-					if(metaLawName[k] == null){
-															
-						//lNameCell.innerHTML = '<a href = '+ lawName + '>' + metaLawName[0] + '</a>';						
-						lNumCell.innerHTML = '<a href = '+ lawNum + '>' + metaJoName[k]; + '</a>';	
+					if(metaLAWID[k] == null){
 						
-					}else {							
+						var lawNum = "http://121.140.240.218:19312/iplaw/ssologin.jsp?TYPE=sso&USER_ID=law&ACTION_TYPE=LAW_DITL&DOCMAP_GID=D1" +
+			 			 "&LAW_ID=" + metaLAWID[0] +
+			 			 "&LAW_SID=" + metaLAWSID[0] +
+						 "&JJ_NO=" + metaJJNO[k] + 
+						 "&JO_NO=" + metaJONO[k];	
+						
+						lNameCell.innerHTML = "";
+						lNumCell.innerHTML = '<a href = '+ lawNum + '>' + metaJoName[k]; + '</a>';	
+
+					}else{
 						
 						var lawName = "http://121.140.240.218:19312/iplaw/ssologin.jsp?TYPE=sso&USER_ID=law&ACTION_TYPE=LAW_DITL&DOCMAP_GID=D1" +
 						   "&LAW_ID=" + metaLAWID[k] +
 					       "&LAW_SID=" + metaLAWSID[k];
-				
+						
 						var lawNum = "http://121.140.240.218:19312/iplaw/ssologin.jsp?TYPE=sso&USER_ID=law&ACTION_TYPE=LAW_DITL&DOCMAP_GID=D1" +
-				 			 "&LAW_ID=" + metaLAWID[k] +
-				 			 "&LAW_SID=" + metaLAWSID[k] +
-							 "&JJ_NO=" + metaJJNO[k] + 
-							 "&JO_NO=" + metaJONO[k];
-				
+			 			 "&LAW_ID=" + metaLAWID[k] +
+			 			 "&LAW_SID=" + metaLAWSID[k] +
+						 "&JJ_NO=" + metaJJNO[k] + 
+						 "&JO_NO=" + metaJONO[k];				
+					
 						lNameCell.innerHTML = '<a href = '+ lawName + '>' + metaLawName[k] + '</a>';
 						lNumCell.innerHTML = '<a href = '+ lawNum + '>' + metaJoName[k]; + '</a>';	
-					}
+					}								
+														
 				}
 			}else{
 
@@ -432,7 +441,7 @@ var Renderer = function(canvas){
    
     var particleSystem;
 
-    alert("RDF Triple Rendering");
+    //alert("RDF Triple Rendering");
     
     return {
       		

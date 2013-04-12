@@ -74,8 +74,8 @@ public class SNavQuery {
 		PREFIXpredicate = stmt.getNameSpaceP();
 		PREFIXobject = stmt.getNameSpaceO();
 				
-		this.model = stmt.getModel();
-			
+		this.model = stmt.getModel();		
+		
 		//String queryString = "SELECT * { <http://imc.ssu.ac.kr/law/election#읍·면·동선거관리위원회> ?predicate ?object }";
 		//String queryString = getQueryPredicate(this.varPredicate);
 		
@@ -104,13 +104,12 @@ public class SNavQuery {
 		    Iterator iterator = resultVarNames.iterator();
 		    
 		    String var1 = resultVarNames.get(0);
-		    String var2 = resultVarNames.get(1);
-		  	int index = 0;		 
+		    String var2 = resultVarNames.get(1);	 
 		  	
 			if(results.hasNext()){
 			  	//query results navigation
 			    while(results.hasNext()){
-			    
+			    	
 			    	QuerySolution soln = results.nextSolution();
 			   		    	
 			    	RDFNode r = soln.get(var1);
@@ -123,6 +122,8 @@ public class SNavQuery {
 			    	//get literal
 			        String convertLiteral = String.valueOf(l.getValue());
 			        
+			        System.out.println(subject + " : " + nonURIValue + " : " + convertLiteral);
+			        
 			        this.vSubject.add(subject);
 			    	this.vPredicate.add(nonURIValue);
 			    	this.vObject.add(convertLiteral);
@@ -133,10 +134,11 @@ public class SNavQuery {
 //				    	}else{
 //				    		this.vObject.add(convertLiteral);
 //				    	} 
-//			    	}
-	
+//			    	}	
 				    		    	
-			    }
+			    }			    
+			    System.out.println("Triple Size: " + this.vSubject.size());
+			    
 			}else{System.out.println("This keyword is not Subject.");}		   
 		    		    
 		  } finally { qexec.close(); }		
@@ -146,7 +148,11 @@ public class SNavQuery {
 		
 		Query query = QueryFactory.create(queryString);
 		QueryExecution qexec = QueryExecutionFactory.create(query, this.model);
-			
+		
+		Vector<String> compareVector = new Vector<String>();
+		int index = 0;
+		int first = 0;
+		
 		  try {
 		    ResultSet results = qexec.execSelect();			 
 		    List<String> resultVarNames = results.getResultVars();
@@ -154,8 +160,7 @@ public class SNavQuery {
 		    
 		    String var1 = resultVarNames.get(0);
 		    String var2 = resultVarNames.get(1);
-		  	int index = 0;
-		 		 
+		 	
 		  	if(results.hasNext()){
 		  		
 			  	//query results navigation
@@ -168,14 +173,26 @@ public class SNavQuery {
 			    	
 			    	//query results added vector
 			    	int nameSpaceLenth = r.asResource().getNameSpace().length();
-			    	String nonURIValue = r.asResource().getURI().substring(nameSpaceLenth);
-			    	//this.vSubject.add(nonURIValue);		    	
-				    
+			    	String nonURIValue = r.asResource().getURI().substring(nameSpaceLenth);		    	
+			    	compareVector.add(nonURIValue);
+			    	
+			    	//same subject check
+			    	if(index == first){
+			    		String querySubject = getQuerySubject(nonURIValue);
+				    	queryExecuteESubject(nonURIValue, querySubject);	
+			    	}else if(index >= 1){
+			    		int bool = compareVector.get(index-1).compareTo(compareVector.get(index));
+			    		if(bool != 0){
+			    			String querySubject = getQuerySubject(nonURIValue);
+					    	queryExecuteESubject(nonURIValue, querySubject);
+			    		}else{}
+			    	}
+			    	index++;
+			    				    	
 			    	//String querySubject = getQuerySubject(this.vSubject.get(index));
-			    	String querySubject = getQuerySubject(nonURIValue);
-			    	queryExecuteESubject(nonURIValue, querySubject);
+//			    	String querySubject = getQuerySubject(nonURIValue);
+//			    	queryExecuteESubject(nonURIValue, querySubject);
 			    		    	
-			    	//System.out.println(this.vSubject.get(index++));
 			    }
 		  	}
 			else{System.out.println("This keyword is not Predicate.");}
@@ -237,13 +254,10 @@ public class SNavQuery {
 		try {
 		    ResultSet results = qexec.execSelect();			 
 		    List<String> resultVarNames = results.getResultVars();
-		    Iterator iterator = resultVarNames.iterator();
 		    
 		    String predicate = resultVarNames.get(0);
 		    String object = resultVarNames.get(1);
-		  	
-		    int index = 0;
-		    
+		  			    
 		  	//query results navigation from subject
 		    while(results.hasNext()){
 		    	
@@ -258,14 +272,17 @@ public class SNavQuery {
 		    	
 		    	//get literal
 		        String convertLiteral = String.valueOf(l.getValue());
-		        		        
+		        
+		        System.out.println(nonURISubjectValue + " : " + nonURIPredicateValue + " : " + convertLiteral);
+		        
 			    this.vSubject.add(nonURISubjectValue);
 		    	this.vPredicate.add(nonURIPredicateValue);		    	
 		    	this.vObject.add(convertLiteral);
 		    }
 		    
 		    //ResultSetFormatter.out(System.out, results);
-		    		    
+		  
+		    System.out.println("Triple Size: " + this.vSubject.size());
 		   } finally { qexec.close(); }	
 		
 		//ResultSet resultset = qexec.execSelect();
@@ -316,7 +333,8 @@ public class SNavQuery {
 		
 		varSubject = "<"+ this.PREFIXsubject + varSubject + ">";
 		//System.out.println(varSubject);
-		String queryString = "SELECT * { "+ varSubject + " ?predicate ?object }";
+		String queryString = "SELECT * WHERE{ "+ varSubject + " ?predicate ?object } ORDER BY ?predicate";
+		//String queryString = "SELECT * WHERE{ "+ varSubject + " ?predicate ?object }";
 		System.out.println(queryString);
 		return queryString;
 		
@@ -326,14 +344,14 @@ public class SNavQuery {
 		
 		varPredicate = "<"+ this.PREFIXpredicate + varPredicate + ">";
 		//this.varPredicate = varPredicate;
-		String queryString = "SELECT * { ?subject  " + varPredicate + " ?object }";
+		String queryString = "SELECT * WHERE{ ?subject  " + varPredicate + " ?object }";
 		System.out.println(queryString);
 		return queryString;
 	}
 	
 	private String getQueryObject(String varObject){
 		
-		String queryString = "SELECT * { ?subject ?predicate \"" + varObject + "\" }";
+		String queryString = "SELECT * WHERE{ ?subject ?predicate \"" + varObject + "\" }";
 		System.out.println(queryString);
 		return queryString;
 		  
@@ -342,14 +360,14 @@ public class SNavQuery {
 	private String getQueryMetaLawName(){
 		
 		String varPredicate = "<"+ this.PREFIXpredicate + "법명" + ">";
-		String queryString = "SELECT * { ?subject  " + varPredicate + " ?object }";
+		String queryString = "SELECT * WHERE{ ?subject  " + varPredicate + " ?object }";
 		System.out.println(queryString);
 		return queryString;		  
 	}
 	
 	private String getQuerySPO(){
 		
-		String queryString = "SELECT * { ?subject ?predicate ?object }";
+		String queryString = "SELECT * WHERE{ ?subject ?predicate ?object }";
 		return queryString;
 		  
 	}
@@ -374,37 +392,37 @@ public class SNavQuery {
 	    } 
 	}
 	
-	public void generalQueryProcess(){
+	public static void generalQueryProcess(){
 		
 		FileManager.get().addLocatorClassLoader(SNavQuery.class.getClassLoader());
-        Model model = FileManager.get().loadModel("exampleRDF/electionLaw2.rdf");
+        Model model = FileManager.get().loadModel("exampleRDF/law.rdf");
         
        // String queryString = "SELECT * { ?s ?p ?o }";
-        String queryString = "SELECT ?p { <http://imc.ssu.ac.kr/law/election#특별시·광역시·도선거관리위원회> ?p ?o }";
+        String queryString = "SELECT (COUNT(*) AS ?no) { <http://imc.ssu.ac.kr/law/legislation#공적자금관리위원회> <http://imc.ssu.ac.kr/2013/04/gensol/legislation#법명> ?o }";
         Query query = QueryFactory.create(queryString);
         QueryExecution qexec = QueryExecutionFactory.create(query, model);
         try {
             ResultSetRewindable results = ResultSetFactory.makeRewindable(qexec.execSelect());
 
-            System.out.println("---- XML ----");
-            ResultSetFormatter.outputAsXML(System.out, results);
-            results.reset();
+//            System.out.println("---- XML ----");
+//            ResultSetFormatter.outputAsXML(System.out, results);
+//            results.reset();
 
             System.out.println("---- Text ----");
             ResultSetFormatter.out(System.out, results);
             results.reset();
 
-            System.out.println("\n---- CSV ----");
-            ResultSetFormatter.outputAsCSV(System.out, results);
-            results.reset();
-
-            System.out.println("\n---- TSV ----");
-            ResultSetFormatter.outputAsTSV(System.out, results);
-            results.reset();
-            
-            System.out.println("\n---- JSON ----");
-            ResultSetFormatter.outputAsJSON(System.out, results);
-            results.reset();
+//            System.out.println("\n---- CSV ----");
+//            ResultSetFormatter.outputAsCSV(System.out, results);
+//            results.reset();
+//
+//            System.out.println("\n---- TSV ----");
+//            ResultSetFormatter.outputAsTSV(System.out, results);
+//            results.reset();
+//            
+//            System.out.println("\n---- JSON ----");
+//            ResultSetFormatter.outputAsJSON(System.out, results);
+//            results.reset();
             
         } finally {
             qexec.close();
@@ -515,6 +533,7 @@ public class SNavQuery {
 	
 	public static void main(String args[]){
 		
-		new SNavQuery("구성인원");
+		new SNavQuery("위원");
+		//generalQueryProcess();
 	}
 }

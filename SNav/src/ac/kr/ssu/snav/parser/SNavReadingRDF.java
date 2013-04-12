@@ -15,7 +15,7 @@ public class SNavReadingRDF {
 	//private String inputFileName = "c:\\exampleRDF/electionLaw2.rdf";
 	//private String inputFileName = "c:\\exampleRDF/vcard.rdf";
 	//private String inputFileName = "c:\\exampleRDF/electionLaw3.rdf";
-	private String inputFileName = "c:\\exampleRDF/law.rdf";
+	private String inputFileName = "c:\\exampleRDF/law4.rdf";
 	
 	private InputStream in;
 	
