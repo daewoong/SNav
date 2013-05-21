@@ -22,6 +22,9 @@ var genSearch = function(){
 	var count = 0;
 	var reSearch = 1;	
 	var findIndex = 0;
+	var tCount = 0;
+	var mainReSearch = 0;
+	var totalSubject = new Array();
 	
 	//meta 
 	var metaLawName = [];
@@ -30,6 +33,7 @@ var genSearch = function(){
 	var metaLAWSID = [];
 	var metaJJNO = [];
 	var metaJONO = [];
+	
 	
 	
 	var colorType = {
@@ -54,8 +58,13 @@ var genSearch = function(){
 				//alert("Submitted");
 				keyword = $("form").serialize();
 				searchTerm = document.getElementById("textForm").value;
-				genSearch.tableDataInit();
-				genSearch.connectionAgent(keyword);
+				
+				if(mainReSearch){
+					genSearch.tableDataInit(totalSubject);				
+					genSearch.connectionAgent(keyword);
+				}else
+					genSearch.connectionAgent(keyword);
+				
 				return false;
 			});
 						
@@ -67,6 +76,7 @@ var genSearch = function(){
 
 		connectionAgent:function(keyword){
 			
+			mainReSearch = 1;
 			//Clear all previous particles
 			this.sys.prune(function(node, from, to){return true;});
 			
@@ -106,8 +116,9 @@ var genSearch = function(){
 		
 		dataGenerate:function(){
 			
-			alert("triple generating");
-
+//			alert("triple generating");
+			research = 1;
+			
 			//var rex = /[\[|\,|\s|\]]/;
 			var rex = /\[|\,\s|\]/;
 			var subject = dataSubject.split(rex);      
@@ -122,11 +133,12 @@ var genSearch = function(){
 			count = dataCount;
 			
 			var next = 1;
-			var totalSubject = new Array();
+			//var totalSubject = new Array();
 			var recomCount = 0;
 			var diffSIndex = 0;			
 			
-	
+			
+			
 			for(var index=1; index<=count; index++){
 				
 				next++;
@@ -186,7 +198,7 @@ var genSearch = function(){
 					}
 					else{
 						totalSubject[recomCount] = subject[next];	
-						//alert(totalSubject[recomCount]);
+						alert(totalSubject[recomCount]);
 						recomCount++;
 						diffSIndex++;
 					}
@@ -261,6 +273,9 @@ var genSearch = function(){
 			genSearch.metaTable(totalSubject, findIndex);
 			genSearch.recomTable(totalSubject);
 			
+			//again search 
+			//mainReSearch = 1;
+			
 		},
 		
 		//need to change parameter
@@ -290,7 +305,7 @@ var genSearch = function(){
 						var lawNum = "http://121.140.240.218:19312/iplaw/ssologin.jsp?TYPE=sso&USER_ID=law&ACTION_TYPE=LAW_DITL&DOCMAP_GID=D1" +
 			 			 "&LAW_ID=" + metaLAWID[0] +
 			 			 "&LAW_SID=" + metaLAWSID[0] +
-						 "&JJ_NO=" + metaJJNO[k] + 
+						 "&JJ_NO=" + metaJJNO[0] + 
 						 "&JO_NO=" + metaJONO[k];	
 						
 						lNameCell.innerHTML = "";
@@ -326,6 +341,7 @@ var genSearch = function(){
 		
 		tripleTable:function(subject, predicate, object, index){
 			
+			tCount++;
 			
 			//triple table
 			var table = document.getElementById("resultTable"); 
@@ -342,12 +358,13 @@ var genSearch = function(){
 			//kCell.innerHTML = "검색";
 			
 			//results count
-			document.getElementById("count").innerHTML = "( " + count + " )";
+			document.getElementById("count").innerHTML = "( " + tCount + " )";
 			
 		},	
 		
 		recomTable:function(recommendationSubject){
 						
+			alert(recommendationSubject.length);
 			//recom table
 			for(var rCount=0; rCount<recommendationSubject.length; rCount++){
 				var rTable = document.getElementById("recomTable");
@@ -356,55 +373,67 @@ var genSearch = function(){
 				//alert("rcout: " + rCount + " value : " + recommendationSubject[rCount]);
 				rSCell.innerHTML = recommendationSubject[rCount];
 			}
-						
+			var testc = 0;
+			
 			//table click event
 			$('#recomTable td').live("click",function(){
 				var originkeyword = $(this).html();
 				keyword = "search=" + originkeyword;
-				reSearch = 0;
+				reSearch = 1;	
 				
 				for(var metaLawNameIndex=0; metaLawNameIndex<recommendationSubject.length; metaLawNameIndex++){
 
 					if(originkeyword == recommendationSubject[metaLawNameIndex]){
+						
 						//need to change parameter
-//						alert("recome " + metaLawNameIndex);
-						findIndex = metaLawNameIndex;
-						genSearch.metaTable(recommendationSubject, findIndex);
+						findIndex = metaLawNameIndex;																	
+						genSearch.tableDataInit(recommendationSubject);
+						
+						//Triple Result table count init.
+						tCount = 0;
+						genSearch.connectionAgent(keyword);
 						break;
 					}
 				}
 				
-				genSearch.tableDataInit();
-				genSearch.connectionAgent(keyword);
+				testc = 0;
+				
+//				genSearch.tableDataInit(recommendationSubject);
+//				genSearch.connectionAgent(keyword);
 				
 			});
 			
 		},	
 		
-		tableDataInit:function(){
+		tableDataInit:function(recommendationSubject){
 			
-//			for(var index=1; index<=count; index++){				
-//				document.getElementById("resultTable").deleteRow(1);				
-//			}
 			
-//			for(var index=0; index<metaLawName.length; index++){				
-//				document.getElementById("searchResultTable").deleteRow(1);				
-//			}
+			for(var index=0; index<metaLawName.length; index++){	
+				document.getElementById("searchResultTable").deleteRow(1);				
+			}			
 			
-//			for(var rCount=0; rCount<recommendationSubject.length; rCount++){
-//				document.getElementById("recomTable").deleteRow(1);
-//			}
+			for(var index=0; index<recommendationSubject.length; index++){
+				document.getElementById("recomTable").deleteRow(1);
+			}
+			
+			for(var index=0; index<tCount; index++){				
+				document.getElementById("resultTable").deleteRow(1);				
+			}
+			
 		},
 		
 		drawingNode:function(subject, object, predicate, index){
 						
 			//add node
 		    node1 = this.sys.addNode(subject, {mass:2, color:"skyblue"});
-		    node2 = this.sys.addNode(object, {mass:2, color:"yellow"});
+		    node2 = this.sys.addNode(object, {mass:2, color:"white"});
+		    //node3 = this.sys.addNode(object, {mass:2, color:"white"});
 		    //node3 = sys.addEdge(predicate,{'index':index});
 		    
 		    //add edge
+
 		    edge1 = this.sys.addEdge(node1, node2,{name: predicate, length:.75, pointSize:5});
+
 		},
 		
 		removeNodes: function(name, level){
@@ -511,7 +540,9 @@ var Renderer = function(canvas){
               
               ctx.arc(pt.x-w/2, pt.y-w/2, 20, 0, 2 * Math.PI, false);
               //ctx.fillStyle = 'skyblue';
+              //ctx.fillStyle = node.data.color;  //node color            
               ctx.fillStyle = node.data.color;  //node color
+              
               ctx.fill();
               ctx.lineWidth = 5;
               
@@ -523,7 +554,7 @@ var Renderer = function(canvas){
           	
               }
               
-              //ctx.fillStyle = "#D6E0EB";
+             //ctx.fillStyle = "#D6E0EB";        
               if(node.name == searchTerm){
 	              ctx.fillStyle = "#680000";
 	              ctx.font = 'bold 15px sans-serif';

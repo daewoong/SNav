@@ -26,7 +26,7 @@
     <div class="searchArea">
 		<form id="submitform" action="" title="search">
 			<label id="searchlabel">SEARCH TERM:</label>
-			<input type="text" name="search" id="textForm" class="textfield" value="공적자금관리위원회">
+			<input type="text" name="search" id="textForm" class="textfield" > <!-- value="공적자금관리위원회"> -->
 			<!--  <input type="submit" value="Search">	-->	
 			<input type="submit" class="img-btn" value="Search">	  
 		</form>
@@ -43,9 +43,11 @@
 				<tr>
 					<th class="th">추천 검색어</th>
 				</tr>
+				<!-- 
 				<tr>
 					<td></td>
-				</tr>			
+				</tr>
+				-->			
 			</table>			
 		</div>
 		
@@ -88,7 +90,7 @@
   <!-- results -->	
   <div class="bottom">
   	<div class="tripleResults">
-  		<table id="resultTable" width="690px">
+  		<table id="resultTable" width="690">
   			<caption>Triple Results <b id="count"></b></caption>
   			<tr>
   				<th class="th">Subject</th>
@@ -96,12 +98,15 @@
   				<th class="th">Object</th>
   				<!-- <th class="th">Search</th> -->
   			</tr>
+  			
+  			<!--  
   			<tr>
   				<td class="td"></td>
   				<td class="td"></td>
   				<td class="td"></td>
-  				<!--<td class="searchButton"></td> -->
-  			</tr>		
+  				<!--<td class="searchButton"></td> 
+  			</tr>	
+  			-->
   		</table>
   	</div>
   	<div class="searchResults">
@@ -112,11 +117,13 @@
   				<th class="th">조 문</th>
   				<th class="th">최 종 검 색</th>
   			</tr>
+  			<!--  
   			<tr>
   				<td class="td"></td>
   				<td class="td"></td>
   				<td class="td"></td>
-  			</tr>		
+  			</tr>	
+  			-->	
   		</table>
   	</div>
   </div>

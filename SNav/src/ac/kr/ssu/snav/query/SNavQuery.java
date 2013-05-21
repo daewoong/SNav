@@ -175,7 +175,7 @@ public class SNavQuery {
 			    	int nameSpaceLenth = r.asResource().getNameSpace().length();
 			    	String nonURIValue = r.asResource().getURI().substring(nameSpaceLenth);		    	
 			    	compareVector.add(nonURIValue);
-			    	
+			
 			    	//same subject check
 			    	if(index == first){
 			    		String querySubject = getQuerySubject(nonURIValue);
@@ -344,14 +344,14 @@ public class SNavQuery {
 		
 		varPredicate = "<"+ this.PREFIXpredicate + varPredicate + ">";
 		//this.varPredicate = varPredicate;
-		String queryString = "SELECT * WHERE{ ?subject  " + varPredicate + " ?object }";
+		String queryString = "SELECT * WHERE{ ?subject  " + varPredicate + " ?object } ORDER BY ?subject";
 		System.out.println(queryString);
 		return queryString;
 	}
 	
 	private String getQueryObject(String varObject){
 		
-		String queryString = "SELECT * WHERE{ ?subject ?predicate \"" + varObject + "\" }";
+		String queryString = "SELECT * WHERE{ ?subject ?predicate \"" + varObject + "\" } ORDER BY ?subject";
 		System.out.println(queryString);
 		return queryString;
 		  
@@ -395,10 +395,12 @@ public class SNavQuery {
 	public static void generalQueryProcess(){
 		
 		FileManager.get().addLocatorClassLoader(SNavQuery.class.getClassLoader());
-        Model model = FileManager.get().loadModel("exampleRDF/law.rdf");
+        Model model = FileManager.get().loadModel("exampleRDF/law5.rdf");
         
        // String queryString = "SELECT * { ?s ?p ?o }";
-        String queryString = "SELECT (COUNT(*) AS ?no) { <http://imc.ssu.ac.kr/law/legislation#공적자금관리위원회> <http://imc.ssu.ac.kr/2013/04/gensol/legislation#법명> ?o }";
+       // String queryString = "SELECT (COUNT(*) AS ?no) { <http://imc.ssu.ac.kr/law/legislation#공적자금관리위원회> <http://imc.ssu.ac.kr/2013/04/gensol/legislation#법명> ?o }";
+
+        String queryString = "SELECT * WHERE{ ?subject  <http://imc.ssu.ac.kr/2013/04/gensol/legislation#기재사항> ?object} ORDER BY ?subject";
         Query query = QueryFactory.create(queryString);
         QueryExecution qexec = QueryExecutionFactory.create(query, model);
         try {
@@ -533,7 +535,7 @@ public class SNavQuery {
 	
 	public static void main(String args[]){
 		
-		new SNavQuery("위원");
+		new SNavQuery("기재사항");
 		//generalQueryProcess();
 	}
 }
