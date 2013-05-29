@@ -39,7 +39,7 @@
   	<div class="panel">  	
 		<div class="recommendationKeyword">
 			<table id="recomTable" width="250px">
-				<caption>검색결과에 따른 추천</caption>
+				<caption>검색 결과에 따른 추천</caption>
 				<tr>
 					<th class="th">추천 검색어</th>
 				</tr>
@@ -55,11 +55,11 @@
 			<label>검색 속성</label><br>
 			<hr></hr>
 			<form id="propertyform" oninput="x.value=parseInt(a.value)">
-				<input type="radio" name="recom" value="re">추천검색<br>
-				<input type="radio" name="recom" value="re">연관검색<br><br>
+				<input type="radio" name="recom" value="re">추천 검색<br>
+				<input type="radio" name="recom" value="re">연관 검색<br><br>
 				<hr></hr>
-				<input type="checkbox" name="vehicle" value="Bike">법률검색<br>
-				<input type="checkbox" name="vehicle" value="Car">시맨틱검색<br><br>
+				<input type="checkbox" name="vehicle" value="Bike">법률 검색<br>
+				<input type="checkbox" name="vehicle" value="Car">시맨틱 검색<br><br>
 				<hr></hr>
 				<label>노드 속성</label><br>
 				<input list="node" name="node"></input><br>
@@ -89,43 +89,63 @@
   
   <!-- results -->	
   <div class="bottom">
-  	<div class="tripleResults">
-  		<table id="resultTable" width="690">
-  			<caption>Triple Results <b id="count"></b></caption>
-  			<tr>
-  				<th class="th">Subject</th>
-  				<th class="th">Predicate</th>
-  				<th class="th">Object</th>
-  				<!-- <th class="th">Search</th> -->
-  			</tr>
-  			
-  			<!--  
-  			<tr>
-  				<td class="td"></td>
-  				<td class="td"></td>
-  				<td class="td"></td>
-  				<!--<td class="searchButton"></td> 
-  			</tr>	
-  			-->
-  		</table>
+  
+  	<div class = "resultHeader">
+  
+  		<div>
+	  		<table width="690">
+	  			<caption>검색 결과 <b id="count"></b></caption>
+	  			<thead>		
+	  			<tr>
+	  				<th id="subject">주어</th>
+	  				<th id="predicate">술어</th>
+	  				<th id="object">목적어</th>
+	  				<!-- <th class="th">Search</th> -->
+	  			</tr>
+	  			</thead>
+	  		</table>
+  		</div>	
+  	
+		<div class="tripleResults">
+	  		<table id="resultTable"> 	
+	  			<tr>
+	  			<!--  
+	  				<td id="subject"></td>
+	  				<td id="predicate"></td>
+	  				<td id="object"></td>
+	  			-->
+	  			</tr>					 	
+	 			
+	  		</table>
+	  	</div>
   	</div>
-  	<div class="searchResults">
-  		<table id="searchResultTable" width="690px">
-  			<caption>Gen Search Results <b id="count"></b></caption>
-  			<tr>
-  				<th class="th">법 명</th>
-  				<th class="th">조 문</th>
-  				<th class="th">최 종 검 색</th>
-  			</tr>
-  			<!--  
-  			<tr>
-  				<td class="td"></td>
-  				<td class="td"></td>
-  				<td class="td"></td>
-  			</tr>	
-  			-->	
-  		</table>
-  	</div>
+  	
+  	<div class="tableHeader">	
+	  	<div>
+	  		<table class="searchResultsHeader" width="720">
+	  			<caption>검색어와 관련된 법명<b id="count"></b></caption>
+	  			<tr>
+	  				<th class="th">법 명</th>
+	  				<th class="th">조 문</th> 				
+	  			</tr>
+	  		</table>
+	  	</div>
+  	
+	  	<div class="searchResults">
+	  		<table id="searchResultTable" width="720px">
+	  			<tr>
+	  			</tr>
+	  			<!--  
+	  			<tr>
+	  				<td class="td"></td>
+	  				<td class="td"></td>
+	  				<td class="td"></td>
+	  			</tr>	
+	  			-->	
+	  		</table>
+	  	</div>
+	</div>
+	
   </div>
   
 </body>

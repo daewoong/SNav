@@ -69,8 +69,8 @@ var genSearch = function(){
 			});
 						
             //Start the renderer
-            //this.sys = arbor.ParticleSystem({friction:1, stiffness:900, repulsion:100, gravity: true, fps: 60, dt: 0.08, precision: 1.0});
-			this.sys = arbor.ParticleSystem({stiffness:200, repulsion:10, gravity: true, fps: 60, dt: 0.010});
+            this.sys = arbor.ParticleSystem({repulsion:2000, stiffness:200, friction:0.5, gravity: false, fps: 90, dt: 0.010, precision: 0});
+			//this.sys = arbor.ParticleSystem({stiffness:200, repulsion:10, gravity: true, fps: 60, dt: 0.010});
 			this.sys.renderer = Renderer("#viewport");
 		}, 
 
@@ -136,7 +136,7 @@ var genSearch = function(){
 			//var totalSubject = new Array();
 			var recomCount = 0;
 			var diffSIndex = 0;			
-			
+			var JoIndex = 0;
 			
 			
 			for(var index=1; index<=count; index++){
@@ -159,6 +159,7 @@ var genSearch = function(){
 							continue;
 						}else if(predicate[index] == "조문"){
 							metaJoName[diffSIndex] = object[index];
+							//alert("diff:" + diffSIndex + metaJoName[JoIndex]);
 							continue;
 						}else if(predicate[index] == "LAW_ID"){
 							metaLAWID[diffSIndex] = object[index];
@@ -181,6 +182,7 @@ var genSearch = function(){
 							continue;
 						}else if(predicate[index] == "조문"){
 							metaJoName[diffSIndex] = object[index];
+							//alert("diff:" + diffSIndex + metaJoName[JoIndex]);
 							continue;
 						}else if(predicate[index] == "LAW_ID"){
 							metaLAWID[diffSIndex] = object[index];
@@ -198,7 +200,7 @@ var genSearch = function(){
 					}
 					else{
 						totalSubject[recomCount] = subject[next];	
-						alert(totalSubject[recomCount]);
+						//alert(totalSubject[recomCount]);
 						recomCount++;
 						diffSIndex++;
 					}
@@ -213,7 +215,7 @@ var genSearch = function(){
 			}
 			
 			if(totalSubject.length == 1){
-				
+						
 				var lawName = 0;
 				var joName = 0;
 				var lawID = 0;
@@ -298,7 +300,8 @@ var genSearch = function(){
 					var sRow = sTable.insertRow(1);					
 					var lNameCell = sRow.insertCell(0);
 					var lNumCell = sRow.insertCell(1);
-					var search = sRow.insertCell(2);
+					//var search = sRow.insertCell(2);
+					
 					
 					if(metaLAWID[k] == null){
 						
@@ -309,7 +312,7 @@ var genSearch = function(){
 						 "&JO_NO=" + metaJONO[k];	
 						
 						lNameCell.innerHTML = "";
-						lNumCell.innerHTML = '<a href = '+ lawNum + '>' + metaJoName[k]; + '</a>';	
+						lNumCell.innerHTML = '<a target=_blank href = '+ lawNum + '>' + metaJoName[k]; + '</a>';	
 
 					}else{
 						
@@ -323,8 +326,8 @@ var genSearch = function(){
 						 "&JJ_NO=" + metaJJNO[k] + 
 						 "&JO_NO=" + metaJONO[k];				
 					
-						lNameCell.innerHTML = '<a href = '+ lawName + '>' + metaLawName[k] + '</a>';
-						lNumCell.innerHTML = '<a href = '+ lawNum + '>' + metaJoName[k]; + '</a>';	
+						lNameCell.innerHTML = '<a target=_blank href = '+ lawName + '>' + metaLawName[k] + '</a>';
+						lNumCell.innerHTML = '<a target=_blank href = '+ lawNum + '>' + metaJoName[k]; + '</a>';	
 					}								
 														
 				}
@@ -358,13 +361,13 @@ var genSearch = function(){
 			//kCell.innerHTML = "검색";
 			
 			//results count
-			document.getElementById("count").innerHTML = "( " + tCount + " )";
+			document.getElementById("count").innerHTML = "( " + tCount + "건 )";
 			
 		},	
 		
 		recomTable:function(recommendationSubject){
 						
-			alert(recommendationSubject.length);
+			//alert(recommendationSubject.length);
 			//recom table
 			for(var rCount=0; rCount<recommendationSubject.length; rCount++){
 				var rTable = document.getElementById("recomTable");
@@ -425,14 +428,15 @@ var genSearch = function(){
 		drawingNode:function(subject, object, predicate, index){
 						
 			//add node
-		    node1 = this.sys.addNode(subject, {mass:2, color:"skyblue"});
-		    node2 = this.sys.addNode(object, {mass:2, color:"white"});
+			
+		    node1 = this.sys.addNode(subject, {mass:1, color:"skyblue"});
+		    node2 = this.sys.addNode(object, {mass:1, color:"white"});
 		    //node3 = this.sys.addNode(object, {mass:2, color:"white"});
 		    //node3 = sys.addEdge(predicate,{'index':index});
 		    
 		    //add edge
 
-		    edge1 = this.sys.addEdge(node1, node2,{name: predicate, length:.75, pointSize:5});
+		    edge1 = this.sys.addEdge(node1, node2,{name: predicate, length:9.75, pointSize:5});
 
 		},
 		
