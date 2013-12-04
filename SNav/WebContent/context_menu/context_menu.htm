@@ -1,0 +1,76 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Context Menu Demo</title>
+
+	<link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+	<ul id="contextMenu">
+		<li><a href="#">Copy</a></li>
+		<li><a href="#">Edit</a></li>
+		<li><a href="#">Delete</a></li>
+	</ul>
+	
+	<table id="grid">
+		<thead>
+			<tr>
+				<th>Manufacturer</th>
+				<th>Phone Model</th>
+			</tr>
+		</thead>
+		
+		<tbody>
+			<tr>
+				<td id="col_1">Samsung</td>
+				<td>Galaxy S II</td>
+			</tr>
+			
+			<tr>
+				<td>Apple</td>
+				<td>iPhone 4</td>
+			</tr>
+			
+			<tr>
+				<td id="col_1">HTC</td>
+				<td>HD7</td>
+			</tr>
+		</tbody>
+	</table>
+	
+	<div id="status">Right click on table...</div>
+</body>
+
+<script src="event_util.js"></script>
+<script src="contextmenu.js"></script>
+<script>
+var status = document.getElementById( 'status' );
+
+EventUtil.DOMReady( function() {
+    var myContextMenu = new ContextMenu( "grid", 'contextMenu', function( e ) {
+        status.innerHTML = 'Right Clicked';
+    });
+
+    var menu = document.getElementById( 'contextMenu' );
+    EventUtil.addHandler( menu, 'click', function( e ) {
+	  e = EventUtil.getEventObj( e );
+        var target = EventUtil.getEventTarget( e );
+
+        if( target.nodeName == 'A' ) {
+	    if( myContextMenu.clickTarget.nodeName == 'TD' )
+		status.innerHTML = target.innerHTML + ' clicked on row # ' + myContextMenu.clickTarget.parentNode.rowIndex;
+	    else
+	        status.innerHTML = target.innerHTML + ' clicked on ' + myContextMenu.clickTarget.nodeName;
+
+            EventUtil.preventDefault( e );
+            return false;
+        }
+
+    });
+});
+</script>
+
+</html>

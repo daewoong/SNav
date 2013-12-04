@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Semantic Navigation</title>
+	<link rel="stylesheet" href="../css/genStyle.css" type="text/css">
+	 <!-- run from the minified library file: -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+  	<script src="../js/arbor.js"></script>  
+  	<script src="../js/arbor-graphics.js"></script>
+  	<script src="../js/arbor-tween.js"></script>
+  	<script src="../js/gen-search.js"></script>
+</head>
+
+<body>
+
+  <!-- top -->
+<div id="header">	
+  	<div class="logo">
+        <h1><img src="../images/btn_logo.gif" alt="Gen Search"></h1>
+  	</div> 	
+    <div class="searchArea">
+		<form id="submitform" title="search">
+			<label id="searchlabel">SEARCH TERM:</label>
+			<input type="text" name="search" id="textForm" class="textfield" size="14"/>						
+			<input type="submit" class="img-btn" value="Search"/>	  
+		</form>
+    </div>
+</div>
+
+<div class="MenuBar">
+	<h2>재원금 금융기관 결격사유 기재사항 공적자금관리위원회 채권원부 금융안전기금 공적자금상환기금 공적자금</h2>
+</div>
+
+<!-- middle -->	
+<div class="middle">
+<!-- panel -->
+    <div class="panel">  
+        <!-- recommendationKeyword -->	
+        <div class="seleteBlock">
+            <p class="subjectTit"><span>검색 결과에 따른 추천검색어</span></p> 
+            <div class="recommendationKeyword">
+            		<table id="recomTable" width="200px">
+						<!--  <caption>검색 결과에 따른 추천</caption> -->
+						<tr>
+							<th class="th">관련 검색어</th>
+						</tr>
+								
+					</table>
+					<!--   
+                <div class="scrollBlock Type2">
+                    <ul>
+                        <li><a href="#">1. 훈령</a></li>
+                        <li><a href="#">2. 예규</a></li>
+                        <li><a href="#">3. 고시</a></li>
+                        <li><a href="#">4. 특허심판원</a></li>
+                        <li><a href="#">5. 서울사무소</a></li>
+                        <li><a href="#">6. 국제지식재산연수원</a></li>
+                        <li><a href="#">7. 특허</a></li>
+                        <li><a href="#">8. 실용신안</a></li>
+                        <li><a href="#">9. 디자인보호</a></li>
+                        <li><a href="#">10. 상표</a></li>
+                    </ul>
+                </div>   
+                -->     		
+            </div>
+        <!-- //recommendationKeyword -->
+        
+        </div>
+   </div>
+      <!--   
+      <div class="seleteBlock">
+            <h3 class="subjectTit"><span>검색속성</span> </h3>
+            <div class="recommendationKeyword">
+                <form id="propertyform" oninput="x.value=parseInt(a.value)">
+                    <label>검색 속성</label>
+                      <div class="boxBottomLine">
+                            <input type="radio" name="recom" value="re">추천 검색
+                            <input type="radio" name="recom" value="re" class="PL10">연관 검색
+                        </div>
+                        
+                      <div class="boxBottomLine">
+                            <input type="checkbox" name="vehicle" value="Bike">법률 검색
+                            <input type="checkbox" name="vehicle" value="Car" class="PL10">시맨틱 검색
+                      </div>
+    
+                     <h3 class="subjectTit"><span>노드속성</span></h3>
+                     
+                     <div class="boxBottomLine2">
+                            <label>노드 속성</label>
+                                <input list="node" name="node"></input><br>
+                                    <datalist id="browsers">
+                                      <option value="Internet Explorer">
+                                      <option value="Firefox">
+                                      <option value="Chrome">
+                                      <option value="Opera">
+                                      <option value="Safari">
+                                    </datalist>
+                                <input type="color" name="favcolor"><br>
+                                0<input type="range" id="a" value="50"> 
+                                <output name="x" for="a"></output>
+                    </div>
+    
+                    <div class="alR M10">     
+                            <input type="submit" value="확정" class="btnType2">
+                    </div>
+                        
+               </form>
+            </div>
+        </div>
+    </div>
+    -->
+
+    <!-- canvasArea --> 
+    <div class="canvasArea">
+        <canvas id="viewport" width="780px" height="600px" title="canvas"></canvas>       
+    </div>
+    <!-- //canvasArea --> 
+    <div class="tripleResults">
+        <table id="resultTable" width="760px">
+            <caption>검색 결과<b id="count"></b></caption>
+            <tr>
+                <th class="th">주어</th>
+                <th class="th">술어</th>
+                <th class="th">목적어</th>
+                <!-- <th class="th">Search</th> -->
+            </tr>		
+        </table>
+    </div>
+    <div class="searchResults">
+        <table id="searchResultTable" width="760px">
+            <caption>검색어와 관련된 법명<b id="count"></b></caption>
+            <tr>
+                <th class="th">법명</th>
+                <th class="th">조문</th>
+            </tr>
+	
+        </table>
+    </div>
+    
+</div>
+<!-- //middle -->	
+  
+  <!-- results -->	
+<!--  <div class="bottom">
+
+  </div>-->
+  
+</body>
+</html>
