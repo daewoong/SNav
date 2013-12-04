@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Semantic Navigation</title>
+	<link rel="stylesheet" href="../css/genStyle.css" type="text/css">
+
+	 <!-- run from the minified library file: -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+	
+  	<script src="../js/arbor.js"></script>  
+  	<script src="../js/arbor-graphics.js"></script>
+  	<script src="../js/arbor-tween.js"></script>
+  	<script src="../js/gen-search.js"></script>
+
+	
+</head>
+
+<body>
+
+  <!-- top -->	
+  <div class="top">  	
+  	<div class="logo">  	
+  	</div> 	
+    <div class="searchArea">
+		<form id="submitform" title="search">
+			<label id="searchlabel">SEARCH TERM:</label>
+			<input type="text" name="search" id="textForm" class="textfield"/> <!-- value="공적자금관리위원회"> -->
+			<input type="submit" class="img-btn" value="Search"/>	  
+		</form>
+    </div>    
+  </div>
+  
+  <!-- contents -->	
+  <div class="middle">
+    <!-- panel -->
+  	<div class="panel">  	
+		<div class="recommendationKeyword">
+			<table id="recomTable" width="250px">
+				<caption>검색 결과에 따른 추천</caption>
+				<tr>
+					<th class="th">추천 검색어</th>
+				</tr>
+				<!-- 
+				<tr>
+					<td></td>
+				</tr>
+				-->			
+			</table>			
+		</div>
+		
+		<div class="propertyPanel">
+			<label>검색 속성</label><br>
+			<hr></hr>
+			<form id="propertyform" oninput="x.value=parseInt(a.value)">
+				<input type="radio" name="recom" value="re">추천 검색<br>
+				<input type="radio" name="recom" value="re">연관 검색<br><br>
+				<hr></hr>
+				<input type="checkbox" name="vehicle" value="Bike">법률 검색<br>
+				<input type="checkbox" name="vehicle" value="Car">시맨틱 검색<br><br>
+				<hr></hr>
+				<label>노드 속성</label><br>
+				<input list="node" name="node"></input><br>
+					<datalist id="browsers">
+					  <option value="Internet Explorer">
+					  <option value="Firefox">
+					  <option value="Chrome">
+					  <option value="Opera">
+					  <option value="Safari">
+					</datalist>
+			    <input type="color" name="favcolor"><br>
+			    0<input type="range" id="a" value="50"> 
+			    <output name="x" for="a"></output><br>
+			    <hr></hr>
+				<input type="submit" value="확정"></input>
+				</form>
+		
+			</form>			
+		</div>
+	</div>
+	
+	<!-- canvasArea --> 
+	<div class="canvasArea">
+ 		<canvas id="viewport" width="1159" height="1024" title="canvas"></canvas>
+ 	</div>	  	  	 
+  </div>
+  
+  <!-- results -->	
+  <div class="bottom">
+  
+  	<div class = "resultHeader">
+  
+  		<div>
+	  		<table width="690">
+	  			<caption>검색 결과 <b id="count"></b></caption>
+	  			<thead>		
+	  			<tr>
+	  				<th id="subject">주어</th>
+	  				<th id="predicate">술어</th>
+	  				<th id="object">목적어</th>
+	  				<!-- <th class="th">Search</th> -->
+	  			</tr>
+	  			</thead>
+	  		</table>
+  		</div>	
+  	
+		<div class="tripleResults">
+	  		<table id="resultTable"> 	
+	  			<tr>
+	  			<!--  
+	  				<td id="subject"></td>
+	  				<td id="predicate"></td>
+	  				<td id="object"></td>
+	  			-->
+	  			</tr>					 	
+	 			
+	  		</table>
+	  	</div>
+  	</div>
+  	
+  	<div class="tableHeader">	
+	  	<div>
+	  		<table class="searchResultsHeader" width="720">
+	  			<caption>검색어와 관련된 법명<b id="count"></b></caption>
+	  			<tr>
+	  				<th class="th">법 명</th>
+	  				<th class="th">조 문</th> 				
+	  			</tr>
+	  		</table>
+	  	</div>
+  	
+	  	<div class="searchResults">
+	  		<table id="searchResultTable" width="720px">
+	  			<tr>
+	  			</tr>
+	  			<!--  
+	  			<tr>
+	  				<td class="td"></td>
+	  				<td class="td"></td>
+	  				<td class="td"></td>
+	  			</tr>	
+	  			-->	
+	  		</table>
+	  	</div>
+	</div>
+	
+  </div>
+  
+</body>
+</html>

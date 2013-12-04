@@ -97,7 +97,7 @@ public class SNavAgent extends HttpServlet {
 	
 	private void createJSon(HttpServletResponse response, String callBack){
 		
-		 //created jason type   
+		 //created json type   
 		JSONObject obj = new JSONObject();
 		
 		try {	

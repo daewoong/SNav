@@ -36,7 +36,7 @@
 	<election:명칭>당해_행정구역명을_붙여_표시</election:명칭>
 	<election:소재지>관할하는_행정구역_안</election:소재지>
 	<election:법명>공적자금상환기금법</election:법명>
-	<election:조문>3</election:조문>
+	<election:조문>3조</election:조문>
 	<election:LAW_ID>2000012200002</election:LAW_ID>
 </rdf:Description>
 
@@ -47,7 +47,7 @@
 	<election:명칭>당해_행정구역명을_붙여_표시</election:명칭>
 	<election:소재지>당해_읍·면·동</election:소재지>
 	<election:법명>공적자금상환기금법</election:법명>
-	<election:조문>2</election:조문>
+	<election:조문>2조</election:조문>
 	<election:LAW_ID>2000012200002</election:LAW_ID>
 </rdf:Description>
 

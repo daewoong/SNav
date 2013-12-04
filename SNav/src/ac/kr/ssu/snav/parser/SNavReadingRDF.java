@@ -10,13 +10,8 @@ import com.hp.hpl.jena.util.FileManager;
 
 public class SNavReadingRDF {
 
-	//private String inputFileName = "c:\\exampleRDF/LAW_GENSEARCH.owl";
-	//private String inputFileName = "c:\\exampleRDF/camera.owl";
-	//private String inputFileName = "c:\\exampleRDF/electionLaw2.rdf";
-	//private String inputFileName = "c:\\exampleRDF/vcard.rdf";
-	//private String inputFileName = "c:\\exampleRDF/electionLaw3.rdf";
-	private String inputFileName = "c:\\exampleRDF/law5.rdf";
-	//private String inputFileName = "c:\\exampleRDF/law4.rdf";
+	//input file location
+	private String inputFileName = "c:\\exampleRDF/law7.rdf";
 	
 	private InputStream in;
 	

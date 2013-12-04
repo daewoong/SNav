@@ -202,8 +202,9 @@ public class SNavQuery {
 	}
 	
 	private void queryExecuteObject(String queryString){
-		
+
 		Query query = QueryFactory.create(queryString);
+		
 		QueryExecution qexec = QueryExecutionFactory.create(query, this.model);
 			
 		  try {
@@ -221,7 +222,7 @@ public class SNavQuery {
 		  		
 			  	//query results navigation
 			    while(results.hasNext()){
-			    
+
 			    	QuerySolution soln = results.nextSolution();
  			    	
 			    	RDFNode r = soln.get(var1);
@@ -257,7 +258,7 @@ public class SNavQuery {
 		    
 		    String predicate = resultVarNames.get(0);
 		    String object = resultVarNames.get(1);
-		  			    
+		
 		  	//query results navigation from subject
 		    while(results.hasNext()){
 		    	
@@ -277,9 +278,8 @@ public class SNavQuery {
 		        
 			    this.vSubject.add(nonURISubjectValue);
 		    	this.vPredicate.add(nonURIPredicateValue);		    	
-		    	this.vObject.add(convertLiteral);
+		    	this.vObject.add(convertLiteral);		    			    	
 		    }
-		    
 		    //ResultSetFormatter.out(System.out, results);
 		  
 		    System.out.println("Triple Size: " + this.vSubject.size());

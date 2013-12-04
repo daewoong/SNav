@@ -51,21 +51,25 @@ var genSearch = function(){
 			
 			//alert("genSearch init");
 			
-			$("#submitform").submit(function(){
-				
+			$("#submitform").submit(function(){	
+			//$("#submit").click(function(){	
 				//$('#submitform').attr('title', 'your new title');
 				
 				//alert("Submitted");
 				keyword = $("form").serialize();
 				searchTerm = document.getElementById("textForm").value;
 				
+				
+				//alert(keyword);
 				if(mainReSearch){
 					genSearch.tableDataInit(totalSubject);				
-					genSearch.connectionAgent(keyword);
+					genSearch.connectionAgent(keyword);;
 				}else
 					genSearch.connectionAgent(keyword);
 				
+				
 				return false;
+				
 			});
 						
             //Start the renderer
@@ -95,9 +99,11 @@ var genSearch = function(){
 				
 		querySuccess:function(data){
 			
-			alert("query success");
-//			genSearch.tableDataInit();
-			
+			if(data.count==0){
+				alert("search failed");
+			}else {
+				//alert("query success");
+				
 	            if(data != null)    {            	
 	                
 	            	dataSubject = data.subject;
@@ -106,7 +112,12 @@ var genSearch = function(){
 	                dataCount = data.count;
 
 	                genSearch.dataGenerate();
+	        
+	            }else{
+	            	alert("no data");
 	            }
+			}
+			// $("form").unbind('submit').submit();
 		},
 		
 		queryError:function(){
@@ -146,20 +157,20 @@ var genSearch = function(){
 				if(index==1){
 					//insert first subject
 					totalSubject[recomCount] = subject[index];	
+					
 					recomCount++;
 				}
 				
 				//make metadata structure
 				//if(reSearch){	
 				
-					if(subject[index] == subject[next]){
+					if(subject[index] == subject[next]){					
 						
 						if(predicate[index] == "법명"){
 							metaLawName[diffSIndex] = object[index];
 							continue;
 						}else if(predicate[index] == "조문"){
-							metaJoName[diffSIndex] = object[index];
-							//alert("diff:" + diffSIndex + metaJoName[JoIndex]);
+							metaJoName[diffSIndex] = object[index];	
 							continue;
 						}else if(predicate[index] == "LAW_ID"){
 							metaLAWID[diffSIndex] = object[index];
@@ -178,7 +189,7 @@ var genSearch = function(){
 					}else if(index == count){	
 						
 						if(predicate[index] == "법명"){
-							metaLawName[diffSIndex] = object[index];	
+							metaLawName[diffSIndex] = object[index];						
 							continue;
 						}else if(predicate[index] == "조문"){
 							metaJoName[diffSIndex] = object[index];
@@ -199,9 +210,35 @@ var genSearch = function(){
 						}	
 					}
 					else{
-						totalSubject[recomCount] = subject[next];	
+						//subject save
+						totalSubject[recomCount] = subject[next];
+						
+						if(predicate[index] == "법명"){
+							metaLawName[diffSIndex] = object[index];
+							//continue;
+						}else if(predicate[index] == "조문"){
+							metaJoName[diffSIndex] = object[index];								
+							//continue;
+						}else if(predicate[index] == "LAW_ID"){
+							metaLAWID[diffSIndex] = object[index];
+							//continue;
+						}else if(predicate[index] == "LAW_SID"){
+							metaLAWSID[diffSIndex] = object[index];
+							//continue;
+						}else if(predicate[index] == "JJ_NO"){
+							metaJJNO[diffSIndex] = object[index];
+							//continue;
+						}else if(predicate[index] == "JO_NO"){
+							metaJONO[diffSIndex] = object[index];
+							//continue;
+						}	
+						
+						//totalSubject[recomCount] = subject[next];	
 						//alert(totalSubject[recomCount]);
+						
+						//subject count plus one.
 						recomCount++;
+						//different subject index plus one.
 						diffSIndex++;
 					}
 					//next++;
@@ -215,7 +252,7 @@ var genSearch = function(){
 			}
 			
 			if(totalSubject.length == 1){
-						
+											
 				var lawName = 0;
 				var joName = 0;
 				var lawID = 0;
@@ -409,7 +446,7 @@ var genSearch = function(){
 		},	
 		
 		tableDataInit:function(recommendationSubject){
-			
+	
 			
 			for(var index=0; index<metaLawName.length; index++){	
 				document.getElementById("searchResultTable").deleteRow(1);				
@@ -422,6 +459,8 @@ var genSearch = function(){
 			for(var index=0; index<tCount; index++){				
 				document.getElementById("resultTable").deleteRow(1);				
 			}
+			
+			//window.top.location.reload();
 			
 		},
 		
